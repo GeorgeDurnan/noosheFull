@@ -1,67 +1,126 @@
 const pool = require("../db")
 
-const getUsers = (request, response) => {
-  pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(200).json(results.rows)
-  })
+const getCarts = (request, response) => {
+    pool.query('SELECT * FROM carts ORDER BY id ASC', (error, results) => {
+        if (error) {
+            response.status(500).send("Database error" + error)
+        }
+        response.status(200).json(results.rows)
+    })
+}
+const getCartItems = (request, response) => {
+    const id = parseInt(request.params.id)
+    pool.query('SELECT product_id, quantity FROM cart_items WHERE cart_id = $1', [id], (error, results) => {
+        if (error) {
+            throw error
+        } else if (results.rows.length === 0) {
+            response.status(404).send("cart not found")
+        } else {
+            const items = results.rows
+            pool.query('SELECT COALESCE(SUM(cart_items.quantity * products.price),0) AS total_price FROM cart_items JOIN products ON cart_items.product_id = products.id WHERE cart_items.cart_id = $1',
+            [id],(error, results) =>{
+                const total = results.rows[0].totalPrice
+                response.status(200).json({items: items, total: total})
+            })
+            
+        }
+    })
 }
 
-const getUserById = (request, response) => {
-  const id = parseInt(request.params.id)
+const getCartById = (request, response) => {
+    const id = parseInt(request.params.id)
 
-  pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(200).json(results.rows)
-  })
+    pool.query('SELECT * FROM carts WHERE id = $1', [id], (error, results) => {
+        if (error) {
+            throw error
+        } else if (results.rows.length === 0) {
+            response.status(404).send("cart not found")
+        } else {
+            response.status(200).json(results.rows)
+        }
+
+    })
 }
 
-const createUser = (request, response) => {
-  const { name, email } = request.body
+const createCart = (request, response) => {
+    const { user_id, status = 'active'} = request.body
 
-  pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(201).send(`User added with ID: ${results.insertId}`)
-  })
+    pool.query('INSERT INTO carts (user_id, status) VALUES ($1, $2) RETURNING id', [user_id, status], (error, results) => {
+        if (error) {
+            response.status(400).send(error)
+        } else {
+            const newId = results.rows[0].id;
+            response.status(201).send(`Cart added with ID: ${newId}`)
+        }
+
+    })
 }
 
-const updateUser = (request, response) => {
-  const id = parseInt(request.params.id)
-  const { name, email } = request.body
+const updateCart = (request, response) => {
+    const cart_id = parseInt(request.params.id)
+    const { product_id, quantity } = request.body
+    pool.query(`UPDATE cart_items SET quantity = $1 WHERE cart_id = $2 AND product_id = $3`,
+        [quantity, cart_id, product_id],
+        (error, results) => {
+            if (error) {
+                response.status(404).send(error)
+            } else if (results.rowCount === 0) {
+                response.status(404).send(`Item not in cart or cart does not exist`)
+            } else {
+                if (quantity === 0) {
+                    pool.query('DELETE FROM cart_items WHERE cart_id = $1 AND product_id = $2', [cart_id, product_id], (error, results) => {
+                        if (error) {
+                            response.status(500).send("Database error" + error)
+                        } else if (results.rowCount === 0) {
+                            response.status(404).send(`Not found`)
+                        } else {
+                            response.status(200).send(`Product removed from cart`)
+                        }
+                    })
+                } else {
+                    response.status(200).send(`Cart modified with ID: ${cart_id} and product ID ${product_id}`)
+                }
 
-  pool.query(
-    'UPDATE users SET name = $1, email = $2 WHERE id = $3',
-    [name, email, id],
-    (error, results) => {
-      if (error) {
-        throw error
-      }
-      response.status(200).send(`User modified with ID: ${id}`)
-    }
-  )
+            }
+
+        }
+    )
+}
+const addItemToCart = (request, response) => {
+    const { cart_id, product_id, quantity = 1 } = request.body
+
+    pool.query('INSERT INTO cart_items (cart_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING id', [cart_id, product_id, quantity], (error, results) => {
+        if (error) {
+            response.status(400).send(error)
+        } else {
+            const newId = results.rows[0].id;
+            response.status(201).send(`Item added with ID: ${product_id}`)
+        }
+
+    })
 }
 
-const deleteUser = (request, response) => {
-  const id = parseInt(request.params.id)
+const deleteCart = (request, response) => {
+    const id = parseInt(request.params.id)
 
-  pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(200).send(`User deleted with ID: ${id}`)
-  })
+    pool.query('DELETE FROM carts WHERE id = $1', [id], (error, results) => {
+        if (error) {
+            response.status(500).send("Database error" + error)
+        } else if (results.rowCount === 0) {
+            response.status(404).send(`Cart with ID: ${id} not found`)
+        } else {
+            response.status(200).send(`Cart deleted with ID: ${id}`)
+        }
+
+    })
 }
 
 module.exports = {
-  getUsers,
-  getUserById,
-  createUser,
-  updateUser,
-  deleteUser,
+    getCarts,
+    getCartById,
+    getCartItems,
+    createCart,
+    updateCart,
+    addItemToCart,
+    deleteCart
 }
