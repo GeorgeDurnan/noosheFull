@@ -41,6 +41,20 @@ const getOrderItems = (request, response) => {
         }
     })
 }
+const getOrdersByStatus = (request, response) => {
+    const status = parseInt(request.params.status)
+    pool.query('SELECT * FROM orders WHERE status = $1', [status], (error, results) => {
+        if (error) {
+            throw error
+        } else if (results.rows.length === 0) {
+            response.status(404).send(`no orders with status ${status} found`)
+        } else {
+            response.status(200).json(results.rows)
+        }
+
+    })
+}
+
 
 
 const createOrder = (request, response) => {
@@ -120,6 +134,7 @@ module.exports = {
     getOrders,
     getOrderById,
     getOrderItems,
+    getOrdersByStatus,
     createOrder,
     updateOrder,
     addItemToOrder,

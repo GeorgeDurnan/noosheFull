@@ -18,11 +18,11 @@ const getCartItems = (request, response) => {
         } else {
             const items = results.rows
             pool.query('SELECT COALESCE(SUM(cart_items.quantity * products.price),0) AS total_price FROM cart_items JOIN products ON cart_items.product_id = products.id WHERE cart_items.cart_id = $1',
-            [id],(error, results) =>{
-                const total = results.rows[0].totalPrice
-                response.status(200).json({items: items, total: total})
-            })
-            
+                [id], (error, results) => {
+                    const total = results.rows[0].totalPrice
+                    response.status(200).json({ items: items, total: total })
+                })
+
         }
     })
 }
@@ -41,9 +41,22 @@ const getCartById = (request, response) => {
 
     })
 }
+const getCartsByStatus = (request, response) => {
+    const status = parseInt(request.params.status)
+    pool.query('SELECT * FROM carts WHERE status = $1', [status], (error, results) => {
+        if (error) {
+            throw error
+        } else if (results.rows.length === 0) {
+            response.status(404).send(`no carts with status ${status} found`)
+        } else {
+            response.status(200).json(results.rows)
+        }
+
+    })
+}
 
 const createCart = (request, response) => {
-    const { user_id, status = 'active'} = request.body
+    const { user_id, status = 'active' } = request.body
 
     pool.query('INSERT INTO carts (user_id, status) VALUES ($1, $2) RETURNING id', [user_id, status], (error, results) => {
         if (error) {
@@ -119,6 +132,7 @@ module.exports = {
     getCarts,
     getCartById,
     getCartItems,
+    getCartsByStatus,
     createCart,
     updateCart,
     addItemToCart,
