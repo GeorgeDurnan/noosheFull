@@ -21,31 +21,31 @@ const pgSession = require('connect-pg-simple')(session);
 const passport = require('passport');
 
 app.use(session({
-    store: new pgSession({
-        pool: pool,
-        tableName: 'session'
-    }),
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
-    }
+  store: new pgSession({
+    pool: pool,
+    tableName: 'session'
+  }),
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+  }
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser((user, cb) => {
-    cb(null, user.id);
+  cb(null, user.id);
 });
 
 passport.deserializeUser((id, cb) => {
-    pool.query(
-        'SELECT id, username FROM users WHERE id = $1',
-        [id],
-        (err, result) => cb(err, result.rows[0])
-    );
+  pool.query(
+    'SELECT id, username FROM users WHERE id = $1',
+    [id],
+    (err, result) => cb(err, result.rows[0])
+  );
 });
 
 
@@ -56,11 +56,11 @@ app.post("/login/password", routeAuth.verify)
 app.post("/signup", routeAuth.register)
 app.post("/logout", routeAuth.logout)
 app.get('/me', (req, res) => {
-    if (req.isAuthenticated()) {
-        res.json({ id: req.user.id, username: req.user.username });
-    } else {
-        res.status(401).json({ error: 'Not logged in' });
-    }
+  if (req.isAuthenticated()) {
+    res.json({ id: req.user.id, username: req.user.username });
+  } else {
+    res.status(401).json({ error: 'Not logged in' });
+  }
 });
 
 app.get("/users", routeUser.getUsers);
@@ -79,7 +79,7 @@ app.delete("/products/:id", routeProduct.deleteProduct);
 app.get("/carts", routeCart.getCarts)
 app.get("/carts/:id", routeCart.getCartById)
 app.get("/carts/items/:id", routeCart.getCartItems)
-app.get("/carts/:status", routeCart.getCartsByStatus)
+app.get("/carts/status/:status", routeCart.getCartsByStatus)
 app.post("/carts", routeCart.createCart)
 app.post("/carts/addItem", routeCart.addItemToCart)
 app.post("/carts/order", routeCart.addCartToOrder)
@@ -89,7 +89,7 @@ app.delete("/carts/:id", routeCart.deleteCart)
 app.get("/orders", routeOrder.getOrders)
 app.get("/orders/:id", routeOrder.getOrderById)
 app.get("/orders/items/:id", routeOrder.getOrderItems)
-app.get("/orders/:status", routeOrder.getOrdersByStatus)
+app.get("/orders/status/:status", routeOrder.getOrdersByStatus)
 app.post("/orders", routeOrder.createOrder)
 app.post("/orders/addItem", routeOrder.addItemToOrder)
 app.put("/orders/:id", routeOrder.updateOrder)
