@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Home Page</title>
+</head>
+
+<body>
+    <h1 id="welcome">Loading...</h1>
+    <h1>Welcome to My Store</h1>
+    <p>Navigate to <a href="/users">Users</a> or <a href="/products">Products</a></p>
+    <form action="/logout" method="post">
+        <button type="submit">Sign out</button>
+    </form>
+    <script>
+        // Fetch the current user
+        fetch('/me')
+            .then(res => {
+                if (!res.ok) throw new Error('Not logged in');
+                return res.json();
+            })
+            .then(user => {
+                document.getElementById('welcome').innerText = `Welcome, ${user.username}!`;
+            })
+            .catch(() => {
+                // Redirect if not logged in
+                console.log("not signed in")
+            });
+    </script>
+</body>
+
+</html>

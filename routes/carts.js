@@ -3,7 +3,9 @@ const pool = require("../db")
 const getCarts = (request, response) => {
     pool.query('SELECT * FROM carts ORDER BY id ASC', (error, results) => {
         if (error) {
-            response.status(500).send("Database error" + error)
+            return response.status(500).send("Database error" + error)
+        }else if(results.rows.length === 0){
+            return response.status(404).json("No carts found")
         }
         response.status(200).json(results.rows)
     })
@@ -68,6 +70,38 @@ const createCart = (request, response) => {
 
     })
 }
+const addItemToCart = (request, response) => {
+    const { cart_id, product_id, quantity = 1 } = request.body
+
+    pool.query('INSERT INTO cart_items (cart_id, product_id, quantity) VALUES ($1, $2, $3)', [cart_id, product_id, quantity], (error, results) => {
+        if (error) {
+            response.status(400).send(error)
+        } else {
+            response.status(201).send(`Item added with ID: ${product_id}`)
+        }
+
+    })
+}
+const addCartToOrder = async (request, response) =>{
+    const {cart_id} = request.body
+    const user = await pool.query('SELECT user_id FROM carts WHERE id = $1', [cart_id]);
+    const user_id = user.rows[0].user_id
+    const items =  await pool.query('SELECT product_id, quantity FROM cart_items WHERE cart_id = $1', [cart_id])
+    const address = await pool.query('SELECT id FROM addresses WHERE user_id = $1', [user_id])
+    const addressId = address.rows[0].id
+    if(items.rows.length === 0){
+        return request.status(404).send("Cart items not found")
+    }
+
+    const order = await pool.query('INSERT INTO orders (user_id, shipping_address_id) VALUES ($1, $2) RETURNING id', [user_id, addressId])
+    const order_id = order.rows[0].id
+    for (const item of items.rows){
+         pool.query('INSERT INTO order_items (order_id, product_id, quantity) VALUES ($1, $2, $3)', [order_id, item.product_id, item.quantity])
+    }
+    response.status(200).send(order_id)
+
+
+}
 
 const updateCart = (request, response) => {
     const cart_id = parseInt(request.params.id)
@@ -99,19 +133,6 @@ const updateCart = (request, response) => {
         }
     )
 }
-const addItemToCart = (request, response) => {
-    const { cart_id, product_id, quantity = 1 } = request.body
-
-    pool.query('INSERT INTO cart_items (cart_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING id', [cart_id, product_id, quantity], (error, results) => {
-        if (error) {
-            response.status(400).send(error)
-        } else {
-            const newId = results.rows[0].id;
-            response.status(201).send(`Item added with ID: ${product_id}`)
-        }
-
-    })
-}
 
 const deleteCart = (request, response) => {
     const id = parseInt(request.params.id)
@@ -136,5 +157,6 @@ module.exports = {
     createCart,
     updateCart,
     addItemToCart,
+    addCartToOrder,
     deleteCart
 }

@@ -13,7 +13,6 @@ const getUsers = (request, response) => {
 
 const getUserById = (request, response) => {
     const id = parseInt(request.params.id)
-
     pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
         if (error) {
             response.status(404).send("user not found " + error)
@@ -25,9 +24,8 @@ const getUserById = (request, response) => {
 }
 
 const createUser = (request, response) => {
-    const { username, password } = request.body
-
-    pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id', [username, password], (error, results) => {
+    const { username, hashed_password, salt } = request.body
+    pool.query('INSERT INTO users (username, hashed_password, salt) VALUES ($1, $2, $3) RETURNING id', [username, hashed_password, salt], (error, results) => {
         if (error) {
             response.status(404).send(error)
         } else {
@@ -37,11 +35,22 @@ const createUser = (request, response) => {
 
     })
 }
+const addAddress = (request, response) => {
+    const { user_id, type, line_one, line_two = "", city, postcode, country } = request.body
+    pool.query('INSERT INTO addresses (user_id, type, line_one, line_two, city, postcode, country) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id', [user_id, type, line_one, line_two, city, postcode, country], (error, results) => {
+        if (error) {
+            response.status(404).send(error)
+        } else {
+            const newAddresId = results.rows[0].id;
+            response.status(201).send(`Address added with ID: ${newAddresId}`)
+        }
+
+    })
+}
 
 const updateUser = (request, response) => {
     const id = parseInt(request.params.id)
     const { username, password } = request.body
-
     pool.query(
         'UPDATE users SET username = $1, password = $2 WHERE id = $3',
         [username, password, id],
@@ -73,6 +82,7 @@ module.exports = {
     getUsers,
     getUserById,
     createUser,
+    addAddress,
     updateUser,
     deleteUser,
 }

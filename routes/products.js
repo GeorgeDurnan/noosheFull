@@ -1,3 +1,4 @@
+
 const pool = require("../db")
 
 const getProducts = (request, response) => {
@@ -18,7 +19,7 @@ const getProductById = (request, response) => {
         } else if (results.rows.length === 0) {
             response.status(404).send("product not found")
         } else {
-            response.status(200).json(results.rows)
+            response.status(200).json(results.rows[0])
         }
 
     })
