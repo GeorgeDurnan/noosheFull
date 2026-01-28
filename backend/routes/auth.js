@@ -28,7 +28,7 @@ const verify = passport.authenticate('local', {
   successRedirect: '/loggedIn.html',
   failureRedirect: '/index.html'
 });
-
+/*
 const register = (req, res, next) => {
   const salt = crypto.randomBytes(16);
   crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {
@@ -50,7 +50,7 @@ const register = (req, res, next) => {
     });
   });
 }
-
+*/
 const logout = (req, res, next) => {
   req.logout(function(err) {
     if (err) { return next(err); }
@@ -58,4 +58,4 @@ const logout = (req, res, next) => {
   });
 };
 
-module.exports = {login, verify, register, logout};
+module.exports = {login, verify,/* register,*/ logout};

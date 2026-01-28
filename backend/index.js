@@ -2,12 +2,15 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const pool = require('./db')
-const port = 3000
+const port = 5000
 const routeUser = require("./routes/users")
 const routeProduct = require("./routes/products")
 const routeCart = require("./routes/carts")
 const routeOrder = require("./routes/orders")
 const routeAuth = require("./routes/auth")
+const routeContact = require("./routes/contacts")
+const cors = require("cors")
+
 app.use(bodyParser.json())
 app.use(express.static('public'));
 app.use(
@@ -48,12 +51,12 @@ passport.deserializeUser((id, cb) => {
   );
 });
 
-
+app.use(cors())
 
 
 app.get("/login", routeAuth.login)
 app.post("/login/password", routeAuth.verify)
-app.post("/signup", routeAuth.register)
+/*app.post("/signup", routeAuth.register)*/
 app.post("/logout", routeAuth.logout)
 app.get('/me', (req, res) => {
   if (req.isAuthenticated()) {
@@ -95,6 +98,22 @@ app.post("/orders/addItem", routeOrder.addItemToOrder)
 app.put("/orders/:id", routeOrder.updateOrder)
 app.delete("/orders/:id", routeOrder.deleteOrder)
 
+app.post("/contacts", routeContact.createContact)
+
+app.get("/options/:id", routeProduct.getOptions)
+app.post("/options", routeProduct.addOption)
+app.put("/options/:id", routeProduct.updateOption);
+app.delete("/options/:id", routeProduct.deleteOption);
+
+app.get("/categories", routeProduct.getCategories);
+app.post("/categories", routeProduct.addCategory)
+app.put("/categories/:id", routeProduct.updateCategory);
+app.delete("/categories/:id", routeProduct.deleteCategory);
+
+app.get("/allergens/:id", routeProduct.getAllergens);
+app.post("/allergens", routeProduct.addAllergens);
+app.put("/allergens/:id", routeProduct.updateAllergens);
+app.delete("/allergens/:id", routeProduct.deleteAllergens);
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`);

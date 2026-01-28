@@ -1,0 +1,10 @@
+
+export const Page = (props) => {
+    const { body, title } = props
+    return (<>
+        <h1>{title}</h1>
+        <h2>{body}</h2>
+    </>
+    )
+
+}
