@@ -24,16 +24,30 @@ const getProductById = (request, response) => {
 
     })
 }
+const getCakeCategories = (request, response) => {
+
+    pool.query('SELECT category FROM products GROUP BY category', (error, results) => {
+        if (error) {
+            response.status(400).send(error)
+        } else if (results.rows.length === 0) {
+            response.status(404).send("no categories found")
+        } else {
+            response.status(200).json(results.rows)
+        }
+
+    })
+}
+
 
 const createProduct = (request, response) => {
-    const { name, price, description = "", stock = 0, category = "noCat", made_on_request = false } = request.body
+    const { name, price, description = "", category = "noCat" } = request.body
 
-    pool.query('INSERT INTO products (name, price, description, stock, category, made_on_request ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id', [name, price, description, stock], (error, results) => {
+    pool.query('INSERT INTO products (name, price, description, category) VALUES ($1, $2, $3, $4) RETURNING id', [name, price, description, category], (error, results) => {
         if (error) {
             response.status(400).send(error)
         } else {
             const newId = results.rows[0].id;
-            response.status(201).send(`Product added with ID: ${newId}`)
+            response.status(201).send({ msg: `Product added with ID: ${newId}`, id: newId })
         }
 
     })
@@ -88,13 +102,13 @@ const getOptions = (request, response) => {
     })
 }
 const addOption = (request, response) => {
-    const { product_id, price, description = "", category_id } = request.body
-    pool.query('INSERT INTO product_options (product_id, price, description, category_id) VALUES ($1, $2, $3, $4) RETURNING id',
-        [product_id, price, description, category_id], (error, results) => {
+    const { product_id, price, description = "", cat_id, rank } = request.body
+    pool.query('INSERT INTO product_options (product_id, price, description, cat_id, rank) VALUES ($1, $2, $3, $4, $5)',
+        [product_id, price, description, cat_id, rank], (error, results) => {
             if (error) {
-                response.status(500).send("Database error" + error)
+                response.status(500).send({ "msg": "Database error" + error })
             } else {
-                response.status(200).send(`Option added with ID: ${id}`)
+                response.status(200).send({ "msg": `Option added` })
             }
 
         })
@@ -145,13 +159,14 @@ const getCategories = (request, response) => {
     })
 }
 const addCategory = (request, response) => {
-    const { multiple, description } = request.body
-    pool.query('INSERT INTO option_categories (multiple, description) VALUES ($1, $2) RETURNING id',
-        [multiple, description], (error, results) => {
+    const { multiple = false, description, rank, required = false, product_id } = request.body
+    pool.query('INSERT INTO option_categories (multiple, description, rank, required, product_id) VALUES ($1, $2, $3, $4, $5) RETURNING id',
+        [multiple, description, rank, required, product_id], (error, results) => {
             if (error) {
-                response.status(500).send("Database error" + error)
+                response.status(500).send({ "msg": "Database error" + error })
             } else {
-                response.status(200).send(`Product deleted with ID: ${id}`)
+                const newId = results.rows[0].id
+                response.status(200).send({ "msg": `Category created with id:${newId}`, "id": newId })
             }
 
         })
@@ -207,7 +222,7 @@ const getAllergens = (request, response) => {
 }
 const addAllergens = (request, response) => {
     const { product_id, celery = false, gluten = false, crustaceans = false, eggs = false, fish = false, lupin = false, molluscs = false, mustard = false, tree_nuts = false, peanuts = false, sesame = false, soya = false, sulphides = false, milk = false } = request.body
-    pool.query('INSERT INTO product_options (product_id, celery, gluten, crustaceans, eggs, fish, lupin, molluscs, mustard, tree_nuts, peanuts, sesame, soya, sulphides, milk) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)',
+    pool.query('INSERT INTO allergens (product_id, celery, gluten, crustaceans, eggs, fish, lupin, molluscs, mustard, tree_nuts, peanuts, sesame, soya, sulphides, milk) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)',
         [product_id, celery, gluten, crustaceans, eggs, fish, lupin, molluscs, mustard, tree_nuts, peanuts, sesame, soya, sulphides, milk], (error, results) => {
             if (error) {
                 response.status(500).send("Database error" + error)
@@ -302,6 +317,7 @@ const deleteAllergens = (request, response) => {
 module.exports = {
     getProducts,
     getProductById,
+    getCakeCategories,
     createProduct,
     updateProduct,
     deleteProduct,
