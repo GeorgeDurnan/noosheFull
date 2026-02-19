@@ -18,16 +18,10 @@ export const Preview = ({ cake, options, optionCats }) => {
     function handleClickModal() {
         setShowModal(prev => !prev)
     }
-    console.log(JSON.stringify(options) + "options")
-    console.log(JSON.stringify(optionCats) + "option cats")
     let sortedOptions = { ...options }
     const cats = Object.keys(sortedOptions)
     cats.forEach(cat => {
-        sortedOptions[cat] = sortedOptions[cat].filter((opt) => {
-            if (opt) {
-                return opt
-            }
-        })
+        sortedOptions[cat] = sortedOptions[cat].filter(Boolean)
     });
     return (
         <div>

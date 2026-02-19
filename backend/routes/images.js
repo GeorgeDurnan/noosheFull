@@ -57,4 +57,22 @@ const deleteImage = (request, response) => {
 
     })
 }
-module.exports = { addImage, sendImage }
+const getImages = (request, response) => {
+    const product_id = parseInt(request.params.id)
+    pool.query('SELECT * FROM images WHERE product_id = $1 ORDER BY rank',[product_id], (error, results) => {
+        if (error) {
+            response.status(500).send("Database error" + error)
+        }
+        response.status(200).json(results.rows)
+    })
+}
+const getAllImages = (request, response) => {
+    const product_id = parseInt(request.params.id)
+    pool.query('SELECT * FROM images ORDER BY product_id', (error, results) => {
+        if (error) {
+            response.status(500).send("Database error" + error)
+        }
+        response.status(200).json(results.rows)
+    })
+}
+module.exports = { addImage, sendImage, getImages, getAllImages }

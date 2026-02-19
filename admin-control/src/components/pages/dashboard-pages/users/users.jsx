@@ -8,7 +8,6 @@ export const Users = ({ output }) => {
     const [msg, setMsg] = useState("")
     const location = useLocation();
     const {userId} = location.state || {};
-    console.log(userId)
     useEffect(() => {
         async function getTable() {
             const options = {

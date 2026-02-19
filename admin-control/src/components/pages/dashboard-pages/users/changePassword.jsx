@@ -8,7 +8,6 @@ export const Change = ({ setShow, setMsg, name }) => {
             setMsg("Old password is same as new one please choose a new password")
             return
         }
-        console.log(name)
         const response1 = await fetch("http://localhost:5000/check", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },

@@ -11,6 +11,9 @@ const routeAuth = require("./routes/auth")
 const routeContact = require("./routes/contacts")
 const routeAddress = require("./routes/addresses")
 const routeImages = require("./routes/images")
+const routeCats = require("./routes/product_cats")
+const routeOptions = require("./routes/options")
+const routeOptionCats = require("./routes/optionCats")
 const cors = require("cors")
 
 const multer = require('multer');
@@ -125,22 +128,27 @@ app.delete("/orders/:id", routeAuth.checkAuthenticated, routeOrder.deleteOrder)
 
 app.post("/contacts", routeAuth.checkAuthenticated, routeContact.createContact)
 
-app.get("/options/:id", routeAuth.checkAuthenticated, routeProduct.getOptions)
-app.post("/options", routeAuth.checkAuthenticated, routeProduct.addOption)
-app.put("/options/:id", routeAuth.checkAuthenticated, routeProduct.updateOption);
-app.delete("/options/:id", routeAuth.checkAuthenticated, routeProduct.deleteOption);
+app.get("/options/:id", routeOptions.getOptions)
+app.post("/options", routeAuth.checkAuthenticated, routeOptions.addOption)
+app.put("/options/:id", routeAuth.checkAuthenticated, routeOptions.updateOption);
+app.delete("/options/:id", routeAuth.checkAuthenticated, routeOptions.deleteOption);
 
-app.get("/categories", routeAuth.checkAuthenticated, routeProduct.getCategories);
-app.post("/categories", routeAuth.checkAuthenticated, routeProduct.addCategory)
-app.put("/categories/:id", routeAuth.checkAuthenticated, routeProduct.updateCategory);
-app.delete("/categories/:id", routeAuth.checkAuthenticated, routeProduct.deleteCategory);
+app.get("/categories/:id", routeOptionCats.getCategories);
+app.post("/categories", routeAuth.checkAuthenticated, routeOptionCats.addCategory)
+app.put("/categories/:id", routeAuth.checkAuthenticated, routeOptionCats.updateCategory);
+app.delete("/categories/:id", routeAuth.checkAuthenticated, routeOptionCats.deleteCategory);
 
+app.get("/allergens", routeProduct.getAllAllergens)
 app.get("/allergens/:id", routeAuth.checkAuthenticated, routeProduct.getAllergens);
 app.post("/allergens", routeAuth.checkAuthenticated, routeProduct.addAllergens);
 app.put("/allergens/:id", routeAuth.checkAuthenticated, routeProduct.updateAllergens);
 app.delete("/allergens/:id", routeAuth.checkAuthenticated, routeProduct.deleteAllergens);
 
-app.post("/images", upload.single('file'), routeImages.sendImage, routeImages.addImage)
+app.post("/images", routeAuth.checkAuthenticated, upload.single('file'), routeImages.sendImage, routeImages.addImage)
+app.get("/images/:id", routeImages.getImages)
+app.get("/images", routeImages.getAllImages)
+
+app.get("/cakeCats", routeCats.getCats)
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 })

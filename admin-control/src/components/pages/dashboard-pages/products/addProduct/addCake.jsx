@@ -3,23 +3,6 @@ import Select from "react-select"
 import { GetImages } from "./getImages";
 import { upload } from "../../../../../features/utilities/upload/upload";
 export const AddCake = ({ cake, setCake, categories }) => {
-    const allergens = [
-        { value: "milk", label: "Milk" },
-        { value: "eggs", label: "Eggs" },
-        { value: "fish", label: "Fish" },
-        { value: "molluscs", label: "Molluscs" },
-        { value: "tree_nuts", label: "Tree Nuts" },
-        { value: "peanuts", label: "Peanuts" },
-        { value: "gluten", label: "Gluten" },
-        { value: "soy", label: "Soy" },
-        { value: "sesame", label: "Sesame" },
-        { value: "sulphides", label: "Sulphides" },
-        { value: "mustard", label: "Mustard" },
-        { value: "lupin", label: "Lupin" },
-        { value: "crustaceans", label: "Crustaceans" },
-        { value: "celery", label: "Celery" },
-        { value: "gluten_free", lable: "Gluten Free" }
-    ];
     return (
         <div>
             <form>

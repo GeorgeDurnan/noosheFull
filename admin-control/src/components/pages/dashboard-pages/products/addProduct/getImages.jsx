@@ -6,7 +6,6 @@ export const GetImages = ({ cake, setCake }) => {
     function handleSubmit(event) {
 
         event.preventDefault()
-        console.log(URL.createObjectURL(image["file"]) + "Image file")
         const rank = Number(image["rank"])
         const images = cake["img"] || []
         if (images[rank]) {

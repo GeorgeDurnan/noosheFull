@@ -17,7 +17,6 @@ export const ProductTable = ({ table, setMsg, setCount, pk }) => {
             </thead>
             <tbody>
                 {table.map((entry) => {
-                    console.log(JSON.stringify(entry) + "table entry")
                     { data = Object.values(entry) }
 
                     return (<tr key={entry["id"] + "row"}>{data.map((element) => {

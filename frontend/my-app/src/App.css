@@ -6,6 +6,11 @@
   gap: 10px;
 }
 
+/* stop overscrolling*/
+* {
+  overscroll-behavior-y: none;
+}
+
 #header {
   display: flex;
   background-color: green;
@@ -157,28 +162,62 @@
 }
 
 .modal {
-
+  position: relative;
   background-color: white;
   width: 50vw;
   height: 91vh;
+  display: flex;
   overflow: auto;
+  flex-direction: column;
 }
 
 .modal img {
-  width: 50vw;
-  height: auto;
+  width: 100%;
+  height: 53vh;
+  object-fit: cover;
+
 }
 
 .itemDesc {
   white-space: pre-line;
 }
 
-.btn {
-  position: fixed;
-  bottom: 0;
+.btn-top {
+  position: sticky;
+  top: 10px;
   z-index: 2000;
+
+
+  align-self: flex-end;
+  margin-right: 10px;
+
+  height: 40px;
+  margin-bottom: -50px;
   background-color: beige;
-  right: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.allergens {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  align-items: center;
+  gap: 10px;
+  
+}
+.allergen{
+  display: flex;
+  gap: 10px;
+}
+
+.allergenImg {
+  max-width: 32px;
+  max-height: 32px;
+}
+
+.allergenLabel {
+  font-size: 3vh;
 }
 
 @media screen and (max-width: 800px) {
@@ -191,7 +230,7 @@
   }
 
   .modal img {
-    width: 95vw;
+    width: 100%;
   }
 
 }

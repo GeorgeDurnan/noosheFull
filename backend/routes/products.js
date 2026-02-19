@@ -2,7 +2,7 @@
 const pool = require("../db")
 
 const getProducts = (request, response) => {
-    pool.query('SELECT * FROM products ORDER BY id ASC', (error, results) => {
+    pool.query('SELECT * FROM products ORDER BY category_id', (error, results) => {
         if (error) {
             response.status(500).send("Database error" + error)
         }
@@ -86,124 +86,6 @@ const deleteProduct = (request, response) => {
     })
 }
 
-//For the product_options table
-const getOptions = (request, response) => {
-    const product_id = parseInt(request.params.id)
-
-    pool.query('SELECT * FROM product_options WHERE product_id = $1', [product_id], (error, results) => {
-        if (error) {
-            response.status(500).send("Database error" + error)
-        } else if (results.rowCount === 0) {
-            response.status(404).send(`No product options with ID: ${id} found`)
-        } else {
-            response.status(200).json(results.rows)
-        }
-
-    })
-}
-const addOption = (request, response) => {
-    const { product_id, price, description = "", cat_id, rank } = request.body
-    pool.query('INSERT INTO product_options (product_id, price, description, cat_id, rank) VALUES ($1, $2, $3, $4, $5)',
-        [product_id, price, description, cat_id, rank], (error, results) => {
-            if (error) {
-                response.status(500).send({ "msg": "Database error" + error })
-            } else {
-                response.status(200).send({ "msg": `Option added` })
-            }
-
-        })
-}
-const updateOption = (request, response) => {
-    const id = parseInt(request.params.id)
-    const { price, description, category_id } = request.body
-
-    pool.query(`UPDATE product_options SET price = COALESCE($1, price), 
-        description = COALESCE($2, description), category_id = COALESCE($3, category_id) WHERE id = $4 `,
-        [price, description, category_id, id],
-        (error, results) => {
-            if (error) {
-                response.status(404).send(error)
-            } else {
-                response.status(200).send(`Product modified with ID: ${id}`)
-            }
-
-        }
-    )
-}
-
-const deleteOption = (request, response) => {
-    const id = parseInt(request.params.id)
-
-    pool.query('DELETE FROM product_options WHERE id = $1', [id], (error, results) => {
-        if (error) {
-            response.status(500).send("Database error" + error)
-        } else if (results.rowCount === 0) {
-            response.status(404).send(`Product option with ID: ${id} not found`)
-        } else {
-            response.status(200).send(`Product option deleted with ID: ${id}`)
-        }
-
-    })
-}
-//For the category table
-
-const getCategories = (request, response) => {
-
-    pool.query('SELECT * FROM option_categories', (error, results) => {
-        if (error) {
-            response.status(500).send("Database error" + error)
-        } else {
-            response.status(200).json(results.rows)
-        }
-
-    })
-}
-const addCategory = (request, response) => {
-    const { multiple = false, description, rank, required = false, product_id } = request.body
-    pool.query('INSERT INTO option_categories (multiple, description, rank, required, product_id) VALUES ($1, $2, $3, $4, $5) RETURNING id',
-        [multiple, description, rank, required, product_id], (error, results) => {
-            if (error) {
-                response.status(500).send({ "msg": "Database error" + error })
-            } else {
-                const newId = results.rows[0].id
-                response.status(200).send({ "msg": `Category created with id:${newId}`, "id": newId })
-            }
-
-        })
-}
-const updateCategory = (request, response) => {
-    const id = parseInt(request.params.id)
-    const { multiple, description } = request.body
-
-    pool.query(`UPDATE option_categories SET multiple = COALESCE($1, multiple), 
-        description = COALESCE($2, description) WHERE id = $3 `,
-        [multiple, description, id],
-        (error, results) => {
-            if (error) {
-                response.status(404).send(error)
-            } else {
-                response.status(200).send(`Category modified with ID: ${id}`)
-            }
-
-        }
-    )
-}
-
-const deleteCategory = (request, response) => {
-    const id = parseInt(request.params.id)
-
-    pool.query('DELETE FROM option_categories WHERE id = $1', [id], (error, results) => {
-        if (error) {
-            response.status(500).send("Database error" + error)
-        } else if (results.rowCount === 0) {
-            response.status(404).send(`Category with ID: ${id} not found`)
-        } else {
-            response.status(200).send(`Category deleted with ID: ${id}`)
-        }
-
-    })
-}
-
 //add allergens
 
 const getAllergens = (request, response) => {
@@ -214,6 +96,19 @@ const getAllergens = (request, response) => {
             response.status(500).send("Database error" + error)
         } else if (results.rowCount === 0) {
             response.status(404).send(`No product allergens with product ID: ${id} found`)
+        } else {
+            response.status(200).json(results.rows)
+        }
+
+    })
+}
+const getAllAllergens = (request, response) => {
+
+    pool.query('SELECT * FROM allergens', (error, results) => {
+        if (error) {
+            response.status(500).send("Database error" + error)
+        } else if (results.rowCount === 0) {
+            response.status(404).send(`No product allergens found`)
         } else {
             response.status(200).json(results.rows)
         }
@@ -321,16 +216,9 @@ module.exports = {
     createProduct,
     updateProduct,
     deleteProduct,
-    getOptions,
-    updateOption,
-    addOption,
-    deleteOption,
-    getCategories,
-    updateCategory,
-    addCategory,
-    deleteCategory,
     getAllergens,
     addAllergens,
     updateAllergens,
-    deleteAllergens
+    deleteAllergens,
+    getAllAllergens
 }
