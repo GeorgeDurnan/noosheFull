@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-export const Quantity = ({ setPrice, price, setPrice2 }) => {
-    const [quantity, setQuantity] = useState(1)
+export const Quantity = ({ setPrice, price, setPrice2, quantity, setQuantity}) => {
     const canDecrease = quantity > 1
     function handleClick(event) {
         setQuantity(prev => Number(prev) + Number(event.target.value))

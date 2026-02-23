@@ -13,18 +13,20 @@ export const AddProduct = ({ setCount, setMsg }) => {
     const [categories, setCategories] = useState([])
     const [options, setOptions] = useState({})
     const [optionCats, setOptionCats] = useState([])
+    const[reload, setReload] = useState(false)
 
     useEffect(() => {
         async function get() {
             const cats = await getCategories()
             setCategories(cats.map((element) => {
                 return {
-                    value: element, label: element, color: "red"
+                    value: element, label: element.description + " Rank:" + element.rank, color: "red"
                 }
             }))
         }
         get()
-    }, [])
+        //reload will be replaced by websocket
+    }, [reload])
     function handleClick() {
         setShow(prev => !prev)
     }
@@ -36,7 +38,7 @@ export const AddProduct = ({ setCount, setMsg }) => {
         <div>
             <button onClick={handleClick}>Add product</button>
             {show && (<div>
-                <AddCake cake={cake} setCake={setCake} categories={categories} />
+                <AddCake cake={cake} setCake={setCake} categories={categories} setReload={setReload}/>
                 <GetImages cake={cake} setCake={setCake} />
                 <CreateOptionCat setOptionCats={setOptionCats} optionCats={optionCats} setOptions={setOptions} options={options} />
                 <ProductOptions optionCats={optionCats} setOptions={setOptions} options={options} />

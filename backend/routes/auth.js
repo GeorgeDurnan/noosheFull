@@ -1,4 +1,4 @@
-const db = require("../db")
+const pool = require("../db")
 const path = require('path');
 var express = require('express');
 var passport = require('passport');
@@ -6,7 +6,7 @@ var LocalStrategy = require('passport-local');
 var crypto = require('crypto');
 
 passport.use(new LocalStrategy(function verify(username, password, cb) {
-  db.query('SELECT * FROM users WHERE username = $1', [username], function (err, results) {
+  pool.query('SELECT * FROM users WHERE username = $1', [username], function (err, results) {
     if (err) { return cb(err); }
     if (results.rows.length == 0) { return cb(null, false, { message: 'Incorrect username or password.' }); }
     const user = results.rows[0]
@@ -63,7 +63,7 @@ const register = (req, res, next) => {
   const salt = crypto.randomBytes(16);
   crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function (err, hashedPassword) {
     if (err) { return res.status(400).send(err); }
-    db.query('INSERT INTO users (username, hashed_password, salt) VALUES ($1, $2, $3) RETURNING id', [
+    pool.query('INSERT INTO users (username, hashed_password, salt) VALUES ($1, $2, $3) RETURNING id', [
       req.body.username,
       hashedPassword,
       salt
@@ -94,7 +94,7 @@ const updatePassword = (req, res, next) => {
       WHERE username = $3 
       RETURNING id, username`;
 
-    db.query(sql, [
+    pool.query(sql, [
       hashedPassword,
       salt,
       req.body.username // The unique identifier for the WHERE clause
@@ -134,8 +134,8 @@ const logout = (req, res, next) => {
 const checkPasswordOnly = (req, res) => {
   const { username, password } = req.body;
 
-  // 1. Fetch user from DB
-  db.query('SELECT * FROM users WHERE username = $1', [username], function (err, results) {
+  // 1. Fetch user from db
+  pool.query('SELECT * FROM users WHERE username = $1', [username], function (err, results) {
     if (err) return res.status(500).send(err);
     if (results.rows.length === 0) return res.status(401).send("Not found");
 

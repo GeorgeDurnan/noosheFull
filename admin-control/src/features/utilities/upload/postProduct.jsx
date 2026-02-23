@@ -1,11 +1,12 @@
 export const postProduct = async (cake) => {
     const body = {
         "name": cake["name"],
-        "category": cake["category"],
+        "category_id": cake["category"].id,
         "price": cake["price"],
         "description": cake["description"]
 
     }
+    console.log("product body" + JSON.stringify(body))
     const options = {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },

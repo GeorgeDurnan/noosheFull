@@ -1,4 +1,4 @@
-export const deleteProduct = async (product_id) => {
+export const deleteElement = async (product_id, link) => {
     const options = {
         method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
@@ -7,8 +7,7 @@ export const deleteProduct = async (product_id) => {
     }
 
 
-    const response = await fetch(`http://localhost:5000/products/${product_id}`, options)
-    console.log(response)
-    return(response.msg)        
+    const response = await fetch(`http://localhost:5000/${link}/${product_id}`, options)
+    return(response)        
 
 }

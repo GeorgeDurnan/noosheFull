@@ -9,6 +9,7 @@ import { addCategories } from "../slices/cakeSlice";
 export const useGetCakes = () => {
     const dispatch = useDispatch();
     const url = SERVER_BASE_URL
+    console.log("get cakes called")
     useEffect(() => {
         async function getCakes() {
             try {

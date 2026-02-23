@@ -11,9 +11,10 @@ const routeAuth = require("./routes/auth")
 const routeContact = require("./routes/contacts")
 const routeAddress = require("./routes/addresses")
 const routeImages = require("./routes/images")
-const routeCats = require("./routes/product_cats")
+const routeCats = require("./routes/productCats")
 const routeOptions = require("./routes/options")
 const routeOptionCats = require("./routes/optionCats")
+const routeAllergen = require("./routes/allergens")
 const cors = require("cors")
 
 const multer = require('multer');
@@ -138,17 +139,22 @@ app.post("/categories", routeAuth.checkAuthenticated, routeOptionCats.addCategor
 app.put("/categories/:id", routeAuth.checkAuthenticated, routeOptionCats.updateCategory);
 app.delete("/categories/:id", routeAuth.checkAuthenticated, routeOptionCats.deleteCategory);
 
-app.get("/allergens", routeProduct.getAllAllergens)
-app.get("/allergens/:id", routeAuth.checkAuthenticated, routeProduct.getAllergens);
-app.post("/allergens", routeAuth.checkAuthenticated, routeProduct.addAllergens);
-app.put("/allergens/:id", routeAuth.checkAuthenticated, routeProduct.updateAllergens);
-app.delete("/allergens/:id", routeAuth.checkAuthenticated, routeProduct.deleteAllergens);
+app.get("/allergens", routeAllergen.getAllAllergens)
+app.get("/allergens/:id", routeAuth.checkAuthenticated, routeAllergen.getAllergens);
+app.post("/allergens", routeAuth.checkAuthenticated, routeAllergen.addAllergens);
+app.put("/allergens/:id", routeAuth.checkAuthenticated, routeAllergen.updateAllergens);
+app.delete("/allergens/:id", routeAuth.checkAuthenticated, routeAllergen.deleteAllergens);
 
 app.post("/images", routeAuth.checkAuthenticated, upload.single('file'), routeImages.sendImage, routeImages.addImage)
 app.get("/images/:id", routeImages.getImages)
 app.get("/images", routeImages.getAllImages)
 
+//Product categories
 app.get("/cakeCats", routeCats.getCats)
+app.post("/cakeCats", routeAuth.checkAuthenticated, routeCats.createCat)
+app.delete("/cakeCats/:id", routeAuth.checkAuthenticated, routeCats.deleteCat)
+app.put("/cakeCats/:id", routeAuth.checkAuthenticated, routeCats.updateCat)
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 })

@@ -3,7 +3,7 @@ import { postAllergen } from "./postAllergen"
 import { postCat } from "./postCat"
 import { postImage } from "./postImage"
 import { postOpt } from "./postOpt"
-import { deleteProduct } from "./delete"
+import { deleteElement } from "./delete"
 export const upload = async (cake, options, optionCats) => {
     let product_id = null
     console.log(JSON.stringify(options) + "passed in options")
@@ -39,7 +39,7 @@ export const upload = async (cake, options, optionCats) => {
     } catch (e) {
         try {
             console.log("failed to create product deleting all database entries" + e)
-            deleteProduct(product_id)
+            deleteElement(product_id, "products")
         } catch (err) {
             console.log("Failed to delete product" + err)
         }

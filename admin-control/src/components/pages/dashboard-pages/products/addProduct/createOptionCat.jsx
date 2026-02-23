@@ -24,12 +24,32 @@ export const CreateOptionCat = ({ setOptionCats, optionCats, setOptions, options
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="multi">Multiple Selections</label>
-                <input  type="checkbox" id="multi" name="multi" checked={newOptionCat["multi"] || false} onChange={(e) => setNewOptionCat(prev => ({ ...prev, ["multi"]: e.target.checked }))} />
-                <br />
+                <input
+                    type="radio"
+                    id="required"
+                    name="selectionType"
+                    checked={newOptionCat["required"] === true}
+                    onChange={() => setNewOptionCat(prev => ({
+                        ...prev,
+                        required: true,
+                        multiple: false
+                    }))}
+                />
                 <label htmlFor="required">Required Choice</label>
-                <input  type="checkbox" id="required" name="required" checked={newOptionCat["required"] || false} onChange={(e) => setNewOptionCat(prev => ({ ...prev, ["required"]: e.target.checked }))} />
                 <br />
+                <input
+                    type="radio"
+                    id="multiple"
+                    name="selectionType"
+                    checked={newOptionCat["multiple"] === true}
+                    onChange={() => setNewOptionCat(prev => ({
+                        ...prev,
+                        required: false,
+                        multiple: true
+                    }))}
+                />
+                <label htmlFor="multiple">multiple Selections</label>
+                <br/>
                 <label htmlFor="description">Description</label>
                 <input required type="text" id="description" name="description" value={newOptionCat["description"] || ""} onChange={(e) => setNewOptionCat(prev => ({ ...prev, ["description"]: e.target.value }))} />
                 <br />

@@ -1,32 +1,29 @@
 import { useState, useEffect } from "react"
-export const MapOptions = ({ optionCats, sortedOptions, price, setPrice, basePrice }) => {
-    const [order, setOrder] = useState({})
+export const MapOptions = ({ optionCats, sortedOptions, price, setPrice, basePrice, chosenOptions, setChosenOptions }) => {
     const [currentBasePrice, setCurrentBasePrice] = useState(basePrice)
-
+    //Just sets the defaults for the page so the first radio option is chosen
     useEffect(() => {
-        setOrder({})
-        setCurrentBasePrice(basePrice)
-        setPrice(Number(basePrice).toFixed(2))
-    }, [basePrice, optionCats, sortedOptions])
-    useEffect(() => {
-        const newDefaults = { ...order };
+        const newDefaults = { ...chosenOptions };
         let hasChanged = false;
 
         optionCats.forEach((cat) => {
             const optionsForCat = sortedOptions?.[cat["id"]] || [];
-            if (cat["required"] && !order[cat["description"]] && optionsForCat.length > 0) {
+            if (cat["required"] && !chosenOptions[cat["description"]] && optionsForCat.length > 0) {
                 newDefaults[cat["description"]] = optionsForCat[0]["description"];
                 hasChanged = true;
             }
         });
         if (hasChanged) {
-            setOrder(newDefaults);
+            setChosenOptions(newDefaults);
         }
     }, [optionCats, sortedOptions]);
+    useEffect(() => {
+        console.log("Map options order" + JSON.stringify(chosenOptions))
+    }, [chosenOptions])
     function handleChange(e) {
         const addOnPrice = Number(e.target.dataset.price || 0)
         if (e.target.type === "checkbox") {
-            setOrder((prev) => ({ ...prev, [e.target.name]: e.target.checked }))
+            setChosenOptions((prev) => ({ ...prev, [e.target.name]: e.target.checked }))
             if (e.target.checked) {
                 setPrice(prev => (Number(prev) + addOnPrice).toFixed(2))
             } else {
@@ -34,10 +31,11 @@ export const MapOptions = ({ optionCats, sortedOptions, price, setPrice, basePri
             }
 
         } else {
-            setOrder((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+            setChosenOptions((prev) => ({ ...prev, [e.target.name]: e.target.value }))
             setPrice(prev => ((Number(prev) - Number(currentBasePrice)) + Number(addOnPrice)).toFixed(2))
             setCurrentBasePrice(addOnPrice)
         }
+        console.log("mapped options - order:" + JSON.stringify(chosenOptions))
     }
     return (<form action="">
         {optionCats.map((cat) => {
@@ -52,10 +50,11 @@ export const MapOptions = ({ optionCats, sortedOptions, price, setPrice, basePri
                                 return (
                                     <div key={option["description"]}>
                                         <label htmlFor={option["description"]}>
-                                            <input type="checkbox" name={option["description"]}
+                                            <input type="checkbox"
+                                                name={option["description"]}
                                                 onChange={handleChange}
                                                 data-price={option["price"]}
-                                                checked={order[option["description"]] || false} />
+                                                checked={chosenOptions[option["description"]] || false} />
                                             {option["description"]} {option["price"] ? `(+£${option["price"]})` : "Free"}
                                         </label>
                                         <br />
@@ -69,7 +68,7 @@ export const MapOptions = ({ optionCats, sortedOptions, price, setPrice, basePri
                                             name={cat["description"]}
                                             value={option["description"]}
                                             data-price={option["price"]}
-                                            checked={order[cat["description"]] === option["description"]}
+                                            checked={chosenOptions[cat["description"]] === option["description"]}
                                             onChange={handleChange}
                                         /> {option["description"]} {option["price"] ? `(£${option["price"]})` : "Free"}
                                     </label>

@@ -8,13 +8,15 @@ export const getCategories = () => {
         }
 
 
-        const response = await fetch(`http://localhost:5000/products/cakes/categories`, options)
+        const response = await fetch(`http://localhost:5000/cakeCats`, options)
+        console.log("Getting categories" + response)
         const data = await response.json()
         if (response.status == 404) {
             console.log("no categories found")
             return
         } else {
-            return Object.values(data).map(item => item.category)
+            console.log(data.length + " total categories found")
+            return Object.values(data)
         }
 
     }

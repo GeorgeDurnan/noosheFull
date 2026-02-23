@@ -2,13 +2,13 @@ import { useSelector } from "react-redux"
 import { getCakes } from "../../features/slices/cakeSlice"
 import { Cake } from "../cake"
 import { Item } from "../item"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { getOrderedCakes } from "../../features/slices/cakeSlice"
 import { getRankedCats } from "../../features/slices/cakeSlice"
 export const Shop = () => {
     const catsArray = useSelector(getRankedCats)
     const married = useSelector(getOrderedCakes)
-    const cakeArray = useSelector(getCakes)
+    const [cart, setCart] = useState({})
     const [item, setItem] = useState(null)
     return (
         <div className="shop">
@@ -29,7 +29,7 @@ export const Shop = () => {
 
                 })}
 
-                <Item item={item} setItem={setItem} />
+                <Item item={item} setItem={setItem} setCart={setCart} cart={cart}  />
             </div>
         </div>
     )

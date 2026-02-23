@@ -1,9 +1,9 @@
-import { deleteProduct } from "../../../../features/utilities/upload/delete"
+import { deleteElement } from "../../../../features/utilities/upload/delete"
 export const ProductTable = ({ table, setMsg, setCount, pk }) => {
     const headers = Object.keys(table[0])
     let data = ""
     function handleClick(event){
-        setMsg(deleteProduct(event.target.value))
+        setMsg(deleteElement(event.target.value, "products"))
         setCount(prev => prev + 1)
     }
     return (
