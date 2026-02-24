@@ -1,4 +1,4 @@
-export const CreateAllergens = ({ allergens }) => {
+export const CreateAllergens = ({ allergens, labels = true }) => {
     const allergenNames = [
         { value: "lactose", label: "Lactose" },
         { value: "eggs", label: "Eggs" },
@@ -29,7 +29,7 @@ export const CreateAllergens = ({ allergens }) => {
                     } else {
                         return (<div key={allergen.value} className="allergen">
                             <img className="allergenImg" src={`/images/allergenicons/${allergen.value}2.png`} alt="allergen img not found" />
-                            <h1 className="allergenLabel">{allergen.label}</h1>
+                            {labels && <h1 className="allergenLabel">{allergen.label}</h1>}
                         </div>)
                     }
 

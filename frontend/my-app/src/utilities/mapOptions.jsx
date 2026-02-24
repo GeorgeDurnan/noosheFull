@@ -1,22 +1,17 @@
 import { useState, useEffect } from "react"
-export const MapOptions = ({ optionCats, sortedOptions, price, setPrice, basePrice, chosenOptions, setChosenOptions }) => {
+export const MapOptions = ({ optionCats, sortedOptions, price, setPrice, basePrice, chosenOptions, setChosenOptions, item }) => {
     const [currentBasePrice, setCurrentBasePrice] = useState(basePrice)
     //Just sets the defaults for the page so the first radio option is chosen
     useEffect(() => {
-        const newDefaults = { ...chosenOptions };
-        let hasChanged = false;
-
+        const newDefaults = {}
         optionCats.forEach((cat) => {
             const optionsForCat = sortedOptions?.[cat["id"]] || [];
-            if (cat["required"] && !chosenOptions[cat["description"]] && optionsForCat.length > 0) {
+            if (cat["required"] && optionsForCat.length > 0) {
                 newDefaults[cat["description"]] = optionsForCat[0]["description"];
-                hasChanged = true;
             }
         });
-        if (hasChanged) {
-            setChosenOptions(newDefaults);
-        }
-    }, [optionCats, sortedOptions]);
+        setChosenOptions(newDefaults)
+    }, [item, optionCats]);
     useEffect(() => {
         console.log("Map options order" + JSON.stringify(chosenOptions))
     }, [chosenOptions])
@@ -38,9 +33,11 @@ export const MapOptions = ({ optionCats, sortedOptions, price, setPrice, basePri
         console.log("mapped options - order:" + JSON.stringify(chosenOptions))
     }
     return (<form action="">
+        {console.log("options cats in return" + JSON.stringify(optionCats))}
         {optionCats.map((cat) => {
             if (!cat?.description) return null
             const optionsForCat = (sortedOptions && sortedOptions[cat["id"]]) || []
+
             return (
                 <div key={cat["id"]}>
                     <h1>{cat["description"]}</h1>

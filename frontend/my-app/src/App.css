@@ -94,7 +94,7 @@
 
 .cake {
   display: flex;
-  flex: 0 0 calc(33.33% - 8rem);
+  flex: 0 0 45%;
   height: 8rem;
   overflow: hidden;
   margin-bottom: 2rem;
@@ -141,10 +141,10 @@
 .cakes {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 8px;
   /* optional spacing */
-  margin: 8rem;
-  justify-content: center;
+  margin: 2rem;
+  justify-content: flex-start;
 }
 
 .modal-container {
@@ -177,7 +177,6 @@
   object-fit: cover;
 
 }
-
 .itemDesc {
   white-space: pre-line;
 }
@@ -232,5 +231,24 @@
   .modal img {
     width: 100%;
   }
+
+}
+.cart-item{
+  display: flex;
+  flex-direction: row;
+  height: 15vh;
+  font-size: 1vh;
+  gap: 1.5vh;
+}
+.cart-img{
+  height: 10vh;
+}
+.cart-btn-img{
+  height: 4vh;
+}
+.quantity-total{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
 }

@@ -47,3 +47,4 @@ export const getOrderedCakes = (state) => state.cakes.orderedCakes
 export const getRankedCats = (state) => state.cakes.rankedCategories
 export const getOrderedCats = (state) => state.cakes.orderedCategories
 export const getCatById = (state, id) => state.cakes.orderedCategories[id]
+export const getCakeImgById = (state, id) => state.cakes.cakes[id]["imgs"][0]

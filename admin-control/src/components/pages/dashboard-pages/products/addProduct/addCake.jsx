@@ -66,7 +66,6 @@ export const AddCake = ({ cake, setCake, categories, setReload }) => {
     }
     async function handleUpdateSubmit(event) {
         event.preventDefault()
-        console.log(JSON.stringify(update))
         try {
             const repo = await updateEntry(update, cake.category.id, "cakeCats")
             const text = await repo.json()

@@ -19,17 +19,19 @@ export const Shop = () => {
                     return (
                         <div key={cat.description}>
                             <h1>{cat.description}</h1>
-                            {married[cat.id].map((cake) => {
-                                return (
-                                    <Cake key={cake.id} cake={cake} item={item} setItem={setItem} />
-                                )
-                            })}
+                            <div className="cakes">
+                                {married[cat.id].map((cake) => {
+                                    return (
+                                        <Cake key={cake.id} cake={cake} item={item} setItem={setItem} />
+                                    )
+                                })}
+                            </div>
                         </div>
                     )
 
                 })}
 
-                <Item item={item} setItem={setItem} setCart={setCart} cart={cart}  />
+                <Item item={item} setItem={setItem} setCart={setCart} cart={cart} />
             </div>
         </div>
     )

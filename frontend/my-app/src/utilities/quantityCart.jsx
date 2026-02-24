@@ -1,24 +1,22 @@
 import { useEffect, useState } from "react"
-export const Quantity = ({ setPrice, price, setPrice2, quantity, setQuantity}) => {
+import { useDispatch } from "react-redux"
+import { changeQuantity } from "../features/slices/cartSlice"
+export const QuantityCart = ({ item }) => {
+    const [quantity, setQuantity] = useState(item.quantity)
     const canDecrease = quantity > 1
+    const dispatch = useDispatch()
+    console.log(JSON.stringify(item))
     function handleClick(event) {
         setQuantity(prev => Number(prev) + Number(event.target.value))
-
-
     }
     useEffect(() => {
-        //console.log("price" + price)
-        setPrice2(price * Number(Math.abs(quantity)))
-    }, [quantity, price])
+        dispatch(changeQuantity({item, quantity}))
+    }, [quantity])
     function handleChange(event) {
-        if (event.target.value === "") {
-            if (quantity === "0" || quantity === 0) {
-                setQuantity("");
-            } else {
-                setQuantity(0);
-            }
+        if (Number(event.target.value) && event.target.value !== 0) {
+            setQuantity(event.target.value);
         } else {
-            setQuantity(event.target.value)
+            setQuantity(1)
         }
 
     }
@@ -26,6 +24,11 @@ export const Quantity = ({ setPrice, price, setPrice2, quantity, setQuantity}) =
         if (quantity < 1 || quantity > 99) {
             setQuantity(1)
         }
+    }
+    if(!item){
+        return(
+            <h3>Your cart is empty</h3>
+        )
     }
     return (
         <div>

@@ -1,3 +1,4 @@
+import { CreateAllergens } from "../utilities/createAllergens"
 export const Cake = ({ cake, item, setItem }) => {
     function handleClick() {
         setItem(cake.id)
@@ -9,6 +10,7 @@ export const Cake = ({ cake, item, setItem }) => {
                 <h1 className="cakeName">{cake.name}</h1>
                 <h2 className="cakeDesc">{cake.description}</h2>
                 <h1 className="cakePrice">£{cake.price}</h1>
+                <CreateAllergens allergens={cake.allergens} labels={false}/>
             </div>
         </div>
     )

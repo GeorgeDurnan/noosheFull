@@ -23,7 +23,6 @@ export const Options = ({ inputs, setMsg , setCount}) => {
             const response = await fetch(`http://localhost:5000/signup`, options)
             console.log(response)
             const data = await response.text()
-            console.log(JSON.stringify(data) + "--here")
             if (response.status == 404) {
                 setMsg("User not added error " + data)
             } else {
