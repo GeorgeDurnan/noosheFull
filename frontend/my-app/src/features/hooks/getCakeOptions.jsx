@@ -2,7 +2,15 @@ import { SERVER_BASE_URL } from "../../config"
 export const getCakeOptions = (async (product_id) => {
     const url = SERVER_BASE_URL
     try {
-        const response = await fetch(url + "options/" + product_id);
+        const body = {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const response = await fetch(url + "options/" + product_id, body);
+        console.log(response)
         const text = await response.json();
         let options = {}
         text.forEach(option => {

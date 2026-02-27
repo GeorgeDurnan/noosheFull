@@ -7,7 +7,6 @@ export const Quantity = ({ setPrice, price, setPrice2, quantity, setQuantity}) =
 
     }
     useEffect(() => {
-        //console.log("price" + price)
         setPrice2(price * Number(Math.abs(quantity)))
     }, [quantity, price])
     function handleChange(event) {

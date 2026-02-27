@@ -18,18 +18,26 @@ export const getCakeAllergens = (async () => {
         { value: "celery", label: "Celery" },
         { value: "gluten_free", lable: "Gluten Free" }
     ];
+    const options = {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
     try {
-        const response = await fetch(url + "allergens/");
+        const response = await fetch(url + "allergens/", options);
+        console.log(response)
         const text = await response.json();
         const namedAllergens = {}
         text.forEach(allergenList => {
             const placeholder = allergenList.product_id
-            delete allergenList.product_id 
+            delete allergenList.product_id
             namedAllergens[placeholder] = allergenList
         });
         return (namedAllergens)
     } catch (e) {
-        console.log("Failed to fetch cake allergens" + e)
+        console.log("Failed to  cake allergens" + e)
         return ([])
     }
 })

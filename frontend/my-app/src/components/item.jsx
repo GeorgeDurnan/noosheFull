@@ -29,6 +29,7 @@ export const Item = ({ id, item, setItem, cart, setCart }) => {
                 setOptionCats(await getCakeOptCats(item))
             }
             getOpts()
+            console.log("sorted options" + JSON.stringify(sortedOptions))
 
         } else {
             // When no item is selected, enable scroll
@@ -47,7 +48,7 @@ export const Item = ({ id, item, setItem, cart, setCart }) => {
             // If the ref exists and the clicked element is NOT inside the ref
             if (modalRef.current && !modalRef.current.contains(event.target)) {
                 setItem("");
-                setQuantity(0)
+                setQuantity(1)
             }
         };
 
@@ -64,7 +65,7 @@ export const Item = ({ id, item, setItem, cart, setCart }) => {
     //Whatever selection the user currently has is the order
     useEffect(() => {
         if (item) {
-            setOrder({ id: item, quantity: quantity, options: chosenOptions, price: price })
+            setOrder({ product_id: item, quantity: quantity, options: chosenOptions, price: price })
         }
 
     }, [item, quantity, chosenOptions, price2])

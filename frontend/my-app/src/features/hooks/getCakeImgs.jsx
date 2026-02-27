@@ -2,7 +2,15 @@ import { SERVER_BASE_URL } from "../../config"
 export const getCakeImgs = (async () => {
     const url = SERVER_BASE_URL
     try {
-        const response = await fetch(url + "images/");
+        const options = {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const response = await fetch(url + "images/", options);
+        console.log(response)
         const text = await response.json();
         const imgsSorted = {}
         text.forEach(img => {

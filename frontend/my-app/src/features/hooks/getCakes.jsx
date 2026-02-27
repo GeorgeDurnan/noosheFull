@@ -9,14 +9,21 @@ import { addCategories } from "../slices/cakeSlice";
 export const useGetCakes = () => {
     const dispatch = useDispatch();
     const url = SERVER_BASE_URL
-    console.log("get cakes called")
     useEffect(() => {
         async function getCakes() {
             try {
+                const options = {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
                 const imgs = await getCakeImgs()
                 const allergens = await getCakeAllergens()
                 const categories = await getCakeCats()
-                const response = await fetch(url + "products");
+                const response = await fetch(url + "products", options);
+                console.log(response)
                 const text = await response.json();
                 const cakes = text.map((cake) => {
                     return {
@@ -32,7 +39,6 @@ export const useGetCakes = () => {
                 })
                 dispatch(addCakes(cakes))
                 dispatch(addCategories(categories))
-
             } catch (e) {
                 console.log("Failed to fetch cakes" + e)
                 return

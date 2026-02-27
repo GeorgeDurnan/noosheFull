@@ -1,16 +1,24 @@
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { changeQuantity } from "../features/slices/cartSlice"
+import { useRef } from "react"
 export const QuantityCart = ({ item }) => {
     const [quantity, setQuantity] = useState(item.quantity)
+    const [run, setRun] = useState(false)
     const canDecrease = quantity > 1
     const dispatch = useDispatch()
-    console.log(JSON.stringify(item))
+    const isFirstRender = useRef(true);
     function handleClick(event) {
         setQuantity(prev => Number(prev) + Number(event.target.value))
     }
+
     useEffect(() => {
-        dispatch(changeQuantity({item, quantity}))
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return
+        }
+        dispatch(changeQuantity({ item, quantity }))
+
     }, [quantity])
     function handleChange(event) {
         if (Number(event.target.value) && event.target.value !== 0) {
@@ -25,8 +33,8 @@ export const QuantityCart = ({ item }) => {
             setQuantity(1)
         }
     }
-    if(!item){
-        return(
+    if (!item) {
+        return (
             <h3>Your cart is empty</h3>
         )
     }

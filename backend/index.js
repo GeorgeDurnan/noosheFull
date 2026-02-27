@@ -20,7 +20,23 @@ const cors = require("cors")
 const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+const allowedOrigins = [
+  'http://localhost:3000', //website
+  'http://localhost:4000' //admin
+];
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
 
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true // This allows cookies/sessions to pass through
+}));
 app.use(bodyParser.json())
 app.use(express.static('public'));
 app.use(
@@ -40,7 +56,7 @@ app.use(session({
   }),
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   cookie: {
     maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
   }
@@ -61,24 +77,8 @@ passport.deserializeUser((id, cb) => {
   );
 });
 
-const allowedOrigins = [
-  'http://localhost:3000', //website
-  'http://localhost:4000' //admin
-];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl)
-    if (!origin) return callback(null, true);
 
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true // This allows cookies/sessions to pass through
-}));
 app.post("/check", routeAuth.checkAuthenticated, routeAuth.checkPasswordOnly)
 app.post("/login", routeAuth.verify)
 app.post("/signup", routeAuth.register)
@@ -108,15 +108,16 @@ app.delete("/products/:id", routeAuth.checkAuthenticated, routeProduct.deletePro
 app.get("/products/cakes/categories", routeAuth.checkAuthenticated,
   routeProduct.getCakeCategories)
 
-app.get("/carts", routeAuth.checkAuthenticated, routeCart.getCarts)
-app.get("/carts/:id", routeAuth.checkAuthenticated, routeCart.getCartById)
-app.get("/carts/items/:id", routeAuth.checkAuthenticated, routeCart.getCartItems)
+app.get("/carts", routeCart.getCarts)
+app.get("/carts/items", routeCart.getCartItems)
+app.get("/carts/items/:id", routeCart.getCartById)
 app.get("/carts/status/:status", routeAuth.checkAuthenticated, routeCart.getCartsByStatus)
-app.post("/carts", routeAuth.checkAuthenticated, routeCart.createCart)
-app.post("/carts/addItem", routeAuth.checkAuthenticated, routeCart.addItemToCart)
-app.post("/carts/order", routeAuth.checkAuthenticated, routeCart.addCartToOrder)
-app.put("/carts/:id", routeAuth.checkAuthenticated, routeCart.updateCart)
+app.post("/carts/addItem", routeCart.addItemToCart)
+app.post("/carts/order", routeCart.addCartToOrder)
+app.put("/carts", routeCart.updateCart)
+app.delete("/carts/items", routeCart.deleteItem)
 app.delete("/carts/:id", routeAuth.checkAuthenticated, routeCart.deleteCart)
+
 
 app.get("/orders", routeAuth.checkAuthenticated, routeOrder.getOrders)
 app.get("/orders/:id", routeAuth.checkAuthenticated, routeOrder.getOrderById)

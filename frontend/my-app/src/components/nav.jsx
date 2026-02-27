@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Cart } from "./cart"
 export const Nav = () => {
     const [cart, setCart] = useState(false)
-    function handleClick(){
+    function handleClick() {
         setCart(prev => !prev)
     }
     return (<div id="nav">

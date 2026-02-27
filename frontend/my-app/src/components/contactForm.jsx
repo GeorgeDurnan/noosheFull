@@ -17,7 +17,9 @@ export const ContactForm = ({showContact, setShowContact}) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ "name": name, "email": email }),
+            credentials: 'include'
         });
+        console.log(response)
          if (response.status === 201) {
             setShow(prev => !prev)
         }
