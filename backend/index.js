@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const pool = require('./db')
 const port = 5000
+require('dotenv').config()
 const routeUser = require("./routes/users")
 const routeProduct = require("./routes/products")
 const routeCart = require("./routes/carts")
@@ -15,8 +16,8 @@ const routeCats = require("./routes/productCats")
 const routeOptions = require("./routes/options")
 const routeOptionCats = require("./routes/optionCats")
 const routeAllergen = require("./routes/allergens")
+const routeStripe = require("./routes/stripe")
 const cors = require("cors")
-
 const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -76,6 +77,9 @@ passport.deserializeUser((id, cb) => {
     (err, result) => cb(err, result.rows[0])
   );
 });
+
+//stripe 
+app.post("/create-checkout-session", routeStripe.createSession)
 
 
 

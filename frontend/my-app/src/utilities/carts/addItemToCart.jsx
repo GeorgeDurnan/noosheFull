@@ -4,7 +4,6 @@ import { fetchItems } from "../../features/slices/cartSlice"
 import { v4 as uuidv4 } from 'uuid';
 export const addItemToCart = (async (item) => {
     const url = SERVER_BASE_URL
-    console.log("options here" + JSON.stringify(item.options))
     uuidv4()
     try {
         const loop = {

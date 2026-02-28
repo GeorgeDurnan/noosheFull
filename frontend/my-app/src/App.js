@@ -15,6 +15,9 @@ import { Profile } from './components/pages/profile';
 
 
 import { createRoutesFromElements, Route, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { CartPage } from './components/pages/payment/cart-page';
+import { Checkout } from './components/pages/payment/checkout';
+import { Thankyou } from './components/pages/payment/thankyou';
 const appRouter = createBrowserRouter(createRoutesFromElements(<>
   <Route path="/" element={<Root />} >
     <Route index element={<Home />} />
@@ -28,6 +31,10 @@ const appRouter = createBrowserRouter(createRoutesFromElements(<>
     <Route path="/english-terms-conditions" element={<Terms />} />
     <Route path="/english-refund-policy" element={<Refund />} />
     <Route path="/website-disclaimer" element={<Disclaimer />} />
+    <Route path="/cart-page" element={<CartPage />} />
+    <Route path="/thank-you" element={<Thankyou />} />
+    <Route path="/checkout" element={<Checkout />} />
+    
   </Route>
   <Route path ="*" element = {<Error/>}/>
 </>))

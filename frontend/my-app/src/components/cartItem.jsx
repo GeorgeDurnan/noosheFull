@@ -3,47 +3,25 @@ import { removeItem } from "../features/slices/cartSlice"
 import { useSelector } from "react-redux"
 import { QuantityCart } from "../utilities/quantityCart"
 import { useDispatch } from "react-redux"
-import { useEffect, useState } from "react"
+import { getCartItems } from "../features/slices/cartSlice"
 export const CartItem = ({ item }) => {
-    const cake = useSelector((state => getCakeById(state, item.product_id)))
     const dispatch = useDispatch()
     function handleDelete() {
         dispatch(removeItem(item))
     }
-    const [price, setPrice] = useState(0)
-
-    console.log("cake" + JSON.stringify(cake))
-    console.log("item" + JSON.stringify(item))
-    useEffect(() => {
-        let hold = 0
-        Object.values(item["options"])?.forEach((option) => {
-            try {
-                hold += Number(option["option"]["price"])
-
-            } catch (e) {
-                console.log("Eh boba dige chera khoda di ya" + JSON.stringify(option))
-            }
-        })
-        setPrice(hold)
-    }, [])
-    if (!item || !cake) {
-        return
-    }
-
 
     return (
         <div className="cart-item" key={JSON.stringify(item)}>
-            <img className="cart-img" src={cake["imgs"][0]["url"]} alt={cake.name} />
+            <img className="cart-img" src={item.img} alt={item.name} />
             <div className="cart-item-description">
-                <h2>{cake.name}</h2>
-                <h2>{price.toFixed(2)}</h2>
-                {Object.values(item["options"]).map((option) => {
-                    console.log(JSON.stringify(option))
-                    return <h1 key={option.value}>{option.value}</h1>
+                <h2>{item.name}</h2>
+                <h2>{item.price.toFixed(2)}</h2>
+                {item["optionsFlat"].map((option) => {
+                    return <h1 key={option}>{option}</h1>
                 })}
                 <div className="quantity-total">
                     <QuantityCart item={item} />
-                    <h2>{(price * item.quantity).toFixed(2)}</h2>
+                    <h2>{(item.price * item.quantity).toFixed(2)}</h2>
                 </div>
             </div>
             {/*bin icon*/}

@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom"
 export const FooterLinks = () => {
     return (<div className="footer-container">
-        <a href="/english-privacy-policy">Privacy Policy</a>
-        <a href="/accessibility-statement">Accesibility Statement</a>
-        <a href="/english-shipping-policy">Shipping Policy</a>
-        <a href="/english-terms-conditions">Terms & Conditions</a>
-        <a href="/english-refund-policy">Refund Policy</a>
-        <a href="/website-disclaimer">Website Disclaimer</a>
+        <Link to="/english-privacy-policy">Privacy Policy</Link>
+        <Link to="/accessibility-statement">Accesibility Statement</Link>
+        <Link to="/english-shipping-policy">Shipping Policy</Link>
+        <Link to="/english-terms-conditions">Terms & Conditions</Link>
+        <Link to="/english-refund-policy">Refund Policy</Link>
+        <Link to="/website-disclaimer">Website Disclaimer</Link>
     </div>)
 }

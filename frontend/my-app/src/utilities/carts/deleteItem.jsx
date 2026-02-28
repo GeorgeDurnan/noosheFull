@@ -4,8 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { removeItem } from "../../features/slices/cartSlice";
 export const deleteItem = (async (item) => {
     const url = SERVER_BASE_URL
-    console.log("options here" + JSON.stringify(item.options))
-    console.log("item id" + item.id)
     try {
         const loop = {
             method: 'DELETE',

@@ -5,8 +5,7 @@ import { SERVER_BASE_URL } from '../../config';
 import { deleteItem } from '../../utilities/carts/deleteItem';
 const url = SERVER_BASE_URL
 const initialState = {
-    items: {},
-    loading: "idle"
+    items: {}
 }
 const cartSlice = createSlice({
     name: "cart",
@@ -26,19 +25,19 @@ const cartSlice = createSlice({
                 addItemToCart(action.payload)
             }
         },
-        changeQuantity: ({ items }, { payload: { item, quantity } }) => {
+        changeQuantity: (state, { payload: { item, quantity } }) => {
             //The unique key is a combination of the product id and options to create seperate items based on the choices made
-            if (!items) {
+            if (!state.items) {
                 console.log("problem !items quantity activated")
                 return
             }
             const key = item["product_id"] + JSON.stringify(item["options"])
-            if (!items[key]) {
+            if (!state.items[key]) {
                 console.log("problem !items[key] quantity activated")
                 return
             }
-            items[key]["quantity"] = quantity
-            updateQuantity(items[key])
+            state.items[key]["quantity"] = quantity
+            updateQuantity(state.items[key])
         },
         removeItem: (state, action) => {
             if (!state.items) {
@@ -58,5 +57,5 @@ const cartSlice = createSlice({
     }
 })
 export default cartSlice.reducer
-export const { addItem, changeQuantity, removeItem, loadCart } = cartSlice.actions
+export const { addItem, changeQuantity, removeItem, loadCart} = cartSlice.actions
 export const getCart = (state) => state.cart.items

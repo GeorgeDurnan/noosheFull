@@ -6,6 +6,11 @@ import { Contact } from "./contact"
 import { useGetCakes } from "../features/hooks/getCakes"
 import { useEffect } from "react"
 import { useLoadCart } from "../utilities/carts/useLoadCart"
+import { useSelector } from "react-redux"
+import { getCakes } from "../features/slices/cakeSlice"
+import { getCartItems } from "../features/slices/cartSlice"
+import { useDispatch } from "react-redux"
+import { loadUpCakes } from "../features/slices/cartSlice"
 export const Root = () => {
     useGetCakes()
     useLoadCart()
