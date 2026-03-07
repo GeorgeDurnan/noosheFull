@@ -17,7 +17,8 @@ export const addItemToCart = (async (item) => {
                 product_id: item.product_id,
                 quantity: item.quantity,
                 options: item.options,
-                id: uuidv4()
+                id: uuidv4(),
+                extra: item.extra
             }
             )
         }

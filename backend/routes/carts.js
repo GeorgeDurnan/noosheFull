@@ -32,7 +32,7 @@ const getCartItems = async (request, response) => {
             const sid = request.sessionID;
             console.log("sid exists: " + sid);
             const id = await createCart(sid);
-            pool.query('SELECT product_id, quantity, options, id FROM cart_items WHERE cart_id = $1', [id], (error, results) => {
+            pool.query('SELECT product_id, quantity, options, id, extra FROM cart_items WHERE cart_id = $1', [id], (error, results) => {
                 if (error) {
                     response.status(500).json({ "error": error });
                 } else if (results.rows.length === 0) {
@@ -49,10 +49,10 @@ const getCartItems = async (request, response) => {
 //Adding an item to the cart
 const addItemToCart = async (request, response) => {
     const sid = request.sessionID
-    const { product_id, quantity, options, id } = request.body
+    const { product_id, quantity, options, id, extra } = request.body
     try {
         const cart_id = await getCartFromSid(sid)
-        pool.query('INSERT INTO cart_items (cart_id, product_id, quantity, options, id) VALUES ($1, $2, $3, $4, $5)', [cart_id, product_id, quantity, options, id], async (error, results) => {
+        pool.query('INSERT INTO cart_items (cart_id, product_id, quantity, options, id, extra) VALUES ($1, $2, $3, $4, $5, $6)', [cart_id, product_id, quantity, options, id, extra], async (error, results) => {
             if (error) {
                 response.status(400).send(error)
             } else {
@@ -154,8 +154,10 @@ const getCartsByStatus = (request, response) => {
 
 //Called when cart needs to be converted to order
 const addCartToOrder = async (sid, address_id, stripe) => {
+    console.log("add cart to order")
     const cart_id = await getCartFromSid(sid)
-    const items = await pool.query('SELECT product_id, quantity, options FROM cart_items WHERE cart_id = $1', [cart_id])
+    const items = await pool.query('SELECT product_id, quantity, options, extra FROM cart_items WHERE cart_id = $1', [cart_id])
+    
     if (items.rows.length === 0) {
         return
     }
@@ -170,14 +172,14 @@ const addCartToOrder = async (sid, address_id, stripe) => {
             const product = await pool.query('SELECT price, name FROM products WHERE id = $1', [item.product_id])
             const price = product.rows[0].price
             const name = product.rows[0].name
-            await pool.query('INSERT INTO order_items (order_id, product_id, quantity, product_name, product_options, price) VALUES ($1, $2, $3, $4, $5, $6)', [order_id, item.product_id, item.quantity, name, item.options, price])
+            await pool.query('INSERT INTO order_items (order_id, product_id, quantity, product_name, product_options, price, extra) VALUES ($1, $2, $3, $4, $5, $6, $7)', [order_id, item.product_id, item.quantity, name, item.options, price, item.extra])
         }
 
         const total = await pool.query('SELECT SUM(price * quantity) AS total FROM order_items WHERE order_id = $1', [order_id])
         await pool.query(`UPDATE orders SET price = $1 WHERE id = $2`, [total.rows[0].total, order_id])
         await pool.query(`UPDATE carts SET status = $1 WHERE id = $2`, ['converted', cart_id])
 
-
+        console.log("succesfully added cart to order")
     } catch (e) {
         console.log("error when converting to cart" + e)
         pool.query('DELETE FROM orders WHERE id = $1', [order_id])

@@ -8,6 +8,7 @@ import { Error } from './components/pages/error';
 import { Login } from './components/pages/login';
 import { Profile } from './components/pages/dashboard-pages/profile';
 import { Products } from './components/pages/dashboard-pages/products/products';
+import { Orders } from './components/pages/dashboard-pages/orders/orders';
 const appRouter = createBrowserRouter(createRoutesFromElements(<>
   <Route path="/" element={<Root />}>
     {/* Public Route */}
@@ -19,6 +20,7 @@ const appRouter = createBrowserRouter(createRoutesFromElements(<>
       <Route path="profile" element={<Profile />} />
       <Route path="users" element={<Users />} />
       <Route path="products" element={<Products />} />
+      <Route path="orders" element={<Orders />} />
     </Route>
 
     {/* Fallback */}

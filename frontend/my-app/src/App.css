@@ -147,12 +147,13 @@
   justify-content: flex-start;
 }
 
+/* Base modal */
 .modal-container {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
@@ -177,6 +178,35 @@
   object-fit: cover;
 
 }
+
+/*Just for item and address modal*/
+.modal-con-item {}
+
+.modal-item {}
+
+/* Modal for cart */
+.modal-con-cart {
+  /* need to replace with clear grey*/
+  justify-content: right;
+  align-items: right;
+}
+
+.modal {
+  position: relative;
+  background-color: white;
+  width: 50vw;
+  height: 91vh;
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+}
+
+.modal-cart {
+  width: 20%;
+  height: 100%;
+}
+
+
 .itemDesc {
   white-space: pre-line;
 }
@@ -203,9 +233,10 @@
   margin-top: 10px;
   align-items: center;
   gap: 10px;
-  
+
 }
-.allergen{
+
+.allergen {
   display: flex;
   gap: 10px;
 }
@@ -224,38 +255,46 @@
     display: block;
   }
 
-  .modal {
+  .modal-item {
     width: 98vw;
   }
 
   .modal img {
     width: 100%;
   }
+  
+
+
   #header img {
-  max-width: 20%;
-}
+    max-width: 20%;
+  }
 
 }
-.cart-item{
+
+.cart-item {
   display: flex;
   flex-direction: row;
   height: 15vh;
   font-size: 1vh;
   gap: 1.5vh;
 }
-.cart-img{
+
+.cart-img {
   height: 10vh;
 }
-.cart-btn-img{
+
+.cart-btn-img {
   height: 4vh;
 }
-.quantity-total{
+
+.quantity-total {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
 }
-.textwithwoman{
+
+.textwithwoman {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -263,12 +302,14 @@
 
 
 }
-.wrapper{
+
+.wrapper {
   display: flex;
   align-items: center;
   margin-right: 10vw;
   margin-left: 10vw;
 }
+
 .textwithwoman h3 {
   min-width: 30%;
 }

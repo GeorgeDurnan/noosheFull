@@ -2,9 +2,11 @@ import { useEffect } from "react"
 import { Page } from "../../page"
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useLoadCart } from "../../../utilities/carts/useLoadCart"
 export const Thankyou = () => {
     const title = "Thank you "
     const body = "Enjoy nooshe"
+    useLoadCart()
     const [paid, setPaid] = useState(null)
     useEffect(() => {
         async function checkPay() {

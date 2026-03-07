@@ -16,9 +16,13 @@ export const CartItem = ({ item }) => {
             <div className="cart-item-description">
                 <h2>{item.name}</h2>
                 <h2>{item.price.toFixed(2)}</h2>
+
                 {item["optionsFlat"].map((option) => {
                     return <h1 key={option}>{option}</h1>
                 })}
+                {item?.extra && <><h2>Notes:</h2>
+                    <h2>{item.extra}</h2></>}
+
                 <div className="quantity-total">
                     <QuantityCart item={item} />
                     <h2>{(item.price * item.quantity).toFixed(2)}</h2>

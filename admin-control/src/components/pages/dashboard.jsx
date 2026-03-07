@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Query } from "./dashboard-pages/dashboard-utilities/query";
 import { Results } from "./dashboard-pages/dashboard-utilities/results";
 import { Users } from "./dashboard-pages/users/users";
+import { Link } from "react-router-dom"
 export const Dashboard = () => {
     const [name, setName] = useState("loading...");
     const [userId, setUserId] = useState("")
@@ -55,6 +56,7 @@ export const Dashboard = () => {
         <h1>Welcome to Nooshe</h1>
         <h1 onClick={handleClick}>Go to users</h1>
         <h1 onClick={handleProducts}>Go to products</h1>
+        <Link to="/orders">Orders</Link>
         <form onSubmit={handleLogout}>
             <button type="submit">Sign out</button>
         </form>

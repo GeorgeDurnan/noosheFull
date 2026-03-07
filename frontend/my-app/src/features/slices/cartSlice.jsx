@@ -16,7 +16,7 @@ const cartSlice = createSlice({
                 console.log("no item")
                 return
             }
-            const key = action.payload["product_id"] + JSON.stringify(action.payload["options"])
+            const key = action.payload["product_id"] + JSON.stringify(action.payload["options"]) + action.payload["extra"]
             if (state.items[key]) {
                 state.items[key].quantity += action.payload.quantity
                 updateQuantity(state.items[key])
@@ -31,7 +31,7 @@ const cartSlice = createSlice({
                 console.log("problem !items quantity activated")
                 return
             }
-            const key = item["product_id"] + JSON.stringify(item["options"])
+            const key = item["product_id"] + JSON.stringify(item["options"]) + item["extra"]
             if (!state.items[key]) {
                 console.log("problem !items[key] quantity activated")
                 return
@@ -43,7 +43,7 @@ const cartSlice = createSlice({
             if (!state.items) {
                 return
             }
-            const key = action.payload["product_id"] + JSON.stringify(action.payload["options"])
+            const key = action.payload["product_id"] + JSON.stringify(action.payload["options"]) + action.payload["extra"]
             if (!state.items[key]) {
                 console.log("No item to be deleted")
                 return

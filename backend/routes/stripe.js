@@ -10,9 +10,11 @@ const createSession = async (request, response) => {
             line_items
                 : cart.map((item) => {
                     let description = ""
+                    { console.log(item) }
                     item["optionsFlat"].forEach(element => {
                         description += "\n" + element
                     });
+                    { if (item["extra"] !== null) { description += `\nNotes:\n${item["extra"]}` } }
                     return {
                         price_data
                             : {
@@ -24,6 +26,7 @@ const createSession = async (request, response) => {
                                 name
                                     : item.name,
                                 description: description,
+
                                 images: [item.img]
                             },
                             unit_amount
@@ -74,6 +77,7 @@ async function fulfillCheckout(sessionId) {
             const { sid, address_id } = checkoutSession.metadata;
             console.log("sid: " + sid + "address: " + address_id + "session: " + sessionId)
             await cartRoute.addCartToOrder(sid, address_id, sessionId)
+            console.log("Went past cart route")
             // TODO: Record/save fulfillment status for this
             // Checkout Session
         } catch (e) {
@@ -106,10 +110,10 @@ const verifyPayment = async (request, response) => {
             expand
                 : ['line_items'],
         });
-    if(checkoutSession.payment_status == "paid"){
-        response.status(200).json({"msg": "success"})
-    }else{
-        response.status(500).json({"msg": "failure"})
+    if (checkoutSession.payment_status == "paid") {
+        response.status(200).json({ "msg": "success" })
+    } else {
+        response.status(500).json({ "msg": "failure" })
     }
 }
 module.exports = { createSession, fulfillCheckout, webhook, verifyPayment }

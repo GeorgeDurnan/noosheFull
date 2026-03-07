@@ -15,15 +15,16 @@ export const useLoadCart = (async () => {
         const response = await fetch(url + "carts/items", loop);
         console.log(response)
         const data = await response.json()
-        console.log(data)
+        console.log(JSON.stringify(data))
         const cart = {}
         data.forEach(row => {
-            const key = row.product_id + JSON.stringify(row.options)
+            const key = row.product_id + JSON.stringify(row.options) + row.extra
             cart[key] = {
                 product_id: row.product_id,
                 quantity: row.quantity,
                 options: row.options,
-                id: row.id
+                id: row.id,
+                extra: row.extra
             }
         })
         dispatch(loadCart(cart))

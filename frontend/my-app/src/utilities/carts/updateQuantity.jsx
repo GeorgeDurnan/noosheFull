@@ -17,19 +17,6 @@ export const updateQuantity = (async (item) => {
         }
         const response = await fetch(url + "carts", loop);
         console.log(response)
-        const data = await response.json()
-        const cart = data.map(row => {
-            const key = row["product_id"] + JSON.stringify(row["options"])
-            return {
-                [key]:
-                {
-                    id: row.product_id,
-                    quantity: row.quantity,
-                    options: row.options
-                }
-            }
-        });
-        return (cart)
     } catch (e) {
 
     }

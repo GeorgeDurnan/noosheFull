@@ -1,7 +1,7 @@
 const pool = require("../db")
 
 const getOrders = (request, response) => {
-    pool.query('SELECT * FROM orders ORDER BY id ASC', (error, results) => {
+    pool.query('SELECT id, status, created_at, price FROM orders ORDER BY id ASC', (error, results) => {
         if (error) {
             response.status(500).send("Database error" + error)
         }
@@ -25,7 +25,7 @@ const getOrderById = (request, response) => {
 }
 const getOrderItems = (request, response) => {
     const id = parseInt(request.params.id)
-    pool.query('SELECT product_id, quantity FROM order_items WHERE order_id = $1', [id], (error, results) => {
+    pool.query('SELECT * FROM order_items WHERE order_id = $1', [id], (error, results) => {
         if (error) {
             throw error
         } else if (results.rows.length === 0) {

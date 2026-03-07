@@ -9,21 +9,24 @@ import { AddressModal } from "./payment/addressModal"
 export const Shop = () => {
     const catsArray = useSelector(getRankedCats)
     const married = useSelector(getOrderedCakes)
-
+    const [order, setOrder] = useState()
     const [cart, setCart] = useState({})
     const [item, setItem] = useState(null)
     const [show, setShow] = useState(false)
-    if(catsArray.length === 0 || Object.values(married).length === 0){
-        return(
+    if (catsArray.length === 0 || Object.values(married).length === 0) {
+        return (
             <h1>Loading...</h1>
         )
     }
-    
+
     return (
         <div className="shop">
             <h1>Cakes</h1>
             <div className="cakes">
                 {catsArray.map(cat => {
+                    if (!married[cat.id]?.length > 0) {
+                        return
+                    }
                     return (
                         <div key={cat.description}>
                             <h1>{cat.description}</h1>
@@ -39,8 +42,8 @@ export const Shop = () => {
 
                 })}
 
-                <Item item={item} setItem={setItem} setCart={setCart} cart={cart} setShow={setShow} />
-                {show && <AddressModal setShow ={setShow}/>}
+                <Item item={item} setItem={setItem} setCart={setCart} cart={cart} setShow={setShow} order={order} setOrder={setOrder}/>
+                {show && <AddressModal setShow={setShow} order={order}/>}
             </div>
         </div>
     )

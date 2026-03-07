@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Cart } from "./cart"
+import { CartModal } from "./cartModal"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 export const Nav = () => {
@@ -10,11 +10,10 @@ export const Nav = () => {
     }
     return (<div id="nav">
         <Link to="/">Home</Link>
-
         <Link to="/online-ordering">Online Order</Link>
         <Link to="/trade-order">Wholesale</Link>
         <Link to="/about-us">About us</Link>
         <button onClick={handleClick}>Cart</button>
-        {cart && <Cart />}
+        {cart && <CartModal setShow={setCart} show={cart}/>}
     </div>)
 }  

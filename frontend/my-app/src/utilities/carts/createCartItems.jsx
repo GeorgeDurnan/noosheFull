@@ -20,6 +20,7 @@ export const useCreateCartItems = () => {
         return("loading")
     }
     const arranged = Object.values(cart)?.map((item) => {
+        console.log("in arranged" + JSON.stringify(item))
         return {
             price: getTotalPrice(item["options"]),
             quantity: item["quantity"],
@@ -28,7 +29,8 @@ export const useCreateCartItems = () => {
             img: cakes[item["product_id"]]["imgs"][0]["url"],
             product_id: item["product_id"],
             options: item["options"],
-            id: item["id"]
+            id: item["id"],
+            extra: item["extra"]
 
         }
     })
