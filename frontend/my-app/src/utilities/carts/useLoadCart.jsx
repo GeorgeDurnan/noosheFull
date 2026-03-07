@@ -15,6 +15,7 @@ export const useLoadCart = (async () => {
         const response = await fetch(url + "carts/items", loop);
         console.log(response)
         const data = await response.json()
+        console.log(data)
         const cart = {}
         data.forEach(row => {
             const key = row.product_id + JSON.stringify(row.options)

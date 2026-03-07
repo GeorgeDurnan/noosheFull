@@ -13,6 +13,7 @@ export const addItemToCart = (async (item) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                //changed here
                 product_id: item.product_id,
                 quantity: item.quantity,
                 options: item.options,

@@ -12,7 +12,6 @@ export const getCakeOptCats = (async (id) => {
         const response = await fetch(url + "categories/" + id, options);
         console.log(response)
         const text = await response.json();
-        console.log("options gotten" + JSON.stringify(text))
         return (text)
     } catch (e) {
         console.log("Failed to fetch option categories" + e)

@@ -17,6 +17,8 @@ const routeOptions = require("./routes/options")
 const routeOptionCats = require("./routes/optionCats")
 const routeAllergen = require("./routes/allergens")
 const routeStripe = require("./routes/stripe")
+const routeBiz = require("./routes/businessContact")
+const routeBasic = require("./routes/basic")
 const cors = require("cors")
 const multer = require('multer');
 const storage = multer.memoryStorage();
@@ -25,6 +27,23 @@ const allowedOrigins = [
   'http://localhost:3000', //website
   'http://localhost:4000' //admin
 ];
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
+const passport = require('passport');
+
+app.use(session({
+  store: new pgSession({
+    pool: pool,
+    tableName: 'session'
+  }),
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    sameSite: 'lax' // 30 days
+  }
+}));
 app.use(cors({
   origin: function (origin, callback) {
     // allow requests with no origin (like mobile apps or curl)
@@ -38,30 +57,20 @@ app.use(cors({
   },
   credentials: true // This allows cookies/sessions to pass through
 }));
+//stripe webhook
+
+app.post('/webhook', express.raw({ type: 'application/json' }), routeStripe.webhook)
+
 app.use(bodyParser.json())
 app.use(express.static('public'));
+
 app.use(
   bodyParser.urlencoded({
     extended: true,
   })
 )
 
-const session = require('express-session');
-const pgSession = require('connect-pg-simple')(session);
-const passport = require('passport');
 
-app.use(session({
-  store: new pgSession({
-    pool: pool,
-    tableName: 'session'
-  }),
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
-  }
-}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -77,11 +86,15 @@ passport.deserializeUser((id, cb) => {
     (err, result) => cb(err, result.rows[0])
   );
 });
+//basic address
+app.post("/basic", routeBasic.createAddress)
+app.get("/basic", routeBasic.getAddress)
 
-//stripe 
+//stripe
 app.post("/create-checkout-session", routeStripe.createSession)
-
-
+app.post("/verify-pay", routeStripe.verifyPayment)
+//business contacts on wholesale page
+app.post("/wholesale", routeBiz.createContact)
 
 app.post("/check", routeAuth.checkAuthenticated, routeAuth.checkPasswordOnly)
 app.post("/login", routeAuth.verify)
@@ -101,7 +114,7 @@ app.get("/users/:id", routeAuth.checkAuthenticated, routeUser.getUserById);
 
 app.delete("/users/:id", routeAuth.checkAuthenticated, routeUser.deleteUser);
 
-app.post("/users/address", routeAuth.checkAuthenticated, routeAddress.addAddress)
+app.post("/address", routeAddress.addAddress)
 
 app.get("/products", routeProduct.getProducts);
 app.get("/products/:id", routeProduct.getProductById)

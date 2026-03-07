@@ -14,7 +14,6 @@ export const Nav = () => {
         <Link to="/online-ordering">Online Order</Link>
         <Link to="/trade-order">Wholesale</Link>
         <Link to="/about-us">About us</Link>
-        <Link to="/profile">Profile</Link>
         <button onClick={handleClick}>Cart</button>
         {cart && <Cart />}
     </div>)

@@ -40,7 +40,7 @@ const getCakeCategories = (request, response) => {
 
 
 const createProduct = (request, response) => {
-    const { name, price, description = "", category_id} = request.body
+    const { name, price, description = "", category_id } = request.body
 
     pool.query('INSERT INTO products (name, price, description, category_id) VALUES ($1, $2, $3, $4) RETURNING id', [name, price, description, category_id], (error, results) => {
         if (error) {

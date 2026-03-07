@@ -39,7 +39,6 @@ export const MapOptions = ({ optionCats, sortedOptions, price, setPrice, basePri
                     <h1>{cat["description"]}</h1>
                     {
                         optionsForCat.map((option) => {
-                            console.log("option in mapOptions in map" + JSON.stringify(option) )
                             if (cat["multiple"] == true) {
                                 return (
                                     <div key={option["description"]}>

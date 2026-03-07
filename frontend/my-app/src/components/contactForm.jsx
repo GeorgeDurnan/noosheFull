@@ -11,7 +11,7 @@ export const ContactForm = ({showContact, setShowContact}) => {
         const name = form.name.value
         const email = form.email.value
 
-        const response = await fetch(url + "/contacts", {
+        const response = await fetch(url + "contacts", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

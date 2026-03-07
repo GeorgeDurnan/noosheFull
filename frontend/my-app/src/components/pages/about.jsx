@@ -1,64 +1,21 @@
 import { Page } from "../page"
 export const About = () => {
-
     return (
-        <div id="privacy">
-            <h1>Privacy Policy</h1>
-            <div className = "paragraph">
-                <h2>1. Introduction</h2>
-                <p>Nooshé is committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner. This policy outlines how we collect, use, store, and protect your data when you visit our website or interact with our services.</p>
+        <>
+            <div className="wrapper">
+                <div className="textwithwoman">
+                    <h3>At Nooshé, we bring a taste of Persian heritage to every bite. Born from a passion for sharing the rich flavours and warm hospitality of Iranian culture, Nooshé is a UK-based
+                        bakery blending traditional recipes with a modern touch</h3>
+                    <img src="/images/persian_woman.avif" alt="Persian woman logo" />
+                </div>
+
             </div>
-            <div className = "paragraph">
-                <h2>2. Data Collection</h2>
-                <p>We may collect personal information when you</p>
-                <ul>
-                    <li>Place an order on our website</li>
-                    <li>Subscribe to our newsletter</li>
-                    <li>Contact us through our website or social media</li>
-                    <li>Visit our website (through cookies and analytics)</li>
-                </ul>
-            </div>
-            <div className = "paragraph">
-                <h2>Collected Data May Include:</h2>
-                <ul>
-                    <li>Name, email address, phone number</li>
-                    <li>Delivery address and billing information</li>
-                    <li>Order history</li>
-                    <li>IP address and device details</li>
-                </ul>
-            </div>
-            <div className = "paragraph">
-                <h2>3. How We Use Your Information</h2>
-                <ul>
-                    <li>To process and deliver your orders</li>
-                    <li>To communicate order updates and promotions (with your consent)</li>
-                    <li>To improve our website and customer experience</li>
-                    <li>To comply with legal obligations</li>
-                </ul>
-            </div>
-            <div className = "paragraph">
-                <h2>4. Data Security</h2>
-                <p>We take data security seriously. We use encryption and secure servers to protect your information.</p>
-            </div>
-            <div className = "paragraph">
-                <h2>5. Your Rights</h2>
-                <h2>You have the right to:</h2>
-                <ul>
-                    <li>Access your personal data</li>
-                    <li>Request correction or deletion</li>
-                    <li>Withdraw consent for marketing communications</li>
-                    <li>Lodge a complaint with data protection authorities</li>
-                </ul>
-            </div>
-            <div className = "paragraph">
-                <h2>6. Cookies</h2>
-                <p>We use cookies to enhance your experience. You can manage your preferences through your browser settings.</p>
-            </div>
-            <div className = "paragraph">
-                <h2>7. Contact Us</h2>
-                <p>If you have questions about this policy, contact us at:</p>
-                <p>Email: info@nooshe.co.uk</p>
-            </div>
-        </div>
+            <h3>Nooshé is a modern Iranian bakery, born in the heart of the UK to celebrate the rich, intricate flavors of Persian culture with a fresh, contemporary twist. Every creation at Nooshé is a work of art, balancing centuries-old tradition with bold innovation.</h3>
+            <h3>We believe that baking is more than just creating delicious food, it’s about crafting moments of joy. From our saffron-kissed cheesecakes to our buttery cookies, each piece is lovingly made by hand, using premium, fresh ingredients, ensuring exceptional quality in every bite. Our flavours are familiar yet unexpected, offering a fusion of British and Persian influences in every bite.</h3>
+            <h3>Every treat is handcrafted without artificial preservatives, staying true to the richness of authentic flavours. From the delicate aroma of saffron and rose water to the satisfying crunch of pistachios and walnuts, our bakes are designed to indulge the senses and celebrate the beauty of tradition, reimagined for today.</h3>
+            <h3>Whether you’re enjoying a quiet moment or sharing laughter with loved ones, our home-baked delights bring joy to every occasion.</h3>
+            <h3>We invite you to indulge, to savour, and to feel right at home.
+                <br/>Because at Nooshé, every bite tells a story, and we can’t wait for you to be part of it.</h3>
+        </>
     )
 }

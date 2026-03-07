@@ -2,7 +2,7 @@ import './App.css';
 import { Root } from './components/root';
 import { Shop } from './components/pages/shop';
 import { Home } from './components/pages/home';
-import { Wholesale } from './components/pages/wholesale';
+import { Wholesale } from './components/pages/wholesale/wholesale';
 import { About } from './components/pages/about';
 import { Privacy } from './components/pages/privacy';
 import { Access } from './components/pages/access';
@@ -11,7 +11,6 @@ import { Terms } from './components/pages/terms';
 import { Refund } from './components/pages/refund';
 import { Disclaimer } from './components/pages/disclaimer';
 import { Error } from './components/pages/error';
-import { Profile } from './components/pages/profile';
 
 
 import { createRoutesFromElements, Route, RouterProvider, createBrowserRouter } from 'react-router-dom';
@@ -24,7 +23,6 @@ const appRouter = createBrowserRouter(createRoutesFromElements(<>
     <Route path="/online-ordering" element={<Shop />} />
     <Route path="/trade-order" element={<Wholesale />} />
     <Route path="/about-us" element={<About />} />
-    <Route path="/profile" element={<Profile />} />
     <Route path="/english-privacy-policy" element={<Privacy />} />
     <Route path="/accessibility-statement" element={<Access />} />
     <Route path="/english-shipping-policy" element={<Ship />} />

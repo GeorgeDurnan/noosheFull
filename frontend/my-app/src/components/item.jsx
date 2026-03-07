@@ -9,7 +9,8 @@ import { Quantity } from "../utilities/quantity"
 import { Images } from "./images"
 import { addItem } from "../features/slices/cartSlice"
 import { useRef } from "react"
-export const Item = ({ id, item, setItem, cart, setCart }) => {
+import { getAddressFromSlice } from "../features/slices/addressSlice"
+export const Item = ({ id, item, setItem, cart, setCart, setShow }) => {
     const dispatch = useDispatch()
     const [sortedOptions, setSortedOptions] = useState([])
     const [optionCats, setOptionCats] = useState([])
@@ -17,6 +18,7 @@ export const Item = ({ id, item, setItem, cart, setCart }) => {
     const [chosenOptions, setChosenOptions] = useState([])
     const [quantity, setQuantity] = useState(1)
     let cake = useSelector((state => getCakeById(state, item)))
+    const address = useSelector(getAddressFromSlice)
     const [price, setPrice] = useState(0)
     const [price2, setPrice2] = useState(price)
     useEffect(() => {
@@ -29,8 +31,6 @@ export const Item = ({ id, item, setItem, cart, setCart }) => {
                 setOptionCats(await getCakeOptCats(item))
             }
             getOpts()
-            console.log("sorted options" + JSON.stringify(sortedOptions))
-
         } else {
             // When no item is selected, enable scroll
             document.body.style.overflow = 'unset';
@@ -41,6 +41,7 @@ export const Item = ({ id, item, setItem, cart, setCart }) => {
             document.body.style.overflow = 'unset';
         }
     }, [item]);
+
     //Logic to make the cake close if i click outside fo the container
     const modalRef = useRef(null);
     useEffect(() => {
@@ -73,8 +74,12 @@ export const Item = ({ id, item, setItem, cart, setCart }) => {
         dispatch(addItem(order))
         //set quantity to 1 so the quantity isnt saved across cake modals
         setQuantity(1)
+        if (!address) {
+            setShow(true)
+        }
         //this closes the modal
         setItem("")
+
     }
     function handleClick() {
         setQuantity(1)
