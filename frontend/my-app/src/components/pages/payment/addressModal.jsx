@@ -1,14 +1,14 @@
 
-import { useSelector, useDispatch } from "react-redux"
-import { useEffect, useState } from "react"
-import { useRef } from "react"
-import { GetAddress } from "./getAddress"
+import { useDispatch } from "react-redux"
+import { useState } from "react"
 import { AddressSearch } from "../address"
 import { setAddress } from "../../../features/slices/addressSlice"
 import { SERVER_BASE_URL } from "../../../config"
 import { setBasic } from "../../../features/hooks/setBasic"
 import { useNoScroll, useClickOutside } from "../../../features/hooks/modalUtilities"
 import { addItem } from "../../../features/slices/cartSlice"
+import modalStyle from "../../modals.module.css"
+import addressStyle from "./address.module.css"
 export const AddressModal = ({ setShow, show, order }) => {
     const dispatch = useDispatch()
     const url = SERVER_BASE_URL
@@ -32,12 +32,20 @@ export const AddressModal = ({ setShow, show, order }) => {
     const modalRef = useClickOutside(show, setShow)
     return (
         <div>
-            <div className="modal-container modal-con-item" >
-                <div className="modal modal-item" ref={modalRef}>
-                    <button className="btn-top" onClick={handleClick}>X</button>
-                    <AddressSearch setResponse={setResponse} setTheAddress={setTheAddress} />
-                    {(!response && response !== null) && <h2>"Sorry there is no delivery for that location"</h2>}
-                    <button className={response ? "save-btn" : "notEnabled"} onClick={response ? handleClickAddAddress : () => { }}>Save</button>
+            <div className={`${modalStyle.modalContainer} ${modalStyle.modalConAddress}`} >
+                <div className={`${modalStyle.modal} ${modalStyle.modalAddress}`} ref={modalRef}>
+                    <div className={addressStyle.header}>
+                        <h2>How would you like to recieve your order</h2>
+                        <button className={`${addressStyle.btnTop} `} onClick={handleClick}>X</button>
+                    </div>
+                    <div className={addressStyle.middle}>
+                        <h2>Deliver to:</h2>
+                        <AddressSearch setResponse={setResponse} setTheAddress={setTheAddress} />
+                        {(!response && response !== null) && <h2>"Sorry there is no delivery for that location"</h2>}
+                    </div>
+                    <div className={addressStyle.btnCon}>
+                        <button className={`${response ? addressStyle.saveBtn : addressStyle.notEnabled} ${addressStyle.btn}`} onClick={response ? handleClickAddAddress : () => { }}>Save</button>
+                    </div>
                 </div>
             </div>
         </div>

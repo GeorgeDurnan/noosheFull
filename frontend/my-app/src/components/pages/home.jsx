@@ -3,7 +3,7 @@ import { Carousel } from "../carousel"
 export const Home = () => {
     const title = "Home"
     const body = "Stuff"
-    return (<div>
+    return (<div >
         <Carousel />
     </div>
     )

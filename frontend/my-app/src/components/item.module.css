@@ -1,0 +1,138 @@
+.body {
+    padding: 2.5%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.body * {
+    margin: 0;
+}
+
+.itemDesc {
+    white-space: pre-line;
+}
+
+.box {
+    width: 100%;
+    resize: none;
+    background-color: transparent;
+    border-color: black;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.quantBtns {
+    flex-shrink: 1;
+    min-width: 0;
+    border: 2px solid black;
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2%;
+
+}
+
+.quantBtns button {
+    background-color: transparent;
+    border: none;
+
+}
+
+.quantBtns input {
+    width: 100%;
+    background-color: #FFF8F1;
+    border: none;
+    background: transparent;
+    outline: none;
+    text-align: center;
+
+}
+
+.quantityTotal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    flex-shrink: 1;
+    margin-bottom: 0;
+}
+
+.btnBtm {
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    background-color: sienna;
+    color: white;
+    font-weight: 100;
+}
+
+.btnBtmCon {
+    border-top: 2px solid black;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    padding: 2%;
+    height: 20%;
+    width: 100%;
+    box-sizing: border-box;
+    position: sticky;
+    bottom: 0;
+    background-color: #FFF8F1;
+
+
+}
+
+.image {
+    width: 100%;
+    height: 53vh;
+    object-fit: cover;
+    position: relative;
+
+}
+
+.imageCon {
+    width: 100%;
+}
+.prevBtn, .nextBtn {
+    position: absolute;
+    top: 25%; 
+    transform: translateY(-50%); 
+    background-color: transparent;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10; 
+    font-size: 3rem;
+    color: grey;
+}
+.nextBtn{
+    
+}
+.prevBtn{
+    right: 0;
+}
+
+@media screen and (min-width: 481px) and (max-width: 800px) {}
+
+/* mobile phones */
+@media screen and (max-width: 480px) {
+    .btnBtmCon {
+        padding: 5%;
+    }
+
+    .btnBtm {
+        font-size: 1.25rem;
+        padding: 3%;
+    }
+}

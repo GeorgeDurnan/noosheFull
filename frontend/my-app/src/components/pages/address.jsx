@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import styles from "./payment/address.module.css"
 export const AddressSearch = ({ setResponse, setTheAddress }) => {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -79,23 +80,16 @@ export const AddressSearch = ({ setResponse, setTheAddress }) => {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '20px auto', fontFamily: 'sans-serif', position: 'relative' }}>
-      <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>
-        Delivery Address
-      </label>
-
+    <div style={{position: 'relative' }}>
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Start typing your address..."
         style={{
-          width: '100%',
-          padding: '12px',
-          borderRadius: '8px',
-          border: '1px solid #ccc',
-          boxSizing: 'border-box'
+
         }}
+        className={styles.search}
       />
 
       {suggestions.length > 0 && (

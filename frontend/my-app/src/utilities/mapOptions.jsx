@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import styles from "../components/item.module.css"
 export const MapOptions = ({ optionCats, sortedOptions, price, setPrice, basePrice, chosenOptions, setChosenOptions, item }) => {
     const [currentBasePrice, setCurrentBasePrice] = useState(basePrice)
     //Just sets the defaults for the page so the first radio option is chosen

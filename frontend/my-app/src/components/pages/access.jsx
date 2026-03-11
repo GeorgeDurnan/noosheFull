@@ -1,7 +1,7 @@
 
 export const Access = () => {
-    return (<>
-        <div>
+    return (
+        <div className="page">
             <h1>Accessibility Statement</h1>
             <div><h3>We are committed to making our website accessible to everyone. If you encounter any accessibility issues, please let us know.</h3>
                 <h3>Measures Taken:</h3>
@@ -18,7 +18,5 @@ export const Access = () => {
                 <h2>Email: info@nooshe.co.uk</h2>
             </div>
         </div>
-
-    </>
     )
 }

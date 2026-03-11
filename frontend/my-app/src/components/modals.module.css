@@ -1,0 +1,155 @@
+/* Base modal */
+.modalContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    pointer-events: auto;
+
+}
+
+.modalConAddress {}
+
+.modalConCart,
+.modalConMenu {
+    justify-content: right;
+    align-items: right;
+    z-index: 2001;
+}
+
+.modalConItem,
+.modalConAddress {
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    position: relative;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    background-color: #FFF8F1;
+}
+
+.modalAddress {
+    width: 50%;
+    height: 50%;
+    padding: 5%;
+}
+
+.modalItem {
+    width: 50%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.modalCart,
+.modalMenu {
+    width: 20%;
+    height: 100%;
+}
+
+.modalCart {
+    background-color: #FFF8F1;
+}
+
+.modalMenu {
+    background-image: url("../images/minitwilight.png");
+}
+
+.top {
+    border-bottom: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.top * {
+    margin: 5% 5%;
+}
+
+.btnTop {
+    position: sticky;
+    top: 10px;
+    z-index: 2000;
+    align-self: flex-end;
+    margin-right: 10px;
+    height: 40px;
+    margin-bottom: -50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.btnTopCart {
+    align-items: center;
+}
+
+.btnTopMenu {
+    position: absolute;
+    right: 5%;
+    top: 2%;
+}
+
+.btnTopCart,
+.btnTopMenu {
+    background: none;
+    border: none;
+    font-size: 2rem;
+}
+
+@media screen and (min-width: 481px) and (max-width: 800px) {
+    .modalCon {}
+
+    .modalCart,
+    .modalMenu {
+        width: 50%;
+    }
+
+    .modalItem {
+        width: 95%;
+    }
+
+    .image {}
+
+    .modalAddress {
+        width: 80%;
+    }
+
+
+}
+
+/* mobile phones */
+@media screen and (max-width: 480px) {
+    .modalCon {
+        width: 100%;
+        height: 100%;
+        z-index: 3001;
+
+    }
+
+    .modalContainer {
+        z-index: 3001;
+
+    }
+
+    .modal {
+        width: 100%;
+        height: 100%;
+        top: auto;
+        left: auto;
+        align-items: center;
+    }
+
+    .image {
+        height: 35vh;
+    }
+
+}

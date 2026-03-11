@@ -1,7 +1,7 @@
 import { Page } from "../page"
 export const Ship = () => {
     return (
-        <div>
+        <div className="page">
             <h1>Shipping Policy</h1>
             <div>
                 <ol>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { changeQuantity } from "../features/slices/cartSlice"
 import { useRef } from "react"
+import style from "../components/cart.module.css"
 export const QuantityCart = ({ item }) => {
     const [quantity, setQuantity] = useState(item.quantity)
     const [run, setRun] = useState(false)
@@ -39,7 +40,7 @@ export const QuantityCart = ({ item }) => {
         )
     }
     return (
-        <div>
+        <div className={style.quantBtns}>
             <button value={-1} className={canDecrease ? "buttonOn" : "buttonOff"} onClick={canDecrease ? handleClick : null}>-</button>
             <input onBlur={handleBlur} type="number" value={quantity} onChange={handleChange} />
             <button value={1} onClick={handleClick}>+</button>

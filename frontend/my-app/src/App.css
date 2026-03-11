@@ -1,19 +1,40 @@
-#nav {
-  display: flex;
-  justify-content: center;
-  max-width: 100%;
-  overflow: hidden;
-  gap: 10px;
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.main {
+  margin: 5% 2.5%;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+html {
+  background-image: url('./images/minitwilight.png');
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.page {
+  margin: 0 15%;
 }
 
 /* stop overscrolling*/
-* {
+html,
+body {
   overscroll-behavior-y: none;
+  overflow-x: hidden;
 }
 
 #header {
   display: flex;
-  background-color: green;
   flex-direction: column;
   text-align: center;
   align-items: center;
@@ -27,12 +48,13 @@
 
 #footer {
   display: flex;
+  background-color: wheat;
 }
 
 #carousel {
   display: flex;
   justify-content: center;
-  max-width: 50%;
+  max-width: 90%;
   align-items: center;
 }
 
@@ -85,147 +107,7 @@
   right: 0;
 }
 
-.shop {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
 
-.cake {
-  display: flex;
-  flex: 0 0 45%;
-  height: 8rem;
-  overflow: hidden;
-  margin-bottom: 2rem;
-  border: grey;
-  border-style: solid;
-  padding: 1rem;
-}
-
-.cake img {
-  width: 8rem;
-  height: 8rem;
-  flex-shrink: 0;
-}
-
-.cakeText {
-  display: flex;
-  flex-direction: column;
-  padding-left: 8px;
-  overflow: hidden;
-  justify-content: space-evenly;
-}
-
-.cakeText h1 {
-  font-size: 1rem;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* MULTI-LINE ELLIPSIS */
-.cakeDesc {
-  font-size: 0.75rem;
-  margin: 4px 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  /* number of lines */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.cakes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  /* optional spacing */
-  margin: 2rem;
-  justify-content: flex-start;
-}
-
-/* Base modal */
-.modal-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: auto;
-
-}
-
-.modal {
-  position: relative;
-  background-color: white;
-  width: 50vw;
-  height: 91vh;
-  display: flex;
-  overflow: auto;
-  flex-direction: column;
-}
-
-.modal img {
-  width: 100%;
-  height: 53vh;
-  object-fit: cover;
-
-}
-
-/*Just for item and address modal*/
-.modal-con-item {}
-
-.modal-item {}
-
-/* Modal for cart */
-.modal-con-cart {
-  /* need to replace with clear grey*/
-  justify-content: right;
-  align-items: right;
-}
-
-.modal {
-  position: relative;
-  background-color: white;
-  width: 50vw;
-  height: 91vh;
-  display: flex;
-  overflow: auto;
-  flex-direction: column;
-}
-
-.modal-cart {
-  width: 20%;
-  height: 100%;
-}
-
-
-.itemDesc {
-  white-space: pre-line;
-}
-
-.btn-top {
-  position: sticky;
-  top: 10px;
-  z-index: 2000;
-
-
-  align-self: flex-end;
-  margin-right: 10px;
-
-  height: 40px;
-  margin-bottom: -50px;
-  background-color: beige;
-  border: none;
-  cursor: pointer;
-}
 
 .allergens {
   display: flex;
@@ -250,47 +132,19 @@
   font-size: 3vh;
 }
 
-@media screen and (max-width: 800px) {
-  .cakes {
-    display: block;
-  }
-
-  .modal-item {
-    width: 98vw;
-  }
-
-  .modal img {
-    width: 100%;
-  }
-  
-
+@media screen and (min-width: 481px) and (max-width: 800px) {
 
   #header img {
     max-width: 20%;
   }
-
 }
 
-.cart-item {
-  display: flex;
-  flex-direction: row;
-  height: 15vh;
-  font-size: 1vh;
-  gap: 1.5vh;
-}
+/* mobile phones */
+@media screen and (max-width: 480px) {
+  #header img {
+    max-width: 40%;
+  }
 
-.cart-img {
-  height: 10vh;
-}
-
-.cart-btn-img {
-  height: 4vh;
-}
-
-.quantity-total {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 
 }
 
@@ -319,3 +173,5 @@
   max-width: 100%;
   height: auto;
 }
+
+/* cart item*/

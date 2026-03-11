@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-export const Quantity = ({ setPrice, price, setPrice2, quantity, setQuantity}) => {
+import style from "../components/item.module.css"
+export const Quantity = ({ setPrice, price, setPrice2, quantity, setQuantity }) => {
     const canDecrease = quantity > 1
     function handleClick(event) {
         setQuantity(prev => Number(prev) + Number(event.target.value))
@@ -27,10 +28,11 @@ export const Quantity = ({ setPrice, price, setPrice2, quantity, setQuantity}) =
         }
     }
     return (
-        <div>
+        <div className={style.quantBtns}>
             <button value={-1} className={canDecrease ? "buttonOn" : "buttonOff"} onClick={canDecrease ? handleClick : null}>-</button>
             <input onBlur={handleBlur} type="number" value={quantity} onChange={handleChange} />
             <button value={1} onClick={handleClick}>+</button>
         </div>
     )
+
 }

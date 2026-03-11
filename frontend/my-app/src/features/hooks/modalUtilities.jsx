@@ -3,15 +3,18 @@ export const useNoScroll = (show) => {
     useEffect(() => {
         if (show) {
             // When an item is selected, freeze the body scroll
-            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflowY = 'hidden';
+            document.documentElement.style.overscrollBehavior = 'none';
         } else {
             // When no item is selected, enable scroll
-            document.body.style.overflow = 'unset';
+            document.documentElement.style.overflowY = '';
+            document.documentElement.style.overscrollBehavior = '';
         }
 
         // Cleanup: Ensures scroll is re-enabled if component unmounts
         return () => {
-            document.body.style.overflow = 'unset';
+            document.documentElement.style.overflow = '';
+            document.documentElement.style.overscrollBehavior = '';
         }
     }, [show]);
 }

@@ -1,7 +1,7 @@
 import { Page } from "../page"
 export const About = () => {
     return (
-        <>
+        <div className="page">
             <div className="wrapper">
                 <div className="textwithwoman">
                     <h3>At Nooshé, we bring a taste of Persian heritage to every bite. Born from a passion for sharing the rich flavours and warm hospitality of Iranian culture, Nooshé is a UK-based
@@ -16,6 +16,6 @@ export const About = () => {
             <h3>Whether you’re enjoying a quiet moment or sharing laughter with loved ones, our home-baked delights bring joy to every occasion.</h3>
             <h3>We invite you to indulge, to savour, and to feel right at home.
                 <br/>Because at Nooshé, every bite tells a story, and we can’t wait for you to be part of it.</h3>
-        </>
+        </div>
     )
 }

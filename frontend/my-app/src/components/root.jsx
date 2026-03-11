@@ -19,6 +19,7 @@ export const Root = () => {
         <Header id="header" />
         <AnimatePresence mode="wait">
             <motion.div
+                className="main"
                 key={location.pathname}
                 initial={{ x: "100vw", opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}

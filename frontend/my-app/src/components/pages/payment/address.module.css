@@ -1,0 +1,70 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.9rem;
+    width: 100%s;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5%;
+    font-size: 0.4rem;
+    width: 90%;
+}
+
+.search {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: transparent;
+}
+
+.btnTop {
+    width: auto;
+    height: auto;
+    font-size: 2rem;
+    background-color: transparent;
+    border: none;
+    margin-left: auto;
+}
+
+.btnCon {
+    display: flex;
+    justify-content: right;
+    margin-top: auto;
+    border-top: 1px solid black;
+    padding: 1.5rem;
+    height: 10%;
+    width: 90%;
+}
+
+.btn {
+    width: 30%;
+    height: 100%;
+    background-color: sienna;
+}
+
+.saveBtn {}
+
+.notEnabled {}
+
+@media screen and (min-width: 481px) and (max-width: 800px) {}
+
+/* mobile phones */
+@media screen and (max-width: 480px) {
+    .header{
+        margin-top: 10%;
+    }
+    .btnCon {
+        width: 90%;
+        padding: 1rem;
+        height: 7.5%;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

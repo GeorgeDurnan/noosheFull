@@ -2,7 +2,7 @@ import { Page } from "../page"
 export const Privacy = () => {
 
     return (
-        <div id="privacy">
+        <div id="privacy" className="page">
             <h1>Privacy Policy</h1>
             <div className = "paragraph">
                 <h2>1. Introduction</h2>

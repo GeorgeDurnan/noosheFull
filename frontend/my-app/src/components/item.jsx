@@ -8,9 +8,10 @@ import { MapOptions } from "../utilities/mapOptions"
 import { Quantity } from "../utilities/quantity"
 import { Images } from "./images"
 import { addItem } from "../features/slices/cartSlice"
-import { useRef } from "react"
 import { getAddressFromSlice } from "../features/slices/addressSlice"
 import { useNoScroll, useClickOutside } from "../features/hooks/modalUtilities"
+import modalStyles from "./modals.module.css"
+import itemStyle from "./item.module.css"
 export const Item = ({ id, item, setItem, cart, setCart, setShow, order, setOrder }) => {
     const dispatch = useDispatch()
     const [sortedOptions, setSortedOptions] = useState([])
@@ -71,17 +72,33 @@ export const Item = ({ id, item, setItem, cart, setCart, setShow, order, setOrde
 
 
     return (
-        <div className="modal-container modal-con-item" >
-            <div className="modal modal-item" ref={modalRef}>
-                <button className="btn-top" onClick={handleClick}>X</button>
+        <div className={`${modalStyles.modalContainer} ${modalStyles.modalConItem}`} >
+            <div className={`${modalStyles.modal} ${modalStyles.modalItem}`} ref={modalRef}>
+                <button className={modalStyles.btnTop} onClick={handleClick}>X</button>
                 <Images images={cake.imgs} />
-                <h1>{cake.name}</h1>
-                <h2 className="itemDesc">{cake.description}</h2>
-                <CreateAllergens allergens={cake.allergens || []} />
-                <MapOptions setChosenOptions={setChosenOptions} chosenOptions={chosenOptions} sortedOptions={sortedOptions} optionCats={optionCats} price={price} setPrice={setPrice} basePrice={cake.price} item={item} />
-                <textarea placeholder="We'll do our best to accomodate any requests when possible." id="special" name="special" rows="4" cols="50" value={extra || ""} onChange={(e) => setExtra(e.target.value)} />
-                <Quantity setQuantity={setQuantity} quantity={quantity} setOrder={setOrder} setPrice={setPrice} setPrice2={setPrice2} price={price} />
-                <button className="btn btm" onClick={handleClickAddToCart}>Add to cart £{price2.toFixed(2)}</button>
+                <div className={itemStyle.body}>
+                    <h1>{cake.name}</h1>
+                    <h2 className={itemStyle.itemDesc}>{cake.description}</h2>
+                    <CreateAllergens allergens={cake.allergens || []} />
+                    <MapOptions setChosenOptions={setChosenOptions} chosenOptions={chosenOptions} sortedOptions={sortedOptions} optionCats={optionCats} price={price} setPrice={setPrice} basePrice={cake.price} item={item} />
+                    <div>
+                        <h4>Special Request</h4>
+                        <div className={itemStyle.wrapper}>
+                            <textarea className={itemStyle.box} placeholder="We'll do our best to accomodate any requests when possible." id="special" name="special" rows="4" cols="50" value={extra || ""} onChange={(e) => setExtra(e.target.value)} />
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4>Quantity</h4>
+                        <div className={itemStyle.quantityTotal}>
+                            <Quantity setQuantity={setQuantity} quantity={quantity} setOrder={setOrder} setPrice={setPrice} setPrice2={setPrice2} price={price} />
+                        </div>
+                    </div>
+                </div>
+                <div className={itemStyle.btnBtmCon}>
+                    <button className={itemStyle.btnBtm} onClick={handleClickAddToCart}>Add to cart £{price2.toFixed(2)}</button>
+                </div>
+
             </div>
         </div>
 

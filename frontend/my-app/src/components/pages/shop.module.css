@@ -1,0 +1,126 @@
+.shop {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: bisque;
+  padding: 3rem;
+}
+
+.cakes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  /* optional spacing */
+  justify-content: flex-start;
+  font-weight: 0;
+}
+
+.title {
+  font-weight: bold;
+  align-self: flex-start;
+
+}
+
+.titleBorder {
+  width: 100%;
+  border-bottom: 2px solid black;
+  margin-bottom: 1rem;
+
+}
+
+.cake {
+  display: flex;
+  flex: 0 0 45%;
+  height: 100%;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  border: grey;
+  border-style: solid;
+  padding: 1rem;
+
+}
+
+.cake img {
+  width: 8rem;
+  height: 8rem;
+  flex-shrink: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cakeText {
+  display: flex;
+  flex-direction: column;
+  padding-left: 8px;
+  overflow: hidden;
+  justify-content: space-evenly;
+}
+
+.cakeText h1 {
+  font-size: 1rem;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* MULTI-LINE ELLIPSIS */
+.cakeDesc {
+  font-size: 0.75rem;
+  margin: 4px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  /* number of lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.icon {
+  height: 2rem;
+  width: 2rem;
+}
+
+@media screen and (min-width: 481px) and (max-width: 800px) {
+  .cakes {
+    display: block;
+  }
+
+  #header img {
+    max-width: 20%;
+  }
+}
+
+/* mobile phones */
+@media screen and (max-width: 480px) {
+  .cakes {
+    display: block;
+    align-items: stretch;
+  }
+
+  .cakeCon {
+    width: 100%;
+  }
+
+
+  .shop {
+    width: 100%;
+    padding: 0 2.5%;
+    align-items: stretch;
+    box-sizing: border-box;
+
+  }
+
+  .cake {
+    width: 100%;
+    padding: 2.5%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  :global(.main):has(.shop) {
+    margin: 5% 0;
+  }
+
+}

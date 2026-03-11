@@ -1,7 +1,7 @@
 import { Page } from "../page"
 export const Disclaimer = () => {
     return (
-        <div>
+        <div className="page">
             <h1>Website Disclaimer</h1>
             <div>
                 <h3>General Disclaimer:</h3>

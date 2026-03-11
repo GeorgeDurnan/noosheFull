@@ -1,3 +1,6 @@
+import { Allergies } from "../images/svgs/allergies";
+import style from "../components/pages/shop.module.css"
+import allergenStyle from "./allergens.module.css"
 export const CreateAllergens = ({ allergens, labels = true }) => {
     const allergenNames = [
         { value: "lactose", label: "Lactose" },
@@ -22,13 +25,15 @@ export const CreateAllergens = ({ allergens, labels = true }) => {
         return <h1>No allergen selected</h1>
     } else {
         return (
-            <div className="allergens">
+            <div className={allergenStyle.allergens}>
                 {allergenNames.map((allergen) => {
                     if (!allergens[allergen.value]) {
                         return
                     } else {
-                        return (<div key={allergen.value} className="allergen">
-                            <img className="allergenImg" src={`/images/allergenicons/${allergen.value}2.png`} alt="allergen img not found" />
+                        return (<div key={allergen.value} className={allergenStyle.allergen}>
+                            <div className={style.icon}>
+                                <Allergies allergen={allergen.value} />
+                            </div>
                             {labels && <h1 className="allergenLabel">{allergen.label}</h1>}
                         </div>)
                     }
