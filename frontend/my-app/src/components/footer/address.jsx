@@ -1,5 +1,6 @@
+import styles from "./footer.module.css"
 export const Address = () => {
-    return (<div className="footer-container">
+    return (<div className={styles.footerContainer}>
         <h2>info@nooshe.co.uk</h2>
         <div>
             <h2>2 Hulme Street, Salford, Greater Manchester, UK</h2>

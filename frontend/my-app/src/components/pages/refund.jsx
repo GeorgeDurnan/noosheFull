@@ -1,7 +1,7 @@
 export const Refund = () => {
     return (
         <div className="page">
-            <h1>Refund Policy</h1>
+            <h1 className="title">Refund Policy</h1>
             <div>
                 <ol>
                     <li>

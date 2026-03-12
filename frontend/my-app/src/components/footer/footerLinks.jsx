@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
+import styles from "./footer.module.css"
 export const FooterLinks = () => {
-    return (<div className="footer-container">
+    return (<div className={styles.footerContainer}>
         <Link to="/english-privacy-policy">Privacy Policy</Link>
         <Link to="/accessibility-statement">Accesibility Statement</Link>
         <Link to="/english-shipping-policy">Shipping Policy</Link>

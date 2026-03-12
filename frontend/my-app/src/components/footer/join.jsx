@@ -1,23 +1,27 @@
+import styles from "./footer.module.css"
 export const Join = () => {
-    return (<div className="footer-container">
-        <h1>Join Nooshé & Treat Yourself!</h1>
-        <h3>Sign up for sweet perks and surprises.</h3>
-        <h3>🎁 Subscribe to the Nooshé family and receive a free cookie box with your next purchase.</h3>
-        <form id="join-form">
-            <label htmlFor="first">First name*</label>
-            <input type="text" id="first" name="first" />
-            <label htmlFor="last">Last Name</label>
-            <input type="text" id="last" name="last" />
-            <label htmlFor="birthday" >Birthday</label>
-            <input type="date" id="birthday" name="birthday" />
-            <div id="submit-line">
+    return (<div className={styles.footerContainer}>
+        <div className={styles.joinBox}>
+            <h1 className={styles.title}>Join Nooshé & Treat Yourself!</h1>
+            <h3 className={styles.body}>Sign up for sweet perks and surprises.</h3>
+            <h3 className={styles.body}>🎁 Subscribe to the Nooshé family and receive a free cookie box with your next purchase.</h3>
+            <form className={styles.joinForm}>
+                <label htmlFor="first">First name*</label>
+                <input type="text" id="first" name="first" className={styles.line} />
+                <label htmlFor="last">Last Name</label>
+                <input type="text" id="last" name="last" className={styles.line} />
+                <label htmlFor="birthday" >Birthday</label>
+                <input type="date" id="birthday" name="birthday" className={styles.line} />
                 <label htmlFor="email" >Email</label>
-                <input type="email" id="email" name="email" />
-                <input type="submit" value="Subscribe" />
-            </div>
-            <label htmlFor="subscribe" >I want to subscribe to your mailing list.</label>
-            <input type="checkbox" id="subscribe" name="subscribe" value="yes" />
-
-        </form>
+                <div className={styles.emailCon}>
+                    <input type="email" id="email" name="email" className={styles.email} />
+                </div>
+                <input type="submit" value="Subscribe" className={styles.submit} />
+                <div className={styles.subscribe}>
+                    <input type="checkbox" id="subscribe" name="subscribe" value="yes" />
+                    <label htmlFor="subscribe" >I want to subscribe to your mailing list.</label>
+                </div>
+            </form>
+        </div>
     </div>)
 }

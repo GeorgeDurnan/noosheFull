@@ -2,7 +2,7 @@
 export const Access = () => {
     return (
         <div className="page">
-            <h1>Accessibility Statement</h1>
+            <h1 className="title">Accessibility Statement</h1>
             <div><h3>We are committed to making our website accessible to everyone. If you encounter any accessibility issues, please let us know.</h3>
                 <h3>Measures Taken:</h3>
                 <ul>

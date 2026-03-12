@@ -5,6 +5,10 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .main {
   margin: 5% 2.5%;
 }
@@ -29,7 +33,6 @@ html {
 /* stop overscrolling*/
 html,
 body {
-  overscroll-behavior-y: none;
   overflow-x: hidden;
 }
 
@@ -40,47 +43,17 @@ body {
   align-items: center;
   padding-top: 3%;
 }
+.title{
+  text-align: center;
+  border-bottom: 2px solid black;
+  padding: 2rem;
+  font-size: 3rem;
+  font-weight: 600;
+}
 
 #header img {
   max-width: 12%;
   height: auto;
-}
-
-#footer {
-  display: flex;
-  background-color: wheat;
-}
-
-#carousel {
-  display: flex;
-  justify-content: center;
-  max-width: 90%;
-  align-items: center;
-}
-
-#carousel {
-  width: 100%;
-}
-
-.footer-container {
-  display: flex;
-  border-style: dashed;
-  flex-direction: column;
-  flex: 1 1 0px;
-  flex-grow: 1;
-  justify-content: center;
-  text-align: center;
-
-}
-
-#join-form {
-  display: flex;
-  flex-direction: column;
-}
-
-#submit-line {
-  display: flex;
-  flex-direction: row;
 }
 
 .paragraph {
@@ -88,7 +61,6 @@ body {
   flex-direction: column;
   justify-content: center;
   text-align: left;
-  margin: 10px 25%;
 }
 
 #privacy {
@@ -97,39 +69,6 @@ body {
   justify-content: center;
   text-align: center;
 
-}
-
-#contact {
-  position: fixed;
-  bottom: 0;
-  z-index: 2000;
-  background-color: beige;
-  right: 0;
-}
-
-
-
-.allergens {
-  display: flex;
-  flex-direction: row;
-  margin-top: 10px;
-  align-items: center;
-  gap: 10px;
-
-}
-
-.allergen {
-  display: flex;
-  gap: 10px;
-}
-
-.allergenImg {
-  max-width: 32px;
-  max-height: 32px;
-}
-
-.allergenLabel {
-  font-size: 3vh;
 }
 
 @media screen and (min-width: 481px) and (max-width: 800px) {
@@ -143,6 +82,14 @@ body {
 @media screen and (max-width: 480px) {
   #header img {
     max-width: 40%;
+  }
+
+  .main {
+    margin: 5% 0%;
+  }
+
+  .page {
+    margin: 0 2.5%;
   }
 
 

@@ -1,0 +1,96 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.formCon {
+    background-color: rgba(160, 82, 45, 0.75);
+    padding: 5%;
+}
+
+.wholesale {}
+
+.lineOne,
+.lineTwo,
+.lineThree,
+.submit {
+    display: grid;
+    gap: 1rem;
+}
+
+.lineOne {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.lineTwo {
+    grid-template-columns: 1fr 2fr;
+}
+
+.lineThree {
+    grid-template-columns: 1fr;
+}
+
+.submit {
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: right;
+    box-sizing: border-box;
+}
+
+.submit .input input {
+    background-color: crimson;
+    border-color: crimson;
+}
+
+.submit .input {
+    width: 100%;
+    grid-column: 3;
+
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input input {
+    height: 2rem;
+}
+
+.lineThree .input input {
+    height: 4rem;
+}
+
+.input label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lineThree .input label {
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 481px) and (max-width: 800px) {}
+
+/* mobile phones */
+@media screen and (max-width: 480px) {
+
+    .lineOne,
+    .lineTwo,
+    .lineThree,
+    .submit {
+        display: block;
+    }
+
+    .input {
+        margin-bottom: 1rem;
+    }
+
+    .submit {
+        width: 100%;
+    }
+}

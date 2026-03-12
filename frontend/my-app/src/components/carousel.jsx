@@ -2,37 +2,40 @@ import "fslightbox";
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import data from "../data/images.json"
+import styles from "./carousel.module.css"
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 export const Carousel = () => {
     const images = data.images
     return (
-        <div id="carousel-container">
+        <div id={styles.carouselContainer}>
             <Swiper
-                modules={[Navigation, Pagination, A11y, Autoplay]}
+                modules={[A11y, Autoplay]}
                 autoplay={{
-                    delay: 0,
-                    disableOnInteraction: true,
+                    delay: 50,
+                    pauseOnMouseEnter: true,
+                    disableOnInteraction: false
                 }}
                 loop={true}
-                navigation
-                pagination={{ clickable: true }}
                 scrollbar={{ draggable: true }}
                 /*onSwiper={(swiper) => console.log(swiper)}
                 onSlideChange={() => console.log('slide change')}*/
                 freeMode={true}
                 allowTouchMove={true}
-                slidesPerView={5}
-                spaceBetween={32}
-                speed={10000}
+                spaceBetween={10}
+                speed={3000}
+                breakpoints={{
+                    320: { slidesPerView: 3 },
+                    480: { slidesPerView: 5 },
+                    768: { slidesPerView: 5 },
+                    1024: { slidesPerView: 8 }
+                }}
 
-                id="carousel"
+                className={styles.carousel}
             >
                 {images.map((image) => {
-                    return <SwiperSlide><img src={image.link} alt={image.header} /></SwiperSlide>
+                    return <SwiperSlide className={styles.carouselSlide}><img className={styles.image} src={image.link} alt={image.header} /></SwiperSlide>
                 })}
             </Swiper >
         </div >

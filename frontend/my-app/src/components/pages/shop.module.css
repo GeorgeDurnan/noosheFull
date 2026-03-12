@@ -2,7 +2,7 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  background-color: bisque;
+  background-color: #FFF8F1;
   padding: 3rem;
 }
 
@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   gap: 8px;
   /* optional spacing */
-  justify-content: flex-start;
+  justify-content: center;
   font-weight: 0;
 }
 

@@ -3,7 +3,7 @@ export const Privacy = () => {
 
     return (
         <div id="privacy" className="page">
-            <h1>Privacy Policy</h1>
+            <h1 className="title">Privacy Policy</h1>
             <div className = "paragraph">
                 <h2>1. Introduction</h2>
                 <p>Nooshé is committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner. This policy outlines how we collect, use, store, and protect your data when you visit our website or interact with our services.</p>

@@ -1,12 +1,18 @@
 import { Address } from "./address"
-import { Contact } from "../contact"
 import { FooterLinks } from "./footerLinks"
 import { Join } from "./join"
+import styles from "./footer.module.css"
 export const Footer = () => {
-    return (<div id="footer">
-        <Join/>
-        <Address/>
-        <FooterLinks/>
+    return (<div className={styles.footer}>
+        <div className={styles.footBox}>
+            <Join />
+        </div>
+        <div className={styles.footBox}>
+            <Address />
+        </div>
+        <div className={styles.footBox}>
+            <FooterLinks />
+        </div>
 
     </div>)
 }  

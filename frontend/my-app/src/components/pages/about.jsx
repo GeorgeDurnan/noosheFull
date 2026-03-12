@@ -4,7 +4,7 @@ export const About = () => {
         <div className="page">
             <div className="wrapper">
                 <div className="textwithwoman">
-                    <h3>At Nooshé, we bring a taste of Persian heritage to every bite. Born from a passion for sharing the rich flavours and warm hospitality of Iranian culture, Nooshé is a UK-based
+                    <h3 className="title">At Nooshé, we bring a taste of Persian heritage to every bite. Born from a passion for sharing the rich flavours and warm hospitality of Iranian culture, Nooshé is a UK-based
                         bakery blending traditional recipes with a modern touch</h3>
                     <img src="/images/persian_woman.avif" alt="Persian woman logo" />
                 </div>

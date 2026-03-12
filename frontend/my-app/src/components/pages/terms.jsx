@@ -1,7 +1,7 @@
 export const Terms = () => {
     return (
         <div>
-            <h1>Terms & Conditions</h1>
+            <h1 className="title">Terms & Conditions</h1>
             <div>
                 <ol>
                     <li>

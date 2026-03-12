@@ -1,0 +1,43 @@
+.carouselContainer{
+    max-height: 10rem;
+}
+.carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ensure the continuous scroll is smooth without easing */
+.carousel :global(.swiper-wrapper) {
+    transition-timing-function: linear !important;
+    will-change: transform;
+    transform: translateZ(0);
+    /* Hardware acceleration */
+}
+
+.image {
+    object-fit: cover;
+    width: 100%;
+    aspect-ratio: 1 / 3;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    /* Prevent image sub-pixel jitter */
+}
+
+.carouselSlide {
+    height: 100%;
+    width: 100%;
+    transform: translateZ(0);
+    /* Hardware acceleration for each slide */
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@media screen and (min-width: 481px) and (max-width: 800px) {}
+
+/* mobile phones */
+@media screen and (max-width: 480px) {
+    .image {
+        aspect-ratio: 1 /3;
+    }
+}

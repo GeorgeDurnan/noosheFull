@@ -1,0 +1,133 @@
+.footer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: wheat;
+}
+
+.joinBox {
+    background-color: brown;
+    margin: 2.5%;
+    position: relative;
+}
+
+.footerContainer {
+    display: flex;
+    border-style: dashed;
+    flex-direction: column;
+    flex: 1 1 0px;
+    flex-grow: 1;
+    justify-content: center;
+    text-align: center;
+    padding: 5%;
+    background-color: bisque;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.joinForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.line, .email {
+    width: 90%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid black;
+
+}
+.email{
+    width: 65%;
+}
+.emailCon{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start; /* Aligns the input to the left inside the container */
+    padding-left: 10%; /* Matches the left alignment if .line is 90% centered */
+}
+
+#submit-line {
+    display: flex;
+    flex-direction: row;
+}
+
+.subscribe {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* keep them vertically centered */
+    gap: 0; /* Ensures no extra grid/flex gap exists */
+    background-color: transparent;
+}
+.subscribe input {
+    margin: 0; 
+    margin-right: 5px; /* Adds just a tiny bit of space between the checkbox and text, optional */
+    width: auto; /* Overrides previous huge width acting as spacing */
+    height: auto;
+}
+
+.submit {
+    position: absolute;
+    bottom: 8%;
+    /* Adjust this value to bring it down further if needed */
+    right: 2.5%;
+    /* Adjust this value to bring it right further if needed */
+    background-color: black;
+    color: white;
+    /* Ensure the text is readable on black background */
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 0;
+    width: 25%;
+}
+
+@media screen and (min-width: 481px) and (max-width: 800px) {
+    .footer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footBox:first-child {
+        grid-column: span 2;
+    }
+}
+.title{
+    font-size: 1.5rem;
+}
+.body{
+    font-size: 0.75rem;
+}
+
+/* mobile phones */
+@media screen and (max-width: 480px) {
+    .footer {
+        display: flex;
+        flex-direction: column;
+        background-color: wheat;
+    }
+
+    .footerContainer {
+        display: flex;
+        border-style: solid;
+        flex-direction: column;
+        flex: 1 1 0px;
+        flex-grow: 1;
+        justify-content: center;
+        text-align: center;
+        padding: 5%;
+        height: 100%;
+        background-color: bisque;
+
+    }
+
+    .submit {
+        position:static;
+        background-color: black;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        padding: 0;
+        width: 90%;
+        height: 3rem;
+    }
+}

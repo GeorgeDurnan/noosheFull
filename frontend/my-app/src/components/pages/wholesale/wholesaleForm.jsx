@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { SERVER_BASE_URL } from "../../../config"
+import styles from "./wholesale.module.css"
 export const WholesaleForm = ({ setMsg, setShow }) => {
     const [wsForm, setWsForm] = useState({})
     const url = SERVER_BASE_URL
@@ -25,23 +26,41 @@ export const WholesaleForm = ({ setMsg, setShow }) => {
         setShow(false)
     }
 
-    return (<form onSubmit={handleSubmit}>
-        <div>
-            <label htmlFor="name">Full Name/Business Name</label>
-            <input type="text" required name="name" id="name" onChange={handleChange} value={wsForm["name"] || ""} />
-            <label htmlFor="contactPerson">Contact Person</label>
-            <input type="text" required name="contactPerson" id="contactPerson" onChange={handleChange} value={wsForm["contactPerson"] || ""} />
-            <label htmlFor="email">Email Address</label>
-            <input type="email" required name="email" id="email" onChange={handleChange} value={wsForm["email"] || ""} />
+    return (<form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.lineOne}>
+            <div className={styles.input}>
+                <label htmlFor="name">Full Name/Business Name</label>
+                <input type="text" required name="name" id="name" onChange={handleChange} value={wsForm["name"] || ""} />
+            </div>
+            <div className={styles.input}>
+                <label htmlFor="contactPerson">Contact Person</label>
+                <input type="text" required name="contactPerson" id="contactPerson" onChange={handleChange} value={wsForm["contactPerson"] || ""} />
+            </div>
+            <div className={styles.input}>
+                <label htmlFor="email">Email Address</label>
+                <input type="email" required name="email" id="email" onChange={handleChange} value={wsForm["email"] || ""} />
+            </div>
         </div>
-        <div>
-            <label htmlFor="phone">Phone Number</label>
-            <input type="tel" pattern="\+*\(?[0-9]{1,4}\)?[\-\s\.\/0-9]*" placeholder="phone" required name="phone" id="phone" onChange={handleChange} value={wsForm["phone"] || ""} />
-            <label htmlFor="address">Delivery Address</label>
-            <input type="address" required name="address" id="address" onChange={handleChange} value={wsForm["address"] || ""} />
+        <div className={styles.lineTwo}>
+            <div className={styles.input}>
+                <label htmlFor="phone">Phone Number</label>
+                <input type="tel" pattern="\+*\(?[0-9]{1,4}\)?[\-\s\.\/0-9]*" placeholder="phone" required name="phone" id="phone" onChange={handleChange} value={wsForm["phone"] || ""} />
+            </div>
+            <div className={styles.input}>
+                <label htmlFor="address">Delivery Address</label>
+                <input type="address" required name="address" id="address" onChange={handleChange} value={wsForm["address"] || ""} />
+            </div>
         </div>
-        <label htmlFor="textbox">General Information (business/event type, products of interest, estimated order size, or any notes)</label>
-        <input type="textbox" required name="textbox" id="textbox" onChange={handleChange} value={wsForm["textbox"] || ""} />
-        <input type="submit" />
-    </form>)
+        <div className={styles.lineThree}>
+            <div className={styles.input}>
+                <label htmlFor="textbox">General Information (business/event type, products of interest, estimated order size, or any notes)</label>
+                <input type="textbox" required name="textbox" id="textbox" onChange={handleChange} value={wsForm["textbox"] || ""} />
+            </div>
+        </div>
+        <div className={styles.submit}>
+            <div className={styles.input}>
+                <input type="submit" />
+            </div>
+        </div>
+    </form >)
 }

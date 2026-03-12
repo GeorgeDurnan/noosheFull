@@ -2,7 +2,7 @@ import { Page } from "../page"
 export const Disclaimer = () => {
     return (
         <div className="page">
-            <h1>Website Disclaimer</h1>
+            <h1 className="title">Website Disclaimer</h1>
             <div>
                 <h3>General Disclaimer:</h3>
                 <h3>All content provided on our website is for informational purposes only. We strive for accuracy but do not guarantee that the information is complete or up-to-date.</h3>
