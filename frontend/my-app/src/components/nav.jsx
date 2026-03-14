@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { CartModal } from "./cartModal"
+import { CartModal } from "./cart/cartModal"
 import { Link } from "react-router-dom"
 import styles from "./nav.module.css"
 import { ShoppingCart } from "../images/svgs/shoppingCartIcon"

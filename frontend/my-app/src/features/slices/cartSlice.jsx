@@ -5,7 +5,8 @@ import { SERVER_BASE_URL } from '../../config';
 import { deleteItem } from '../../utilities/carts/deleteItem';
 const url = SERVER_BASE_URL
 const initialState = {
-    items: {}
+    items: {},
+    total: 0
 }
 const cartSlice = createSlice({
     name: "cart",
@@ -53,9 +54,14 @@ const cartSlice = createSlice({
         },
         loadCart: (state, action) => {
             state.items = action.payload
+        },
+        setPrice: (state, action) =>{
+            state.total = action.payload
         }
+
     }
 })
 export default cartSlice.reducer
-export const { addItem, changeQuantity, removeItem, loadCart} = cartSlice.actions
+export const { addItem, changeQuantity, removeItem, loadCart, setPrice} = cartSlice.actions
 export const getCart = (state) => state.cart.items
+export const getTotal = (state) => state.cart.total

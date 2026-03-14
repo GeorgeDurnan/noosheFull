@@ -1,19 +1,17 @@
 import { useSelector } from "react-redux"
 import { CartItem } from "./cartItem"
 import { useNavigate } from "react-router-dom"
-import { getCart } from "../features/slices/cartSlice"
-import { useCreateCartItems } from "../utilities/carts/createCartItems"
-import { getAddressFromSlice } from "../features/slices/addressSlice"
+import { getCart } from "../../features/slices/cartSlice"
+import { useCreateCartItems } from "../../utilities/carts/createCartItems"
 import { useState } from "react"
-import { AddressModal } from "./pages/payment/addressModal"
 import style from "./cart.module.css"
 export const Cart = (props) => {
     const cart = useSelector(getCart)
     const [show, setShow] = useState(false)
     const navigate = useNavigate()
     const cartItems = useCreateCartItems()
-    
-    if (cartItems == "loading") {
+
+    if (cartItems.arranged == "loading") {
         return (
             <h1 className={`${style.empty}`}>Your cart is empty</h1>
         )
@@ -26,11 +24,11 @@ export const Cart = (props) => {
 
     }
     return (
-        <div className={style.cartCon}>
+        <div className={props.className}>
             <div className={style.cart}>
                 <div className={style.cartItems}>
-                    {cartItems.map((item) => {
-                        return <CartItem key={JSON.stringify(item)} item={item} />
+                    {cartItems.arranged.map((item) => {
+                        return <CartItem key={JSON.stringify(item)} cart={true} item={item} />
                     })}
                 </div>
                 <div className={style.btns}>

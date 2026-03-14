@@ -1,0 +1,37 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF8F1;
+    padding: 10% 5%;
+}
+
+
+.form input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid black;
+}
+
+.form button {
+    height: 2.5rem;
+    margin-top: 1rem;
+}
+
+:global(html):has(:global(.form)),
+:global(html):has(:global(.address)),
+:global(html):has(:local(.checkout)) {
+    background-color: #FFF8F1;
+    background-image: none !important;
+    /* Forces the background image to disappear */
+}
+
+:global(.main):has(.address),
+:global(.main):has(.checkout) {
+    margin: 0 0;
+}
+
+
+@media screen and (min-width: 481px) and (max-width: 800px) {}
+
+/* mobile phones */
+@media screen and (max-width: 480px) {}

@@ -33,7 +33,7 @@ export const StripeEmbed = ({cart, address_id}) => {
                 stripe={stripePromise}
                 options={options}
             >
-                <EmbeddedCheckout />
+                <EmbeddedCheckout/>
             </EmbeddedCheckoutProvider>
         </div>
     )

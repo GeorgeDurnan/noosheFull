@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux"
 import { getCart } from "../../features/slices/cartSlice"
 import { getCakes } from "../../features/slices/cakeSlice"
+import { setPrice } from "../../features/slices/cartSlice"
 export const useCreateCartItems = () => {
     const cakes = useSelector(getCakes)
     const cart = useSelector(getCart)
+    let megaPrice = 0
     function getTotalPrice(options) {
         let price = 0
         Object.values(options)?.forEach((option) => {
@@ -14,6 +16,7 @@ export const useCreateCartItems = () => {
                 console.log("Something went wrong with getting the price" + JSON.stringify(option))
             }
         })
+        megaPrice += price
         return price
     }
     if(!cakes || Object.values(cakes).length == 0 || !cart || Object.values(cart).length == 0){
@@ -35,7 +38,8 @@ export const useCreateCartItems = () => {
         }
     })
     if (arranged.length > 0) {
-        return (arranged)
+        const cart = {arranged: arranged, price: megaPrice}
+        return (cart)
     }else{
         return("loading")
     }

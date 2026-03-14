@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
-import { changeQuantity } from "../features/slices/cartSlice"
+import { changeQuantity } from "../../features/slices/cartSlice"
 import { useRef } from "react"
-import style from "../components/cart.module.css"
+import style from "./cart.module.css"
 export const QuantityCart = ({ item }) => {
     const [quantity, setQuantity] = useState(item.quantity)
     const [run, setRun] = useState(false)

@@ -1,25 +1,23 @@
-import { getCakeById } from "../features/slices/cakeSlice"
-import { removeItem } from "../features/slices/cartSlice"
-import { useSelector } from "react-redux"
-import { QuantityCart } from "../utilities/quantityCart"
+import { removeItem } from "../../features/slices/cartSlice"
+import { QuantityCart } from "./quantityCart"
 import { useDispatch } from "react-redux"
-import { getCartItems } from "../features/slices/cartSlice"
 import style from "./cart.module.css"
-import { BinIcon } from "../images/svgs/binIcon"
-export const CartItem = ({ item }) => {
+import styles2 from "./cartPage.module.css"
+import { BinIcon } from "../../images/svgs/binIcon"
+export const CartItem = ({ item, cart }) => {
     const dispatch = useDispatch()
     function handleDelete() {
         dispatch(removeItem(item))
     }
 
     return (
-        <div className={style.cartItem} key={JSON.stringify(item)}>
-            <div className={style.imgWrapper}>
-                <img className={style.cartImg} src={item.img} alt={item.name} />
+        <div className={cart ? style.cartItem : styles2.cartItem} key={JSON.stringify(item)}>
+            <div className={`${style.imgWrapper} ${styles2.imgWrapper} `}>
+                <img className={`${style.cartImg} ${styles2.cartImg} `} src={item.img} alt={item.name} />
             </div>
-            <div className={style.cartItemDescription}>
+            <div className={cart ? style.cartItemDescription : styles2.cartItemDescription}>
                 <h2>{item.name}</h2>
-                <h2>{item.price.toFixed(2)}</h2>
+                <h2>£{item.price.toFixed(2)}</h2>
 
                 {item["optionsFlat"].map((option) => {
                     return <h1 key={option}>{option}</h1>
@@ -29,7 +27,7 @@ export const CartItem = ({ item }) => {
 
                 <div className={style.quantityTotal}>
                     <QuantityCart item={item} />
-                    <h2 className={style.price}>{(item.price * item.quantity).toFixed(2)}</h2>
+                    <h2 className={style.price}>£{(item.price * item.quantity).toFixed(2)}</h2>
                 </div>
             </div>
             {/*bin icon*/}
