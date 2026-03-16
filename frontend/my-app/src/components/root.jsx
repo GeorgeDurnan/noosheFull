@@ -8,6 +8,7 @@ import { useLoadCart } from "../utilities/carts/useLoadCart"
 import { useGetBasic } from "../features/hooks/getBasic"
 import { AnimatePresence, motion } from "framer-motion";
 import { useLocation, useOutlet } from "react-router-dom"
+import { ScrollToTop } from "../utilities/scrollToTop"
 export const Root = () => {
     useGetCakes()
     useLoadCart()
@@ -15,6 +16,7 @@ export const Root = () => {
     const location = useLocation()
     const outlet = useOutlet()
     return (<>
+        <ScrollToTop />
         <Nav />
         <Header id="header" />
         <AnimatePresence mode="wait">

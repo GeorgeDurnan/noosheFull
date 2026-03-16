@@ -11,8 +11,6 @@ import { Terms } from './components/pages/terms';
 import { Refund } from './components/pages/refund';
 import { Disclaimer } from './components/pages/disclaimer';
 import { Error } from './components/pages/error';
-
-
 import { createRoutesFromElements, Route, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { CartPage } from './components/pages/payment/cart-page';
 import { Checkout } from './components/pages/payment/checkout';
@@ -32,13 +30,15 @@ const appRouter = createBrowserRouter(createRoutesFromElements(<>
     <Route path="/cart-page" element={<CartPage />} />
     <Route path="/thank-you" element={<Thankyou />} />
     <Route path="/checkout" element={<Checkout />} />
-    
+
   </Route>
-  <Route path ="*" element = {<Error/>}/>
+  <Route path="*" element={<Error />} />
 </>))
 function App() {
   return (
-    <RouterProvider router={appRouter} />
+    <>
+      <RouterProvider router={appRouter} />
+    </>
   );
 }
 

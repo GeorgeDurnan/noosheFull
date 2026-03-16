@@ -8,9 +8,6 @@ import { useEffect } from "react"
 export const Checkout = () => {
     const cart = useCreateCartItems()
     const fullAddress = useSelector(getFullAddressFromSlice)
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
     if (cart === "loading") {
         return (
             <h1>No items</h1>
