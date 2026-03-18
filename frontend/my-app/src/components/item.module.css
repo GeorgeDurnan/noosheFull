@@ -1,26 +1,6 @@
-.body {
-    padding: 2.5%;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.body * {
-    margin: 0;
-}
-
-.itemDesc {
-    white-space: pre-line;
-}
-
-.box {
-    width: 100%;
-    resize: none;
-    background-color: transparent;
-    border-color: black;
-}
-
+/* --- Global Wrappers & Layout --- */
 .wrapper {
+    /* Main container for the item detail page */
     width: 100%;
     display: flex;
     justify-content: center;
@@ -28,34 +8,70 @@
     flex-direction: column;
 }
 
-.quantBtns {
-    flex-shrink: 1;
-    min-width: 0;
-    border: 2px solid black;
-    width: 15%;
+.body {
+    /* Main content body containing details and quantity selectors */
+    padding: 2.5%;
     display: flex;
-    justify-content: space-between;
-    padding: 0 2%;
-
+    flex-direction: column;
+    gap: 2rem;
 }
 
-.quantBtns button {
+.body * {
+    /* Reset margins for all children to ensure consistent spacing via gap */
+    margin: 0;
+}
+
+/* --- Image Gallery Section --- */
+.imageCon {
+    width: 100%;
+}
+
+.image {
+    width: 100%;
+    height: 53vh;
+    object-fit: cover;
+    position: relative;
+}
+
+.prevBtn, .nextBtn {
+    /* Navigation buttons for the image carousel */
+    position: absolute;
+    top: 25%; 
+    transform: translateY(-50%); 
     background-color: transparent;
     border: none;
-
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 10; 
+    font-size: 3rem;
+    color: grey;
 }
 
-.quantBtns input {
+.nextBtn {
+    /* Left positioning by default */
+}
+
+.prevBtn {
+    right: 0;
+}
+
+/* --- Item Details --- */
+.itemDesc {
+    /* Preserves newlines and spacing in the description text */
+    white-space: pre-line;
+}
+
+.box {
+    /* Textarea for special requests */
     width: 100%;
-    background-color: #FFF8F1;
-    border: none;
-    background: transparent;
-    outline: none;
-    text-align: center;
-
+    resize: none;
+    background-color: transparent;
+    border-color: black;
 }
 
+/* --- Quantity Selectors --- */
 .quantityTotal {
+    /* Container for the quantity input section */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -66,17 +82,34 @@
     margin-bottom: 0;
 }
 
-.btnBtm {
-    width: 100%;
-    height: 100%;
-    font-size: 1rem;
-    padding: 0.5rem 0;
-    background-color: sienna;
-    color: white;
-    font-weight: 100;
+.quantBtns {
+    /* Wrapper for minus/input/plus controls */
+    flex-shrink: 1;
+    min-width: 0;
+    border: 2px solid black;
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2%;
 }
 
+.quantBtns button {
+    background-color: transparent;
+    border: none;
+}
+
+.quantBtns input {
+    width: 100%;
+    background-color: #FFF8F1; /* Matches theme background */
+    border: none;
+    background: transparent;
+    outline: none;
+    text-align: center;
+}
+
+/* --- Action Bar (Bottom) --- */
 .btnBtmCon {
+    /* Sticky footer container for the 'Add to Cart' button */
     border-top: 2px solid black;
     display: flex;
     justify-content: center;
@@ -88,44 +121,23 @@
     position: sticky;
     bottom: 0;
     background-color: #FFF8F1;
-
-
 }
 
-.image {
+.btnBtm {
+    /* The main action button */
     width: 100%;
-    height: 53vh;
-    object-fit: cover;
-    position: relative;
-
+    height: 100%;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    background-color: sienna;
+    color: white;
+    font-weight: 100;
 }
 
-.imageCon {
-    width: 100%;
-}
-.prevBtn, .nextBtn {
-    position: absolute;
-    top: 25%; 
-    transform: translateY(-50%); 
-    background-color: transparent;
-    border: none;
-    padding: 10px 15px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 10; 
-    font-size: 3rem;
-    color: grey;
-}
-.nextBtn{
-    
-}
-.prevBtn{
-    right: 0;
-}
-
+/* --- Media Queries --- */
 @media screen and (min-width: 481px) and (max-width: 800px) {}
 
-/* mobile phones */
+/* Mobile phones */
 @media screen and (max-width: 480px) {
     .btnBtmCon {
         padding: 5%;

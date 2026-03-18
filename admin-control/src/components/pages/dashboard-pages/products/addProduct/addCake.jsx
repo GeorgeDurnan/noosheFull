@@ -1,11 +1,11 @@
 import CreatableSelect from "react-select/creatable"
 import Select from "react-select"
-import { useState } from "react";
-import { GetImages } from "./getImages";
-import { upload } from "../../../../../features/utilities/upload/upload";
-import { postProductCat } from "../../../../../features/utilities/upload/postProductCat";
-import { deleteElement } from "../../../../../features/utilities/upload/delete";
-import { updateEntry } from "../../../../../features/utilities/upload/updateCakeCat";
+import { useState } from "react" 
+import { GetImages } from "./getImages" 
+import { upload } from "../../../../../features/utilities/upload/upload" 
+import { postProductCat } from "../../../../../features/utilities/upload/postProductCat" 
+import { deleteElement } from "../../../../../features/utilities/upload/delete" 
+import { updateEntry } from "../../../../../features/utilities/upload/updateCakeCat" 
 export const AddCake = ({ cake, setCake, categories, setReload }) => {
     const allergens = [
         { value: "lactose", label: "Lactose" },
@@ -23,7 +23,7 @@ export const AddCake = ({ cake, setCake, categories, setReload }) => {
         { value: "crustaceans", label: "Crustaceans" },
         { value: "celery", label: "Celery" },
         { value: "gluten_free", lable: "Gluten Free" }
-    ];
+    ] 
     //new category buffer
     const [newCat, setNewCat] = useState({})
     //state whether to show update category inputs

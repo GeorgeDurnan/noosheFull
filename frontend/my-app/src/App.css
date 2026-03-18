@@ -1,3 +1,8 @@
+/* =========================================
+   Global Styles & Reset Defaults
+   ========================================= */
+
+/* Remove default increment/decrement spinners from number inputs */
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -5,37 +10,53 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
 ::-webkit-scrollbar {
   display: none;
 }
 
+/* Main content wrapper with responsive margin */
 .main {
   margin: 5% 2.5%;
 }
 
+/* Remove spinners for Firefox number inputs */
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
 }
 
+/* =========================================
+   Page Background & Layout
+   ========================================= */
+
+/* Global Background Setup */
+/* Uses a gradient overlay (white with 15% opacity) on top of the background image */
 html {
-  background-image: url('./images/minitwilight.png');
+  background-image: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), url('./images/minitwilight.png');
   background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
+  background-size: cover;       /* Scale image to cover entire container */
+  background-attachment: fixed; /* Background image is fixed during scroll */
   background-repeat: no-repeat;
+  background-color: green;      /* Fallback color if image fails to load */
 }
 
+/* Page container with horizontal centering margins */
 .page {
   margin: 0 15%;
 }
 
-/* stop overscrolling*/
+/* Prevent horizontal overscrolling */
 html,
 body {
   overflow-x: hidden;
 }
 
+/* =========================================
+   Header & Typography
+   ========================================= */
+
+/* Header flex container centering content vertically */
 #header {
   display: flex;
   flex-direction: column;
@@ -43,7 +64,9 @@ body {
   align-items: center;
   padding-top: 3%;
 }
-.title{
+
+/* Main Title styling with bottom border */
+.title {
   text-align: center;
   border-bottom: 2px solid black;
   padding: 2rem;
@@ -51,11 +74,13 @@ body {
   font-weight: 600;
 }
 
+/* Responsive header image sizing */
 #header img {
   max-width: 12%;
   height: auto;
 }
 
+/* Text paragraph container */
 .paragraph {
   display: flex;
   flex-direction: column;
@@ -63,62 +88,42 @@ body {
   text-align: left;
 }
 
+/* Privacy policy section container */
 #privacy {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-
 }
 
+/* =========================================
+   Responsive Design Breakpoints
+   ========================================= */
+
+/* Tablet and small laptops (min-width: 481px to max-width: 800px) */
 @media screen and (min-width: 481px) and (max-width: 800px) {
 
+  /* Increase logo size for medium screens */
   #header img {
     max-width: 20%;
   }
 }
 
-/* mobile phones */
+/* Mobile phones (max-width: 480px) */
 @media screen and (max-width: 480px) {
+  
+  /* Increase logo size further for small screens */
   #header img {
     max-width: 40%;
   }
 
+  /* Remove side margins on main container for more space */
   .main {
     margin: 5% 0%;
   }
 
+  /* Reduce page container margins for mobile */
   .page {
     margin: 0 2.5%;
   }
-
-
 }
-
-.textwithwoman {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-
-}
-
-.wrapper {
-  display: flex;
-  align-items: center;
-  margin-right: 10vw;
-  margin-left: 10vw;
-}
-
-.textwithwoman h3 {
-  min-width: 30%;
-}
-
-/* make image responsive */
-.textwithwoman img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* cart item*/

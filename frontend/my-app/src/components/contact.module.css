@@ -1,15 +1,19 @@
+/* -------------------------------------------------------------------------- */
+/*                                 Containers                                 */
+/* -------------------------------------------------------------------------- */
+
+/* Fixed positioning for contact buttons/icons */
 .contact,
 .contactMob,
 .openContactMob {
     position: fixed;
     bottom: 0;
-    z-index: 1000;
     right: 0;
+    z-index: 1000; /* High z-index to stay above other content */
     margin: 2.5%;
-
-
 }
 
+/* Modal wrapper/overlay */
 .modalContainer {
     background-color: transparent;
     z-index: 1000;
@@ -21,53 +25,20 @@
     bottom: 5%;
 }
 
+/* The actual modal box */
 .modal {
     position: absolute;
     background-color: sienna !important;
     border-radius: 30px;
     right: 0;
-    bottom: 2.5%
+    bottom: 2.5%;
 }
 
-.submit {
-    background-color: black;
-    color: white;
-}
+/* -------------------------------------------------------------------------- */
+/*                            Buttons & Interactions                          */
+/* -------------------------------------------------------------------------- */
 
-.topMsgCon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-
-}
-
-.topMsg {
-    background-color: beige;
-    width: 50%;
-    padding: 1rem;
-    font-size: 0.5rem;
-}
-
-.messageCon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-
-}
-
-.btn {
-    width: 12rem;
-    height: 4rem;
-    border-radius: 30px;
-    background-color: beige;
-    font-size: 1.5rem;
-}
-
-/* Add styling for regular links acting as buttons */
+/* Shared styles for buttons and links acting as buttons */
 button,
 a.btnLink,
 .contactMob a {
@@ -78,15 +49,28 @@ a.btnLink,
     cursor: pointer;
 }
 
-.contactMob {
-    display: none;
+/* Specific button size override */
+.btn {
+    width: 12rem;
+    height: 4rem;
+    border-radius: 30px;
+    background-color: beige;
+    font-size: 1.5rem;
 }
 
-.openContactMob {
-    display: none;
+.submit {
+    background-color: black;
+    color: white;
 }
 
-/* Contact form */
+.xBtn {
+    margin-left: auto; /* Pushes button to the far right */
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                Contact Form                                */
+/* -------------------------------------------------------------------------- */
+
 .header {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -95,12 +79,6 @@ a.btnLink,
     padding: 0 2rem;
     box-sizing: border-box;
 }
-
-.xBtn {
-    margin-left: auto;
-}
-
-
 
 .form {
     display: flex;
@@ -122,24 +100,69 @@ a.btnLink,
     text-align: left;
 }
 
+/* -------------------------------------------------------------------------- */
+/*                             Messages & Content                             */
+/* -------------------------------------------------------------------------- */
+
+/* Container for messages - centers content vertically and horizontally */
+.topMsgCon,
+.messageCon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.topMsg {
+    background-color: beige;
+    width: 50%;
+    padding: 1rem;
+    font-size: 0.5rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             Default Visibility                             */
+/* -------------------------------------------------------------------------- */
+
+/* Hidden by default on desktop, shown in mobile query */
+.contactMob,
+.openContactMob {
+    display: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                Media Queries                               */
+/* -------------------------------------------------------------------------- */
+
+/* Tablet (481px - 800px) */
 @media screen and (min-width: 481px) and (max-width: 800px) {
+    /* Placeholder for tablet-specific adjustments */
     .modalContainer {}
 }
 
-/* mobile phones */
+/* Mobile (max-width 480px) */
 @media screen and (max-width: 480px) {
-
-    button,
-    .contactMob a {
-        border-radius: 30px;
+    
+    /* Reveal mobile-specific contact elements */
+    .contactMob {
+        display: block;
     }
 
+    .openContactMob {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Hide desktop contact trigger */
     .contact {
         display: none;
     }
 
-    .contactMob {
-        display: block;
+    /* Mobile Buttons */
+    button,
+    .contactMob a {
+        border-radius: 30px;
     }
 
     .contactMob button,
@@ -155,34 +178,7 @@ a.btnLink,
         width: 2rem;
     }
 
-    .openContactMob {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .labelled {
-        text-align: right;
-        display: flex;
-        flex-direction: row;
-        justify-content: right;
-        align-items: center;
-        gap: 1rem;
-
-
-    }
-
-    .labelled label {
-        background-color: white;
-        padding: 0.25rem;
-        border-radius: 5px;
-    }
-
-    .close {
-        font-size: 2rem;
-        display: grid;
-        place-items: center;
-    }
-
+    /* Mobile Layout Overrides - Full Screen Modal */
     .modalContainer {
         width: 100%;
         height: 100%;
@@ -192,5 +188,28 @@ a.btnLink,
     .modal {
         border-radius: 0px;
         bottom: 0;
+    }
+
+    /* Close button for mobile views */
+    .close {
+        font-size: 2rem;
+        display: grid;
+        place-items: center;
+    }
+
+    /* Label positioning for mobile contacts */
+    .labelled {
+        text-align: right;
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .labelled label {
+        background-color: white;
+        padding: 0.25rem;
+        border-radius: 5px;
     }
 }

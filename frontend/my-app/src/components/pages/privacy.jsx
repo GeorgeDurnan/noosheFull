@@ -1,4 +1,12 @@
 import { Page } from "../page"
+
+/**
+ * Privacy Page Component.
+ * 
+ * Renders the static content for the application's privacy policy, detailing
+ * data collection, usage, security, and user rights.
+ * 
+ */
 export const Privacy = () => {
 
     return (

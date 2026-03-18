@@ -1,14 +1,14 @@
 const pool = require("../db")
 
+//Adds an address to the database 
 const createAddress = async (request, response) => {
 
     const { address } = request.body
     const sid = request.sessionID
     if (!sid) {
-        return response.status(401).json({ "msg": "No SID " })
+        return response.status(401).json({ "msg": "No authorised no sid " })
 
     }
-    //Need to add check to see if sid exists
     try {
         const number = await pool.query('SELECT * FROM basic_address WHERE sid= $1', [sid])
         if (number.rows.length > 0) {
@@ -18,9 +18,10 @@ const createAddress = async (request, response) => {
         response.status(201).json({ "msg": "basic added" })
 
     } catch (e) {
-        response.status(400).json({ "error": e })
+        response.status(500).json({ "error": e })
     }
 }
+//Returns an address based on the users SID
 const getAddress = (request, response) =>{
     const sid = request.sessionID
     pool.query('SELECT * FROM basic_address WHERE sid= $1', [sid], (error, results) =>{
@@ -33,18 +34,4 @@ const getAddress = (request, response) =>{
         }
     })
 }
-/*const deleteAddress = async (sid) => {
-
-    pool.query('DELETE FROM basic_address WHERE sid = $1', [sid], (error, results) => {
-        if (error) {
-            throw error
-        } else if (results.rowCount === 0) {
-            return false
-        } else {
-            return true
-        }
-
-    })
-}
-    */
 module.exports = { createAddress, getAddress }

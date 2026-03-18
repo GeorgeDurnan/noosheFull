@@ -1,4 +1,8 @@
 
+/**
+ * Accessibility Statement page component.
+ * Displays commitment to accessibility, measures taken, and contact information.
+ */
 export const Access = () => {
     return (
         <div className="page">

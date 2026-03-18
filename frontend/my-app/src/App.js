@@ -1,20 +1,26 @@
-import './App.css';
-import { Root } from './components/root';
-import { Shop } from './components/pages/shop';
-import { Home } from './components/pages/home';
-import { Wholesale } from './components/pages/wholesale/wholesale';
-import { About } from './components/pages/about';
-import { Privacy } from './components/pages/privacy';
-import { Access } from './components/pages/access';
-import { Ship } from './components/pages/ship';
-import { Terms } from './components/pages/terms';
-import { Refund } from './components/pages/refund';
-import { Disclaimer } from './components/pages/disclaimer';
-import { Error } from './components/pages/error';
-import { createRoutesFromElements, Route, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { CartPage } from './components/pages/payment/cart-page';
-import { Checkout } from './components/pages/payment/checkout';
-import { Thankyou } from './components/pages/payment/thankyou';
+import './App.css' 
+import { Root } from './components/root' 
+import { Shop } from './components/pages/shop' 
+import { Home } from './components/pages/home' 
+import { Wholesale } from './components/pages/wholesale/wholesale' 
+import { About } from './components/pages/about' 
+import { Privacy } from './components/pages/privacy' 
+import { Access } from './components/pages/access' 
+import { Ship } from './components/pages/ship' 
+import { Terms } from './components/pages/terms' 
+import { Refund } from './components/pages/refund' 
+import { Disclaimer } from './components/pages/disclaimer' 
+import { Error } from './components/pages/error' 
+import { createRoutesFromElements, Route, RouterProvider, createBrowserRouter } from 'react-router-dom' 
+import { CartPage } from './components/pages/payment/cart-page' 
+import { Checkout } from './components/pages/payment/checkout' 
+import { Thankyou } from './components/pages/payment/thankyou' 
+
+/**
+ * Application router configuration
+ * Defines the route structure using createBrowserRouter
+ * Sets up nested routes under a shared Root layout and handles 404s
+ */
 const appRouter = createBrowserRouter(createRoutesFromElements(<>
   <Route path="/" element={<Root />} >
     <Route index element={<Home />} />
@@ -34,12 +40,18 @@ const appRouter = createBrowserRouter(createRoutesFromElements(<>
   </Route>
   <Route path="*" element={<Error />} />
 </>))
+
+/**
+ * Main App component
+ * Initializes the RouterProvider to enable client-side routing
+ * @returns {JSX.Element} The RouterProvider component
+ */
 function App() {
   return (
     <>
       <RouterProvider router={appRouter} />
     </>
-  );
+  ) 
 }
 
-export default App;
+export default App 

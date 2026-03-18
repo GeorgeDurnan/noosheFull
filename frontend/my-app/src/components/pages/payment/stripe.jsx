@@ -1,31 +1,42 @@
-import { loadStripe } from '@stripe/stripe-js';
-import { useCreateCartItems } from '../../../utilities/carts/createCartItems';
+import { loadStripe } from '@stripe/stripe-js' 
+import { useCreateCartItems } from '../../../utilities/carts/createCartItems' 
 import {
     EmbeddedCheckoutProvider,
     EmbeddedCheckout
-} from '@stripe/react-stripe-js';
-import { useCallback } from 'react';
-import { useSelector } from 'react-redux';
-import { getCart } from '../../../features/slices/cartSlice';
+} from '@stripe/react-stripe-js' 
+import { useCallback } from 'react' 
+import { useSelector } from 'react-redux' 
+import { getCart } from '../../../features/slices/cartSlice' 
 const serverUrl = process.env.REACT_APP_SERVER_BASE_URL
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe('pk_test_123');
+const stripePromise = loadStripe('pk_test_123') 
 
+/**
+ * StripeEmbed Component
+ * 
+ * Renders an embedded Stripe checkout form.
+ * 
+ * @param {Object} props
+ * @param {Array} props.cart - The cart items to be purchased
+ * @param {string} props.address_id - The ID of the shipping address (optional, depending on flow)
+ */
 export const StripeEmbed = ({cart, address_id}) => {
+    // Callback to fetch the client secret from the backend to initialize the Checkout
+    // Wrapped in useCallback to prevent unnecessary re-fetches when component re-renders
     const fetchClientSecret = useCallback(async () => {
         const response = await fetch(`${serverUrl}create-checkout-session`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ cart, address_id }),
             credentials: 'include'
-        });
+        }) 
         console.log(response)
-        const data = await response.json();
-        return data.clientSecret;
-    }, [cart, address_id ]);
+        const data = await response.json() 
+        return data.clientSecret 
+    }, [cart, address_id ]) 
 
-    const options = { fetchClientSecret };
+    const options = { fetchClientSecret } 
 
     return (
         <div id="checkout">

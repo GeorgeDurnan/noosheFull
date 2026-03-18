@@ -9,9 +9,14 @@ export const Thankyou = () => {
     useLoadCart()
     const [paid, setPaid] = useState(null)
     useEffect(() => {
+        /**
+         * Verifies the payment with the backend.
+         * It retrieves the session_id from the URL query parameters.
+         */
         async function checkPay() {
             const params = new URLSearchParams(window.location.search)
             const session_id = params.get("session_id")
+            
             const request = await fetch("http://localhost:5000/verify-pay", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },

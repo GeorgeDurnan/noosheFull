@@ -1,18 +1,8 @@
 const pool = require("../db")
-const addImage = (request, response) => {
-    const { product_id, rank } = request.body
-    const url = request.cloud
-    pool.query('INSERT INTO images ("product_id", "url", "rank") VALUES ($1, $2, $3)', [product_id, url, rank], (error, results) => {
-        if (error) {
-            response.status(404).send({ "error": error, "msg": "Failed to add to server", "product_id": product_id, "rank": rank, "url": url || "no url", "response": request.reso, "poop": request.poop })
-        } else {
-            response.status(201).send({msg: `Image added for product: ${product_id}`})
-        }
+// TODO: Replace with local backend storage solution in future update.
 
-    })
-}
-
-// ...existing code...
+// Middleware: Uploads file buffer to Cloudinary.
+// Attaches the secure URL to request.cloud upon success.
 const sendImage = async (request, response, next) => {
     if (!request.file) return response.status(400).json({ error: 'No file provided' })
 
@@ -23,7 +13,7 @@ const sendImage = async (request, response, next) => {
         new Blob([request.file.buffer], { type: request.file.mimetype }),
         request.file.originalname
     )
-    request.poop = data
+    request.imageData = data
 
     const options = {
         method: 'POST',
@@ -42,37 +32,52 @@ const sendImage = async (request, response, next) => {
         return response.status(500).json({ error: e.message || e, msg: 'Failed to add to cloud' })
     }
 }
-// ...existing code...
+// Saves image url to DB.
+// Expects request.cloud (URL) from the sendImage middleware.
+const addImage = (request, response) => {
+    const { product_id, rank } = request.body
+    const url = request.cloud
+    pool.query('INSERT INTO images ("product_id", "url", "rank") VALUES ($1, $2, $3)', [product_id, url, rank], (error, results) => {
+        if (error) {
+            response.status(500).json({ "error": error, "msg": "Failed to add to server", "product_id": product_id, "rank": rank, "url": url || "no url", "response": request.reso, "Image data": request.imageData })
+        } else {
+            response.status(201).json({ msg: `Image added for product: ${product_id}` })
+        }
+
+    })
+}
+//Deletes specific image
 const deleteImage = (request, response) => {
     const { product_id, rank } = request.body
 
-    pool.query('DELETE FROM allergens WHERE product_id = $1 AND rank = $2', [product_id, rank], (error, results) => {
+    pool.query('DELETE FROM images WHERE product_id = $1 AND rank = $2', [product_id, rank], (error, results) => {
         if (error) {
-            response.status(500).send("Database error" + error)
+            response.status(500).json({ "msg": "Database error" + error, "error": error })
         } else if (results.rowCount === 0) {
-            response.status(404).send(`Product image with rank: ${rank} not found`)
+            response.status(404).json({ "msg": `Product image with rank: ${rank} not found` })
         } else {
-            response.status(200).send(`Product image with rank: ${rank} deleted`)
+            response.status(200).json({ "msg": `Product image with rank: ${rank} deleted` })
         }
 
     })
 }
+//Return all images for a specific product
 const getImages = (request, response) => {
     const product_id = parseInt(request.params.id)
-    pool.query('SELECT * FROM images WHERE product_id = $1 ORDER BY rank',[product_id], (error, results) => {
+    pool.query('SELECT * FROM images WHERE product_id = $1 ORDER BY rank', [product_id], (error, results) => {
         if (error) {
-            response.status(500).send("Database error" + error)
+            response.status(500).json({ "msg": "Database error" + error, "error": error })
         }
-        response.status(200).json(results.rows)
+        response.status(200).json({ "data": results.rows })
     })
 }
+// Return all images database-wide
 const getAllImages = (request, response) => {
-    const product_id = parseInt(request.params.id)
     pool.query('SELECT * FROM images ORDER BY product_id', (error, results) => {
         if (error) {
-            response.status(500).send("Database error" + error)
+            response.status(500).json({ "msg": "Database error" + error })
         }
-        response.status(200).json(results.rows)
+        response.status(200).json({ "data": results.rows })
     })
 }
-module.exports = { addImage, sendImage, getImages, getAllImages }
+module.exports = { addImage, sendImage, getImages, getAllImages, deleteImage }

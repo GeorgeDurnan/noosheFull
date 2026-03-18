@@ -1,3 +1,14 @@
+/* 
+ * Admin Control Panel Styles
+ * 
+ * Since this is an internal tool, global styling is minimal. 
+ * Specific styles are included for the product preview components 
+ * to simulate the appearance of the customer-facing frontend.
+ * 
+ * TODO: Sync CSS with the main project to ensure previews exactly match 
+ * the live site, including responsive behavior at different breakpoints.
+ */
+
 .App {
   text-align: center;
 }
@@ -27,10 +38,12 @@
 .App-link {
   color: #61dafb;
 }
-.allergenImg{
+
+.allergenImg {
   width: 8vh;
 }
-.allergens{
+
+.allergens {
   display: flex;
   flex-direction: row;
 }
@@ -39,10 +52,13 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
+/* Product Preview Styles */
 .shop {
   align-items: center;
   display: flex;
@@ -100,11 +116,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  /* optional spacing */
   margin: 8rem;
   justify-content: center;
+
 }
 
+/* Modal Styles */
 .modal-container {
   position: fixed;
   top: 0;
@@ -143,7 +160,8 @@
   background-color: beige;
   right: 0;
 }
-.preview{
+
+.preview {
   width: 30vw;
   height: 20vw;
 }

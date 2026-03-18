@@ -1,6 +1,14 @@
 import styles from "./menu.module.css"
 import { Link } from "react-router-dom"
+
+/**
+ * Navigation menu component.
+ * 
+ * @param {Object} props
+ * @param {Function} props.setSelf - State setter function to close the menu (sets visibility to false)
+ */
 export const Menu = ({ setSelf }) => {
+    // Close the menu when a navigation link is clicked
     const handleClick = () => {
         setSelf(false)
     }

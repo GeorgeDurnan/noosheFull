@@ -1,3 +1,4 @@
+/* Container for the menu links, centering them vertically in a column */
 .links{
     display: flex;
     flex-direction: column;
@@ -6,6 +7,8 @@
     width: 80%;
     margin-top: 20%;
 }
+
+/* Individual link item styling with a bottom border separator */
 .link{
     font-size: 1.7rem;
     color: black;
@@ -16,6 +19,8 @@
     margin: 5% 0;
 
 }
+
+/* Highlights the currently active link */
 .active{
     color: red;
 }

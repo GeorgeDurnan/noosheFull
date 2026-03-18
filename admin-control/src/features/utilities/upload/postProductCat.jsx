@@ -1,3 +1,11 @@
+/**
+ * Posts a new product category to the server.
+ * 
+ * @param {Object} cat - The category object to be posted.
+ * @param {string} cat.description - The description of the product category.
+ * @param {number} cat.rank - The rank or order of the product category.
+ * @returns {Promise<Response>} The response from the fetch request.
+ */
 export const postProductCat = async (cat) => {
     const body = {
         "description": cat.description,
@@ -13,6 +21,9 @@ export const postProductCat = async (cat) => {
     }
 
 
-    const response = await fetch(`http://localhost:5000/cakeCats`, options)
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/cakeCats`, options)
+    if (process.env.REACT_APP_POSTRESPONSE === "true") {
+        console.log(response)
+    }
     return (response)
 }  

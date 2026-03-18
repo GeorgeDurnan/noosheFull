@@ -6,43 +6,46 @@ import { postOpt } from "./postOpt"
 import { deleteElement } from "./delete"
 export const upload = async (cake, options, optionCats) => {
     let product_id = null
-    console.log(JSON.stringify(options) + "passed in options")
+
     try {
+        // Filter out empty values
         optionCats = optionCats.filter(Boolean)
-        //options = options.filter(Boolean)
         const images = cake["img"].filter(Boolean)
-        //Create product post to products table
+
+        // 1. Create product post to products table
         product_id = await postProduct(cake)
-        console.log(product_id + "product id")
-        //Create option categories
+
+        // 2. Create option categories linked to the product
         const optionCatsId = await Promise.all(optionCats.map(async (cat) => {
             const id = await postCat(cat, product_id)
             return { ...cat, "id": id }
         }))
-        //Create options
+
+        // 3. Create options for each category
         for (const cat of optionCatsId) {
             const opts = cat["description"] || []
-            console.log(JSON.stringify(opts) + "options here")
             const x = options[opts].filter(Boolean)
-            console.log(JSON.stringify(x) + "options filtered here")
             for (const opt of x) {
                 await postOpt(opt, cat["id"], product_id)
             }
         }
-        //Create allergens
-        postAllergen(cake, product_id)
-        //Create images
-        console.log(JSON.stringify(images))
+
+        // 4. Create allergens
+        await postAllergen(cake, product_id)
+
+        // 5. Create images
         for (const image of images) {
             await postImage(product_id, image)
         }
     } catch (e) {
+        // Rollback: Delete the product if any step fails to ensure data integrity
         try {
-            console.log("failed to create product deleting all database entries" + e)
-            deleteElement(product_id, "products")
+            console.error("Failed to create product, starting rollback: " + e)
+            if (product_id) {
+                await deleteElement(product_id, "products")
+            }
         } catch (err) {
-            console.log("Failed to delete product" + err)
+            console.error("Failed to delete product during rollback: " + err)
         }
-
     }
 }

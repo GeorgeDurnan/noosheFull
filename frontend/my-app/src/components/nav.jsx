@@ -7,15 +7,22 @@ import { HomeIcon } from "../images/svgs/homeIcon"
 import { MenuIcon } from "../images/svgs/menuIcon"
 import { MenuModal } from "./menuModal"
 export const Nav = () => {
+    // State to toggle the visibility of the cart and menu modals
     const [cart, setCart] = useState(false)
     const [menu, setMenu] = useState(false)
+
+    // Toggle cart modal visibility
     function handleCartClick() {
         setCart(prev => !prev)
     }
+
+    // Toggle mobile menu modal visibility
     function handleMenuClick() {
         setMenu(prev => !prev)
     }
+
     return (<div className={styles.nav}>
+        {/* Desktop Navigation */}
         <div className={styles.linkContainer}>
             <div className={styles.links}>
                 <Link className={styles.link} to="/">Home</Link>
@@ -27,7 +34,8 @@ export const Nav = () => {
                 <ShoppingCart />
             </div>
         </div>
-        {/* Menu when in mobile mode*/}
+
+        {/* Mobile Navigation */}
         <div className={styles.icons}>
             <div>
                 <Link className={`${styles.icon} ${styles.right}`} to="/"><HomeIcon /></Link>

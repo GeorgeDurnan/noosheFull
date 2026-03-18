@@ -1,41 +1,45 @@
 const pool = require("../db")
+
+//Return all product categories for populating shop page
 const getCats = (request, response) => {
     pool.query('SELECT * FROM product_categories ORDER BY rank', (error, results) => {
         if (error) {
-            response.status(500).send("Database error" + error)
+            response.status(500).json({ "msg": "Database error", "error": error })
         } else {
             response.status(200).json(results.rows)
         }
 
     })
 }
+//Create a new product category
 const createCat = (request, response) => {
     const { description, rank } = request.body
-
     pool.query('INSERT INTO product_categories (description, rank) VALUES ($1, $2) RETURNING id', [description, rank], (error, results) => {
         if (error) {
-            response.status(400).send({ error: error })
+            response.status(500).json({ "msg": "Database error", "error": error })
         } else {
-            const newId = results.rows[0].id;
-            response.status(201).send({ "msg": `Order added with ID: ${newId}`, "id": { newId } })
+            const newId = results.rows[0].id
+            response.status(201).json({ "msg": `Category added with ID: ${newId}`, "id": newId })
         }
 
     })
 }
+// Delete product category
 const deleteCat = (request, response) => {
     const id = parseInt(request.params.id)
 
     pool.query('DELETE FROM product_categories WHERE id = $1', [id], (error, results) => {
         if (error) {
-            response.status(500).send({ "msg": "Database error" + error, "error": error })
+            response.status(500).json({ "msg": "Database error", "error": error })
         } else if (results.rowCount === 0) {
-            response.status(404).send({ "msg": `Category with ID: ${id} not found`, "id": id })
+            response.status(404).json({ "msg": `Category with ID: ${id} not found`, "id": id })
         } else {
-            response.status(200).send({ "msg": `Category with ID: ${id} deleted`, "id": id })
+            response.status(200).json({ "msg": `Category with ID: ${id} deleted`, "id": id })
         }
 
     })
 }
+//Update product category (description or rank) uses COALESCE to allow for partial update
 const updateCat = (request, response) => {
     const id = parseInt(request.params.id)
     const { description, rank } = request.body
@@ -44,9 +48,9 @@ const updateCat = (request, response) => {
         [description, rank, id],
         (error, results) => {
             if (error) {
-                response.status(404).send({ "error": error })
+                response.status(500).json({ "msg": "Database error", "error": error })
             } else {
-                response.status(200).send({ "msg": `Category modified with ID: ${id}`, "id": id })
+                response.status(200).json({ "msg": `Category modified with ID: ${id}`, "id": id })
             }
 
         }

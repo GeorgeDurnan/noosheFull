@@ -1,9 +1,20 @@
 import { useState } from "react"
 import { Navigate, useNavigate } from "react-router-dom"
-export const Options = ({ inputs, setMsg , setCount}) => {
+/**
+ * Component to handle communicating with database to add a new user.
+ * Renders a form based on input configuration and posts the collected data.
+ * Currently only designed for user as it has hard coded api link but could be changed to make more universal
+ * 
+ * @param {Object} props
+ * @param {Object} props.inputs - input definitions/configuration (keys are field names, values dictate if required)
+ * @param {Function} props.setCount - state setter to trigger updates in the parent component
+ * @param {Function} props.setMsg - state setter for the feedback message
+ */
+export const Options = ({ inputs, setMsg, setCount }) => {
     const keys = Object.keys(inputs)
-    const navigate = useNavigate()
     const [values, setValues] = useState({})
+
+    // Handle form submission: constructs data object and sends POST request
     function handleSubmit(event) {
         event.preventDefault()
         async function createItem() {
@@ -20,9 +31,11 @@ export const Options = ({ inputs, setMsg , setCount}) => {
             }
 
 
-            const response = await fetch(`http://localhost:5000/signup`, options)
-            console.log(response)
-            const data = await response.text()
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/signup`, options)
+            if (process.env.REACT_APP_POSTRESPONSE === "true") {
+                console.log(response)
+            }
+            const data = await response.json()
             if (response.status == 404) {
                 setMsg("User not added error " + data)
             } else {
@@ -34,6 +47,7 @@ export const Options = ({ inputs, setMsg , setCount}) => {
     }
     return (<>
         <form onSubmit={handleSubmit}>
+            {/* Dynamically generate inputs based on keys in the inputs prop */}
             {keys.map((key) => {
                 return (
                     <div key={key}>

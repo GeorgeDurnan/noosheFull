@@ -1,3 +1,4 @@
+/* Container for the checkout address form layout */
 .form {
     display: flex;
     flex-direction: column;
@@ -5,18 +6,24 @@
     padding: 10% 5%;
 }
 
-
+/* Input styling: transparent background with bottom border only */
 .form input {
     background-color: transparent;
     border: none;
     border-bottom: 2px solid black;
 }
 
+/* Action button sizing and spacing */
 .form button {
     height: 2.5rem;
     margin-top: 1rem;
 }
 
+/* 
+ * Apply global styles to the root HTML element when checkout components are present.
+ * This overrides the default background image with a solid color for the checkout flow.
+ * :has() checks if the specific children (.form, .address, .checkout) exist in the hierarchy.
+ */
 :global(html):has(:global(.form)),
 :global(html):has(:global(.address)),
 :global(html):has(:local(.checkout)) {
@@ -25,6 +32,7 @@
     /* Forces the background image to disappear */
 }
 
+/* Reset margins on the main container when displaying address or checkout forms */
 :global(.main):has(.address),
 :global(.main):has(.checkout) {
     margin: 0 0;

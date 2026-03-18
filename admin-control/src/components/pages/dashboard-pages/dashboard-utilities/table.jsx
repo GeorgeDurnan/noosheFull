@@ -1,9 +1,17 @@
+/**
+ * Component to create a table for the data
+ * Renders a table that includes a delete button for each value
+ * 
+ * @param {Object} props
+ * @param {Array} props.table - The data to populate the table (Array of Objects)
+ * @param {Function} props.setMsg - State setter for the feedback message.
+ * @param {string|number} props.userId - The current users ID so they can't delete themselves
+ */
 import { Delete } from "./delete"
-export const Table = ({ table, setMsg, setCount, pk }) => {
+export const Table = ({ table, setMsg, userId }) => {
     if (!table) {
         return
     }
-    console.log("table" + JSON.stringify(table))
     const headers = Object.keys(table[0])
     let data = ""
     return (
@@ -23,7 +31,7 @@ export const Table = ({ table, setMsg, setCount, pk }) => {
                         return <td key={JSON.stringify(element)}>{JSON.stringify(element)}</td>
                     })}
                         <td>
-                            <Delete id={entry["id"]} setMsg={setMsg} setCount={setCount} pk={pk} />
+                            <Delete id={entry["id"]} setMsg={setMsg} userId={userId} />
                         </td>
                     </tr>)
                 })}

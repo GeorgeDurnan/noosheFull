@@ -1,4 +1,11 @@
 import { SERVER_BASE_URL } from "../../config"
+
+/**
+ * Fetches cake categories from the server.
+ * 
+ * @returns {Promise<Array>} A promise that resolves to the list of cake categories.
+ *                           Returns an empty array in case of error.
+ */
 export const getCakeCats = (async () => {
     const url = SERVER_BASE_URL
     try {
@@ -9,9 +16,9 @@ export const getCakeCats = (async () => {
                 'Content-Type': 'application/json'
             }
         }
-        const response = await fetch(url + "cakeCats", options);
+        const response = await fetch(url + "cakeCats", options) 
         console.log(response)
-        const text = await response.json();
+        const text = await response.json() 
         
         return (text)
     } catch (e) {

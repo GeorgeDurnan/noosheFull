@@ -1,3 +1,8 @@
+/**
+ * Posts a new product to the server.
+ * @param {Object} cake - The product object containing name, category, price, and description.
+ * @returns {Promise<number>} The ID of the created product.
+ */
 export const postProduct = async (cake) => {
     const body = {
         "name": cake["name"],
@@ -7,6 +12,7 @@ export const postProduct = async (cake) => {
 
     }
     console.log("product body" + JSON.stringify(body))
+
     const options = {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
@@ -16,8 +22,10 @@ export const postProduct = async (cake) => {
     }
 
 
-    const response = await fetch(`http://localhost:5000/products`, options)
-    console.log(response)
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/products`, options)
+    if (process.env.REACT_APP_POSTRESPONSE === "true") {
+        console.log(response)
+    }
     const data = await response.json()
     if (response.status == 404) {
         console.log("Product not added error " + data)
@@ -25,5 +33,5 @@ export const postProduct = async (cake) => {
         console.log(data)
     }
 
-    return(data.id)
+    return (data.id)
 }

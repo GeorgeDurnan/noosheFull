@@ -1,16 +1,17 @@
+/* Form container with semi-transparent background */
+.formCon {
+    background-color: rgba(160, 82, 45, 0.75);
+    padding: 5%;
+}
+
+/* Main form flex container */
 .form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.formCon {
-    background-color: rgba(160, 82, 45, 0.75);
-    padding: 5%;
-}
-
-.wholesale {}
-
+/* Grid Layout definitions for form rows */
 .lineOne,
 .lineTwo,
 .lineThree,
@@ -19,35 +20,31 @@
     gap: 1rem;
 }
 
+/* Specific Grid Columns */
+
+/* Three equal columns */
 .lineOne {
     grid-template-columns: repeat(3, 1fr);
 }
 
+/* Split 1:2 ratio */
 .lineTwo {
     grid-template-columns: 1fr 2fr;
 }
 
+/* Full width single column */
 .lineThree {
     grid-template-columns: 1fr;
 }
 
+/* Submit button row: 3 columns, button in last */
 .submit {
     grid-template-columns: 1fr 1fr 1fr;
     justify-content: right;
     box-sizing: border-box;
 }
 
-.submit .input input {
-    background-color: crimson;
-    border-color: crimson;
-}
-
-.submit .input {
-    width: 100%;
-    grid-column: 3;
-
-}
-
+/* Form Input Controls */
 .input {
     display: flex;
     flex-direction: column;
@@ -58,36 +55,55 @@
     height: 2rem;
 }
 
-.lineThree .input input {
-    height: 4rem;
-}
-
 .input label {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
+/* Specific Input Overrides if needed */
+.lineThree .input input {
+    height: 4rem; /* Taller input for lineThree (e.g. textarea/message) */
+}
+
 .lineThree .input label {
-    white-space: wrap;
+    white-space: wrap; /* Allow wrapping for longer labels in lineThree */
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-@media screen and (min-width: 481px) and (max-width: 800px) {}
+/* Submit Button Specific Styles */
+.submit .input {
+    width: 100%;
+    grid-column: 3; /* Position in the 3rd column of the grid */
+}
 
-/* mobile phones */
+.submit .input input {
+    background-color: crimson;
+    border-color: crimson;
+}
+
+/* Media Queries */
+
+/* Tablet (currently unused) */
+@media screen and (min-width: 481px) and (max-width: 800px) {
+    .wholesale{
+        margin: 0;
+    }
+}
+
+/* Mobile Phones */
 @media screen and (max-width: 480px) {
 
     .lineOne,
     .lineTwo,
     .lineThree,
     .submit {
-        display: block;
+        display: block; /* Stack grid items vertically on mobile */
     }
 
     .input {
-        margin-bottom: 1rem;
+        margin-bottom: 1rem; /* Add spacing between stacked inputs */
     }
 
     .submit {

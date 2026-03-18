@@ -1,14 +1,19 @@
-import './App.css';
+import './App.css' 
 import {Users} from "./components/pages/dashboard-pages/users/users"
-import { Root } from './components/root';
-import { ProtectedRoute } from './components/protected_route';
-import { createRoutesFromElements, Route, RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
-import { Dashboard } from './components/pages/dashboard';
-import { Error } from './components/pages/error';
-import { Login } from './components/pages/login';
-import { Profile } from './components/pages/dashboard-pages/profile';
-import { Products } from './components/pages/dashboard-pages/products/products';
-import { Orders } from './components/pages/dashboard-pages/orders/orders';
+import { Root } from './components/root' 
+import { ProtectedRoute } from './components/protected_route' 
+import { createRoutesFromElements, Route, RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom' 
+import { Dashboard } from './components/pages/dashboard' 
+import { Error } from './components/pages/error' 
+import { Login } from './components/pages/login' 
+import { Profile } from './components/pages/dashboard-pages/profile' 
+import { Products } from './components/pages/dashboard-pages/products/products' 
+import { Orders } from './components/pages/dashboard-pages/orders/orders' 
+
+/**
+ * Application router configuration.
+ * Defines the public routes, protected dashboard routes, and error handling.
+ */
 const appRouter = createBrowserRouter(createRoutesFromElements(<>
   <Route path="/" element={<Root />}>
     {/* Public Route */}
@@ -27,10 +32,15 @@ const appRouter = createBrowserRouter(createRoutesFromElements(<>
     <Route path="*" element={<Error />} />
   </Route>
 </>))
+
+/**
+ * Main application component.
+ * Sets up the React Router provider.
+ */
 function App() {
   return (
     <RouterProvider router={appRouter} />
-  );
+  ) 
 }
 
-export default App;
+export default App 

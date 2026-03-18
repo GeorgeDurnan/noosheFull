@@ -12,24 +12,50 @@ import { getAddressFromSlice } from "../features/slices/addressSlice"
 import { useNoScroll, useClickOutside } from "../features/hooks/modalUtilities"
 import modalStyles from "./modals.module.css"
 import itemStyle from "./item.module.css"
-export const Item = ({ id, item, setItem, cart, setCart, setShow, order, setOrder }) => {
+
+/**
+ * Item Component
+ * 
+ * Displays a modal for a specific product item, allowing users to customize options,
+ * set quantity, and add the item to their cart.
+ * 
+ * @param {string|number|null} item - The current item ID being displayed. If false/null, modal is hidden.
+ * @param {Function} setItem - State setter to control the item modal visibility (passed false/null to close).
+ * @param {Function} setShow - Function to show the address/login modal if address is missing.
+ * @param {Object} order - The current order object being constructed.
+ * @param {Function} setOrder - State setter to update the order object.
+ */
+export const Item = ({item, setItem,setShow, order, setOrder }) => {
     const dispatch = useDispatch()
     const [sortedOptions, setSortedOptions] = useState([])
     const [optionCats, setOptionCats] = useState([])
     const [chosenOptions, setChosenOptions] = useState([])
     const [quantity, setQuantity] = useState(1)
     const [extra, setExtra] = useState(null)
+    
+    // Fetch product details from the store
     let cake = useSelector((state => getCakeById(state, item)))
     const address = useSelector(getAddressFromSlice)
+    
     const [price, setPrice] = useState(0)
     const [price2, setPrice2] = useState(price)
+
+    // Prevent background scrolling while modal is open
     useNoScroll(item)
+
+    /**
+     * Resets local state (quantity, extra requests) and closes the modal.
+     */
     const handleClose = () => {
         setItem(false)
         setQuantity(1)
         setExtra(null)
     }
+
+    // Close modal when clicking outside of it
     const modalRef = useClickOutside(item, setItem, handleClose)
+
+    // Load options and categories when item changes
     useEffect(() => {
         if (item) {
             setPrice(cake.price)
@@ -39,13 +65,21 @@ export const Item = ({ id, item, setItem, cart, setCart, setShow, order, setOrde
             }
             getOpts()
         }
-    }, [item]);
+    }, [item]) 
+    
+    // Sync local state to the parent order object whenever selection changes
     useEffect(() => {
         if (item) {
             setOrder({ product_id: item, quantity: quantity, options: chosenOptions, price: price, extra: extra })
         }
 
     }, [item, quantity, chosenOptions, price2, extra])
+
+    /**
+     * Handles adding the item to the cart.
+     * Checks if address is set; if not, triggers the address modal.
+     * Otherwise, dispatches the item to the cart and closes the modal.
+     */
     function handleClickAddToCart() {
 
         if (!address) {
@@ -54,19 +88,13 @@ export const Item = ({ id, item, setItem, cart, setCart, setShow, order, setOrde
 
         } else {
             dispatch(addItem(order))
-            //set quantity to 1 so the quantity isnt saved across cake modals
             handleClose()
         }
-        //this closes the modal
-
-
     }
     function handleClick() {
         handleClose()
     }
     if (!item) {
-        //setSortedOptions([])
-
         return
     }
 

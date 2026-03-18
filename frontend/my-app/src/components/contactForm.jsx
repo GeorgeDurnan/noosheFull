@@ -1,13 +1,22 @@
-import { SERVER_BASE_URL } from "../config";
+import { SERVER_BASE_URL } from "../config" 
 import { useState } from "react"
 import { useEffect } from "react"
 import styles from "./contact.module.css"
 import modalStyles from "./modals.module.css"
 import { useNoScroll, useClickOutside } from "../features/hooks/modalUtilities"
+
+/**
+ * ContactForm Component
+ * Displays a modal with a contact form used to collect user details.
+ * 
+ * @param {Object} props
+ * @param {boolean} props.showContact - Controls visibility of the contact modal
+ * @param {Function} props.setShowContact - Function to toggle the modal's visibility
+ */
 export const ContactForm = ({ showContact, setShowContact }) => {
-    const [time, setTime] = useState(new Date());
+    const [time, setTime] = useState(new Date()) 
     const [show, setShow] = useState(true)
-    const url = "http://localhost:5000"
+    const url = SERVER_BASE_URL
     if(true){
 
     }
@@ -25,31 +34,39 @@ export const ContactForm = ({ showContact, setShowContact }) => {
             },
             body: JSON.stringify({ "name": name, "email": email }),
             credentials: 'include'
-        });
+        }) 
         console.log(response)
         if (response.status === 201) {
             setShow(prev => !prev)
         }
     }
+
+    /**
+     * Toggles the contact modal visibility.
+     */
     const handleClick = () => {
         setShowContact(prev => !prev)
     }
 
     useEffect(() => {
-        // Update time every second
+        // Update time every second for the clock display
         const timer = setInterval(() => {
-            setTime(new Date());
-        }, 1000);
+            setTime(new Date()) 
+        }, 1000) 
 
-        // Cleanup interval on component unmount
-        return () => clearInterval(timer);
-    }, []);
+        // Cleanup interval on component unmount to prevent memory leaks
+        return () => clearInterval(timer) 
+    }, []) 
 
-    // Format time as HH:MM:SS
+    /**
+     * Formats a Date object into a readable time string (HH:MM).
+     * @param {Date} date - The date object to format
+     * @returns {string} Formatted time string
+     */
     const formatTime = (date) => {
-        const pad = (n) => n.toString().padStart(2, "0");
-        return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
-    };
+        const pad = (n) => n.toString().padStart(2, "0") 
+        return `${pad(date.getHours())}:${pad(date.getMinutes())}` 
+    } 
     return (
         <div className={`${modalStyles.modalContainer} ${styles.modalContainer}`}>
             <div className={`${modalStyles.modal} ${styles.modal}`} ref={modalRef}>

@@ -29,7 +29,7 @@ export const Preview = ({ cake, options, optionCats }) => {
     const cats = Object.keys(sortedOptions)
     cats.forEach(cat => {
         sortedOptions[cat] = sortedOptions[cat].filter(Boolean)
-    });
+    }) 
 
     try {
         return (

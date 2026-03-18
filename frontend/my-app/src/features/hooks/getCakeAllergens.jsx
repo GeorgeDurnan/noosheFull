@@ -1,4 +1,10 @@
 import { SERVER_BASE_URL } from "../../config"
+
+/**
+ * Fetches allergen data from the server and maps it by product ID.
+ * 
+ * @returns {Promise<Object>} An object where keys are product IDs and values are allergen details.
+ */
 export const getCakeAllergens = (async () => {
     const url = SERVER_BASE_URL
     const allergens = [
@@ -17,7 +23,7 @@ export const getCakeAllergens = (async () => {
         { value: "crustaceans", label: "Crustaceans" },
         { value: "celery", label: "Celery" },
         { value: "gluten_free", lable: "Gluten Free" }
-    ];
+    ] 
     const options = {
         method: 'GET',
         credentials: 'include',
@@ -26,15 +32,17 @@ export const getCakeAllergens = (async () => {
         }
     }
     try {
-        const response = await fetch(url + "allergens/", options);
+        const response = await fetch(url + "allergens/", options) 
         console.log(response)
-        const text = await response.json();
+        const text = await response.json() 
         const namedAllergens = {}
+
+        // Map allergens by product_id for easier lookup
         text.forEach(allergenList => {
             const placeholder = allergenList.product_id
             delete allergenList.product_id
             namedAllergens[placeholder] = allergenList
-        });
+        })  
         return (namedAllergens)
     } catch (e) {
         console.log("Failed to  cake allergens" + e)

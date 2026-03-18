@@ -6,10 +6,16 @@ import { Contact } from "./contact"
 import { useGetCakes } from "../features/hooks/getCakes"
 import { useLoadCart } from "../utilities/carts/useLoadCart"
 import { useGetBasic } from "../features/hooks/getBasic"
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion" 
 import { useLocation, useOutlet } from "react-router-dom"
 import { ScrollToTop } from "../utilities/scrollToTop"
+
+/**
+ * Root component serving as the main layout wrapper for the application.
+ * Handles initial data fetching, navigation, and page transition animations.
+ */
 export const Root = () => {
+    // Initialize data fetching hooks to load application state
     useGetCakes()
     useLoadCart()
     useGetBasic()
@@ -19,6 +25,7 @@ export const Root = () => {
         <ScrollToTop />
         <Nav />
         <Header id="header" />
+        {/* Wrap outlet in AnimatePresence for page transitions */}
         <AnimatePresence mode="wait">
             <motion.div
                 className="main"

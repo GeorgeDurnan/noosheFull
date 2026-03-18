@@ -2,15 +2,29 @@ import { ContactSvg } from "../images/svgs/contactSvg"
 import styles from "./contact.module.css"
 import modalStyle from "./modals.module.css"
 import { useNoScroll, useClickOutside } from "../features/hooks/modalUtilities"
+
+/**
+ * Mobile contact modal component that displays contact options.
+ * 
+ * @param {Object} props
+ * @param {Function} props.setShow - Function to update the visibility state of this modal.
+ * @param {boolean} props.show - Boolean indicating if the modal is currently visible. Used for scroll locking and click-outside detection.
+ * @param {Function} props.setShowContact - Function to open the main contact form modal.
+ */
 export const MobileContact = ({ setShow, show, setShowContact }) => {
     function handleClose() {
         setShow(false)
     }
+
+    // Closes current modal and opens message form
     function openMessage() {
         setShowContact(true)
         setShow(false)
     }
+
+    // Lock body scroll when modal is open
     useNoScroll(show)
+    // Close modal when clicking outside content
     const modalRef = useClickOutside(show, setShow)
     return (
         <div className={`${modalStyle.modalContainer} ${styles.modalContainer}`}>

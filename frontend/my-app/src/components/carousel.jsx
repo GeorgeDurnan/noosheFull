@@ -1,11 +1,17 @@
-import "fslightbox";
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import "fslightbox" 
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules' 
+import { Swiper, SwiperSlide } from 'swiper/react' 
 import data from "../data/images.json"
 import styles from "./carousel.module.css"
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/scrollbar';
+import 'swiper/css' 
+import 'swiper/css/scrollbar' 
+
+/**
+ * Carousel component displaying images using Swiper.
+ * Loads image data from a JSON file.
+ * 
+ */
 export const Carousel = () => {
     const images = data.images
     return (
@@ -19,8 +25,6 @@ export const Carousel = () => {
                 }}
                 loop={true}
                 scrollbar={{ draggable: true }}
-                /*onSwiper={(swiper) => console.log(swiper)}
-                onSlideChange={() => console.log('slide change')}*/
                 freeMode={true}
                 allowTouchMove={true}
                 spaceBetween={10}
@@ -39,5 +43,5 @@ export const Carousel = () => {
                 })}
             </Swiper >
         </div >
-    );
-};
+    ) 
+} 

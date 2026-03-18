@@ -1,4 +1,9 @@
 import styles from "./footer.module.css"
+
+/**
+ * Join component displays a subscription form for the email newsletter.
+ * Allows users to sign up for updates and perks.
+ */
 export const Join = () => {
     return (<div className={styles.footerContainer}>
         <div className={styles.joinBox}>

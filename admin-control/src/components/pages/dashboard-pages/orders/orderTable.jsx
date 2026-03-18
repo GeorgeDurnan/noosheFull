@@ -1,7 +1,12 @@
-import { useState } from "react"
-import { deleteElement } from "../../../../features/utilities/upload/delete"
 import { OrderItems } from "./orderItems"
-export const OrderTable = ({ table, setMsg, setCount, pk }) => {
+/**
+ * Component to handle displaying the order table
+ * Also attaches an order item component to each so the order items can be viewed
+ * 
+ * @param {Object} props
+ * @param {Array} props.table - The order data from the API
+ */
+export const OrderTable = ({ table}) => {
     const headers = Object.keys(table[0])
     let data = ""
     return (
@@ -15,7 +20,7 @@ export const OrderTable = ({ table, setMsg, setCount, pk }) => {
             </thead>
             <tbody>
                 {table.map((entry) => {
-                    data = Object.values(entry);
+                    data = Object.values(entry) 
                     return (
                         <>
                             <tr key={entry["id"] + "row"}>
@@ -31,10 +36,10 @@ export const OrderTable = ({ table, setMsg, setCount, pk }) => {
                                 </td>
                             </tr>
                         </>
-                    );
+                    ) 
                 })}
             </tbody>
         </table>
-    );
+    ) 
 }
 

@@ -1,43 +1,48 @@
 
 const pool = require("../db")
+// Get allergens for a specific product by ID
 const getAllergens = (request, response) => {
     const product_id = parseInt(request.params.id)
 
     pool.query('SELECT * FROM allergens WHERE product_id = $1', [product_id], (error, results) => {
         if (error) {
-            response.status(500).send("Database error" + error)
+            response.status(500).json({ "msg": "Database error", "error": error })
         } else if (results.rowCount === 0) {
-            response.status(404).send(`No product allergens with product ID: ${id} found`)
+            response.status(404).json({ "msg": `No product allergens with product ID: ${product_id} found`, "id": product_id })
         } else {
             response.status(200).json(results.rows)
         }
 
     })
 }
+
+// Get all allergens for all products
 const getAllAllergens = (request, response) => {
 
     pool.query('SELECT * FROM allergens', (error, results) => {
         if (error) {
-            response.status(500).send("Database error" + error)
+            response.status(500).json({ "msg": "Database error", "error": error })
         } else if (results.rowCount === 0) {
-            response.status(404).send(`No product allergens found`)
+            response.status(404).json(`No product allergens found`)
         } else {
             response.status(200).json(results.rows)
         }
 
     })
 }
+// Add allergens for a new product
 const addAllergens = (request, response) => {
     const { product_id, celery = false, gluten = false, crustaceans = false, eggs = false, fish = false, lupin = false, molluscs = false, mustard = false, tree_nuts = false, peanuts = false, sesame = false, soya = false, sulphides = false, lactose = false } = request.body
     pool.query('INSERT INTO allergens (product_id, celery, gluten, crustaceans, eggs, fish, lupin, molluscs, mustard, tree_nuts, peanuts, sesame, soya, sulphides, lactose) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)',
         [product_id, celery, gluten, crustaceans, eggs, fish, lupin, molluscs, mustard, tree_nuts, peanuts, sesame, soya, sulphides, lactose], (error, results) => {
             if (error) {
-                response.status(500).send("Database error" + error)
+                response.status(500).json({ "msg": "Database error", "error": error })
             } else {
-                response.status(200).send(`Allergen added with product id: ${product_id}`)
+                response.status(201).json({ "msg": `Allergen added with product id: ${product_id}` })
             }
 
         })
+// Update allergens for an existing product
 }
 const updateAllergens = (request, response) => {
     const product_id = parseInt(request.params.id)
@@ -96,26 +101,29 @@ const updateAllergens = (request, response) => {
             lactose,
             product_id
         ],
-        (error) => {
+        (error, results) => {
             if (error) {
-                response.status(400).json(error)
+                response.status(500).json({ "msg": "Database error", "error": error })
+            } else if (results.rowCount === 0) {
+                response.status(404).json({ "msg": `No product allergens found with ID: ${product_id}` })
             } else {
-                response.status(200).send(`Allergens updated for product ID: ${product_id}`)
+                response.status(200).json({ "msg": `Allergens updated for product ID: ${product_id}` })
             }
         }
     )
 }
+// Delete allergens for a product
 
 const deleteAllergens = (request, response) => {
     const product_id = parseInt(request.params.id)
 
     pool.query('DELETE FROM allergens WHERE product_id = $1', [product_id], (error, results) => {
         if (error) {
-            response.status(500).send("Database error" + error)
+            response.status(500).json({ "msg": "Database error", "error": error })
         } else if (results.rowCount === 0) {
-            response.status(404).send(`Product option with ID: ${product_id} not found`)
+            response.status(404).json({ "msg": `Product option with ID: ${product_id} not found` })
         } else {
-            response.status(200).send(`Product option deleted with ID: ${product_id}`)
+            response.status(200).json({ "msg": `Product option deleted with ID: ${product_id}` })
         }
 
     })

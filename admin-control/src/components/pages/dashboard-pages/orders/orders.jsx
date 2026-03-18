@@ -1,12 +1,14 @@
 import { OrderTable } from "./orderTable"
 import { useState } from "react"
 import { useEffect } from "react"
-import { useLocation } from "react-router-dom"
+/**
+ * Component to display the orders page
+ * Fetches the orders from the backend and renders the OrderTable
+ */
 export const Orders = () => {
     const [table, setTable] = useState()
     const [count, setCount] = useState(0)
     const [msg, setMsg] = useState("")
-    const location = useLocation();
     useEffect(() => {
         async function getTable() {
             const options = {
@@ -15,7 +17,10 @@ export const Orders = () => {
                 credentials: 'include'
 
             }
-            const response = await fetch(`http://localhost:5000/orders`, options)
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/orders`, options)
+            if (process.env.REACT_APP_POSTRESPONSE === "true") {
+                console.log(response)
+            }
             const data = await response.json()
             setTable(data)
         }
@@ -26,7 +31,7 @@ export const Orders = () => {
         return <h1>Loading...</h1>
     } else {
         return (<>
-            <OrderTable table={table} setCount={setCount} setMsg={setMsg} pk={"eh"} />
+            <OrderTable table={table} setCount={setCount} setMsg={setMsg} userId={"eh"} />
             <h1>{msg}</h1>
             <a href="/dashboard">Dashboard</a>
         </>

@@ -1,5 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+/**
+ * Component that displays the initial login page.
+ * Handles user authentication and redirects to the dashboard upon success.
+ */
 export const Login = () => {
     const [user, setUser] = useState("")
     const [password, setPassword] = useState("")
@@ -8,7 +12,7 @@ export const Login = () => {
     async function handleSubmit(event) {
         event.preventDefault()
         try {
-            const response = await fetch('http://localhost:5000/login', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -17,14 +21,16 @@ export const Login = () => {
                     password: password
                 })
 
-            });
-            console.log(response.status + "Login") 
+            })
+            if (process.env.REACT_APP_POSTRESPONSE === "true") {
+                console.log(response)
+            }
             navigate("/dashboard")
         } catch (err) {
-            console.error("Authentication error", err);
+            console.error("Authentication error", err)
             setError("Wrong username or password")
         }
-    };
+    }
 
 
     return (
@@ -38,7 +44,7 @@ export const Login = () => {
                 </section>
                 <section>
                     <label for="current-password">Password</label>
-                    <input type="text" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    <input type="text" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </section>
                 <button type="submit">Sign in</button>
             </form>

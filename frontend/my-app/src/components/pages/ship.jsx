@@ -1,4 +1,10 @@
 import { Page } from "../page"
+
+/**
+ * Shipping Policy page component.
+ * Displays the shipping policy details including processing times, methods, charges, tracking, and potential delays.
+ * 
+ */
 export const Ship = () => {
     return (
         <div className="page">

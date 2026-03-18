@@ -1,5 +1,5 @@
 import { deleteElement } from "../../../../features/utilities/upload/delete"
-export const ProductTable = ({ table, setMsg, setCount, pk }) => {
+export const ProductTable = ({ table, setMsg, setCount, userId}) => {
     const headers = Object.keys(table[0])
     let data = ""
     function handleClick(event){

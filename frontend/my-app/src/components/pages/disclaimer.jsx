@@ -1,4 +1,10 @@
 import { Page } from "../page"
+
+/**
+ * Disclaimer page component.
+ * Renders the website disclaimer, including general disclaimer, external links policy, and contact information.
+ * 
+ */
 export const Disclaimer = () => {
     return (
         <div className="page">

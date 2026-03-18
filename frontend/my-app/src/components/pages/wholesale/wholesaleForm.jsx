@@ -1,12 +1,22 @@
 import { useState } from "react"
 import { SERVER_BASE_URL } from "../../../config"
 import styles from "./wholesale.module.css"
+
+/**
+ * Component for submitting wholesale inquiries.
+ * @param {function} setMsg - Updates the user feedback message.
+ * @param {function} setShow - Controls the visibility of the parent modal/component.
+ */
 export const WholesaleForm = ({ setMsg, setShow }) => {
     const [wsForm, setWsForm] = useState({})
     const url = SERVER_BASE_URL
+
+    // Updates form state based on input name
     function handleChange(e) {
         setWsForm(prev => ({ ...prev, [e.target.name]: e ? e.target.value : "" }))
     }
+
+    // Sends the form data to the wholesale endpoint
     async function handleSubmit(e) {
         e.preventDefault()
         const response = await fetch(url + "wholesale", {
@@ -16,7 +26,9 @@ export const WholesaleForm = ({ setMsg, setShow }) => {
             },
             body: JSON.stringify(wsForm),
             credentials: 'include'
-        });
+        }) 
+        
+        // Provide user feedback based on response status
         if (response.status == 200) {
             setMsg("Thanks for your inquiry we will respond as soon as we can")
         } else {

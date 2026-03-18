@@ -3,9 +3,19 @@ import styles from "../../cart/cartPage.module.css"
 import { useNavigate } from "react-router-dom"
 import { getTotal } from "../../../features/slices/cartSlice"
 import { useSelector } from "react-redux"
+
+/**
+ * CartPage component displays the shopping cart content and a summary of costs.
+ * It allows users to proceed to checkout.
+ */
 export const CartPage = () => {
     const navigate = useNavigate()
     const price = useSelector(getTotal)
+
+    /**
+     * Handles button clicks to navigate to the checkout page.
+     * @param {React.MouseEvent} event - The click event containing the target value for navigation
+     */
     function handleClick(event) {
         navigate(`/${event.target.value}`)
 

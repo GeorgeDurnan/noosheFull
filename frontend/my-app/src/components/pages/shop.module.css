@@ -1,4 +1,8 @@
+/* ==========================================================================
+   Main Layout & Container
+   ========================================================================== */
 .shop {
+  /* Main container for the shop page */
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -6,30 +10,37 @@
   padding: 3rem;
 }
 
-.cakes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  /* optional spacing */
-  justify-content: center;
-  font-weight: 0;
-}
-
+/* ==========================================================================
+   Section Headers
+   ========================================================================== */
 .title {
   font-weight: bold;
   align-self: flex-start;
-
 }
 
 .titleBorder {
   width: 100%;
   border-bottom: 2px solid black;
   margin-bottom: 1rem;
-
 }
 
+/* ==========================================================================
+   Product Grid/List
+   ========================================================================== */
+.cakes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Spacing between grid items */
+  justify-content: center;
+  font-weight: 0;
+}
+
+/* ==========================================================================
+   Product Card
+   ========================================================================== */
 .cake {
   display: flex;
+  /* flex-grow: 0, flex-shrink: 0, flex-basis: 45% (approx 2 items per row) */
   flex: 0 0 45%;
   height: 100%;
   overflow: hidden;
@@ -37,17 +48,19 @@
   border: grey;
   border-style: solid;
   padding: 1rem;
-
 }
 
 .cake img {
   width: 8rem;
   height: 8rem;
   flex-shrink: 0;
-  object-fit: cover;
+  object-fit: cover; /* Ensures image covers area without distortion */
   object-position: center;
 }
 
+/* ==========================================================================
+   Card Content
+   ========================================================================== */
 .cakeText {
   display: flex;
   flex-direction: column;
@@ -61,30 +74,37 @@
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; /* Truncates text with (...) if it overflows */
 }
 
-/* MULTI-LINE ELLIPSIS */
+/* Description styling with multi-line truncation */
 .cakeDesc {
   font-size: 0.75rem;
   margin: 4px 0;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 2; /* Limits text to 2 lines */
   line-clamp: 2;
-  /* number of lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* ==========================================================================
+   Utilities & Icons
+   ========================================================================== */
 .icon {
   height: 2rem;
   width: 2rem;
 }
 
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+/* Tablet View (481px - 800px) */
 @media screen and (min-width: 481px) and (max-width: 800px) {
   .cakes {
-    display: block;
+    display: block; /* Switches from flex grid to block layout */
   }
 
   #header img {
@@ -92,35 +112,33 @@
   }
 }
 
-/* mobile phones */
+/* Mobile View (max-width 480px) */
 @media screen and (max-width: 480px) {
+  .shop {
+    width: 100%;
+    padding: 0 2.5%; /* Reduces padding for smaller screens */
+    align-items: stretch;
+    box-sizing: border-box;
+  }
+
   .cakes {
     display: block;
     align-items: stretch;
+  }
+
+  .cake {
+    width: 100%; /* Full width on mobile */
+    padding: 2.5%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .cakeCon {
     width: 100%;
   }
 
-
-  .shop {
-    width: 100%;
-    padding: 0 2.5%;
-    align-items: stretch;
-    box-sizing: border-box;
-
-  }
-
-  .cake {
-    width: 100%;
-    padding: 2.5%;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
+  /* Adjusts margin when .shop is nested within a global .main class */
   :global(.main):has(.shop) {
     margin: 5% 0;
   }
-
 }

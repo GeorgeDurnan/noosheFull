@@ -1,15 +1,24 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react" 
+import { useDispatch, useSelector } from "react-redux" 
 import { SERVER_BASE_URL } from "../../config"
-import { addCakes } from "../slices/cakeSlice";
-import { getCakeImgs } from "./getCakeImgs";
-import { getCakeAllergens } from "./getCakeAllergens";
-import { getCakeCats } from "./getCakesCats";
-import { addCategories } from "../slices/cakeSlice";
+import { addCakes } from "../slices/cakeSlice" 
+import { getCakeImgs } from "./getCakeImgs" 
+import { getCakeAllergens } from "./getCakeAllergens" 
+import { getCakeCats } from "./getCakesCats" 
+import { addCategories } from "../slices/cakeSlice" 
+
+/**
+ * Custom hook to fetch cake data including images, allergens, and categories.
+ * Dispatches the combined data to the Redux store.
+ */
 export const useGetCakes = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch() 
     const url = SERVER_BASE_URL
+
     useEffect(() => {
+        /**
+         * Fetches all necessary data from the backend and constructs the cake objects.
+         */
         async function getCakes() {
             try {
                 const options = {
@@ -19,12 +28,17 @@ export const useGetCakes = () => {
                         'Content-Type': 'application/json'
                     }
                 }
+
+                // Fetch auxiliary data (images, allergens, categories)
                 const imgs = await getCakeImgs()
                 const allergens = await getCakeAllergens()
                 const categories = await getCakeCats()
-                const response = await fetch(url + "products", options);
-                console.log(response)
-                const text = await response.json();
+
+                // Fetch main product list
+                const response = await fetch(url + "products", options) 
+                const text = await response.json() 
+
+                // Combine product data with auxiliary data
                 const cakes = text.map((cake) => {
                     return {
                         id: cake.id,
@@ -37,6 +51,7 @@ export const useGetCakes = () => {
                         allergens: allergens[cake.id] || []
                     }
                 })
+
                 dispatch(addCakes(cakes))
                 dispatch(addCategories(categories))
             } catch (e) {
@@ -46,5 +61,4 @@ export const useGetCakes = () => {
         }
         getCakes()
     }, [])
-
 }

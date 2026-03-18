@@ -1,3 +1,9 @@
+/**
+ * Terms component renders the Terms & Conditions page.
+ * It displays a list of terms including introduction, orders, pricing, allergen statement,
+ * intellectual property rights, liability limitations, and amendments policy.
+ * 
+ */
 export const Terms = () => {
     return (
         <div>

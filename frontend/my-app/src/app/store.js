@@ -1,5 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
-import cakeSlice from "../features/slices/cakeSlice";
+import { configureStore } from "@reduxjs/toolkit" 
+import cakeSlice from "../features/slices/cakeSlice" 
 import cartSlice from "../features/slices/cartSlice"
 import addressSlice from "../features/slices/addressSlice"
 export default configureStore({

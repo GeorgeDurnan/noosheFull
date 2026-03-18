@@ -1,3 +1,4 @@
+/* Empty state styling for when the cart has no items */
 .empty {
     margin-top: 50%;
     text-align: center;
@@ -5,6 +6,7 @@
     font-weight: lighter;
 }
 
+/* Container for the cart action buttons (e.g., checkout), sticky to bottom */
 .btns {
     display: flex;
     flex-direction: column;
@@ -17,6 +19,7 @@
     border-top: 2px solid black;
 }
 
+/* General button styling */
 .btn {
     margin: 0% 5%;
     padding: 5%;
@@ -24,24 +27,29 @@
     font-size: 1rem;
 }
 
+/* Specific styling for the checkout button */
 .btnCheck {
     margin-top: 5%;
 }
 
+/* Specific styling for the cart button */
 .btnCart {
     margin-top: 5%;
     margin-bottom: 5%;
 }
+
+/* Main cart container */
 .cartCon{
     height: 100%;
 }
 
+/* Flex container for the cart layout */
 .cart {
     display: flex;
     flex-direction: column;
-
 }
 
+/* Individual cart item container */
 .cartItem {
     display: flex;
     flex-direction: row;
@@ -52,14 +60,14 @@
     margin: 0% 5%;
     border-bottom: 2px solid black;
     padding: 5% 0;
-    
-
-
 }
+
+/* Wrapper for the list of cart items */
 .cartItems{
     margin-bottom: 10%;
 }
 
+/* Wrapper for the product image, maintaining square aspect ratio */
 .imgWrapper {
     width: 20%;
     height: 20%;
@@ -72,6 +80,7 @@
     /* Keeps the image neatly contained */
 }
 
+/* Product image styling */
 .cartImg {
     width: 100%;
     height: 100%;
@@ -80,11 +89,13 @@
     display: block;
 }
 
+/* Remove item button (bin icon) */
 .bin {
     height: 5%;
     margin-left: auto;
 }
 
+/* Container for item details (name, price, etc.) */
 .cartItemDescription {
     display: flex;
     flex-direction: column;
@@ -92,6 +103,7 @@
     min-width: 0;
 }
 
+/* Quantity selector container */
 .quantBtns {
     flex-shrink: 1;
     min-width: 0;
@@ -103,12 +115,14 @@
 
 }
 
+/* Quantity increment/decrement buttons */
 .quantBtns button {
     background-color: transparent;
     border: none;
 
 }
 
+/* Quantity input field */
 .quantBtns input {
     width: 100%;
     background-color: #FFF8F1;
@@ -119,6 +133,7 @@
 
 }
 
+/* Container for quantity total and other info */
 .quantityTotal {
     display: flex;
     flex-direction: row;
@@ -130,19 +145,21 @@
     margin-bottom: 0;
 }
 
+/* Price display styling */
 .price {
     flex-shrink: 1;
     min-width: 0;
     margin: 0;
 }
 
+/* Media query for tablets */
 @media screen and (min-width: 481px) and (max-width: 800px) {
     .quantBtns {
         width: 22%;
     }
 }
 
-/* mobile phones */
+/* Media query for mobile phones */
 @media screen and (max-width: 480px) {
     .quantBtns {
         width: 20%;

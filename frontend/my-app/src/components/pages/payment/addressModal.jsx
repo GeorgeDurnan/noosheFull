@@ -9,14 +9,31 @@ import { useNoScroll, useClickOutside } from "../../../features/hooks/modalUtili
 import { addItem } from "../../../features/slices/cartSlice"
 import modalStyle from "../../modals.module.css"
 import addressStyle from "./address.module.css"
+/**
+ * Modal component for capturing and validating the delivery address.
+ * 
+ * @param {Object} props
+ * @param {Function} props.setShow - Function to set the visibility of the modal.
+ * @param {boolean} props.show - Boolean indicating if the modal is visible.
+ * @param {Object} props.order - The order item to be added to the cart after address confirmation.
+ */
 export const AddressModal = ({ setShow, show, order }) => {
     const dispatch = useDispatch()
     const url = SERVER_BASE_URL
+    
+    // Tracks the validity/response from the address search component
     const [response, setResponse] = useState(null)
+    // Stores the selected address object
     const [address, setTheAddress] = useState({})
+
     function handleClick() {
         setShow(false)
     }
+
+    /**
+     * Handles saving the address and finalizing the item addition.
+     * Persists address to backend, updates Redux store, and adds item to cart.
+     */
     async function handleClickAddAddress() {
         setShow(false)
         const response = await setBasic(address)
@@ -28,8 +45,12 @@ export const AddressModal = ({ setShow, show, order }) => {
         }
 
     }
+    
+    // Prevent background scrolling when modal is open
     useNoScroll(show)
+    // Close modal when clicking outside the content area
     const modalRef = useClickOutside(show, setShow)
+
     return (
         <div>
             <div className={`${modalStyle.modalContainer} ${modalStyle.modalConAddress}`} >
@@ -40,6 +61,7 @@ export const AddressModal = ({ setShow, show, order }) => {
                     </div>
                     <div className={addressStyle.middle}>
                         <h2>Deliver to:</h2>
+                        {/* AddressSearch handles the Google Maps/Autocomplete logic and updates parent state */}
                         <AddressSearch setResponse={setResponse} setTheAddress={setTheAddress} />
                         {(!response && response !== null) && <h2>"Sorry there is no delivery for that location"</h2>}
                     </div>

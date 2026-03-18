@@ -1,20 +1,20 @@
+/* =========================================
+   Layout & Containers
+   ========================================= */
+
+/* Main footer layout: 3-column grid */
 .footer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     background-color: wheat;
 }
 
-.joinBox {
-    background-color: brown;
-    margin: 2.5%;
-    position: relative;
-}
-
+/* Flex container for footer content columns */
 .footerContainer {
     display: flex;
     border-style: dashed;
     flex-direction: column;
-    flex: 1 1 0px;
+    flex: 1 1 0px; /* Flex-grow: 1, Flex-shrink: 1, Flex-basis: 0px */
     flex-grow: 1;
     justify-content: center;
     text-align: center;
@@ -24,6 +24,30 @@
     height: 100%;
 }
 
+/* Container for join form relative positioning context */
+.joinBox {
+    background-color: brown;
+    margin: 2.5%;
+    position: relative;
+}
+
+/* =========================================
+   Typography
+   ========================================= */
+
+.title {
+    font-size: 1.5rem;
+}
+
+.body {
+    font-size: 0.75rem;
+}
+
+/* =========================================
+   Forms & Inputs
+   ========================================= */
+
+/* Form container layout */
 .joinForm {
     display: flex;
     flex-direction: column;
@@ -31,21 +55,24 @@
     gap: 0.25rem;
 }
 
+/* Input fields styling */
 .line, .email {
     width: 90%;
     background-color: transparent;
     border: none;
     border-bottom: 2px solid black;
-
 }
-.email{
+
+.email {
     width: 65%;
 }
-.emailCon{
+
+/* Container for email input alignment */
+.emailCon {
     display: flex;
     width: 100%;
-    justify-content: flex-start; /* Aligns the input to the left inside the container */
-    padding-left: 10%; /* Matches the left alignment if .line is 90% centered */
+    justify-content: flex-start; /* Left-align input within container */
+    padding-left: 10%; /* Offset to match the centered alignment of .line */
 }
 
 #submit-line {
@@ -53,55 +80,60 @@
     flex-direction: row;
 }
 
+/* Subscribe checkbox container */
 .subscribe {
     display: flex;
     flex-direction: row;
-    align-items: center; /* keep them vertically centered */
-    gap: 0; /* Ensures no extra grid/flex gap exists */
+    align-items: center; /* Vertically center items */
+    gap: 0; 
     background-color: transparent;
 }
+
+/* Checkbox specific styling overwrites */
 .subscribe input {
     margin: 0; 
-    margin-right: 5px; /* Adds just a tiny bit of space between the checkbox and text, optional */
-    width: auto; /* Overrides previous huge width acting as spacing */
+    margin-right: 5px; /* Spacing between checkbox and label text */
+    width: auto; /* Reset width to auto for checkbox */
     height: auto;
 }
 
+/* =========================================
+   Buttons
+   ========================================= */
+
+/* Submit button positioned absolutely within .joinBox */
 .submit {
     position: absolute;
-    bottom: 8%;
-    /* Adjust this value to bring it down further if needed */
-    right: 2.5%;
-    /* Adjust this value to bring it right further if needed */
+    bottom: 8%; /* Adjust vertical position */
+    right: 2.5%; /* Adjust horizontal position */
     background-color: black;
-    color: white;
-    /* Ensure the text is readable on black background */
+    color: white; /* Contrast for readability */
     border-radius: 10px;
     cursor: pointer;
     padding: 0;
     width: 25%;
 }
 
+/* =========================================
+   Media Queries
+   ========================================= */
+
+/* Tablet Layout: reduce to 2 columns */
 @media screen and (min-width: 481px) and (max-width: 800px) {
     .footer {
         grid-template-columns: repeat(2, 1fr);
     }
-
+    
+    /* First item spans both columns in tablet view */
     .footBox:first-child {
         grid-column: span 2;
     }
 }
-.title{
-    font-size: 1.5rem;
-}
-.body{
-    font-size: 0.75rem;
-}
 
-/* mobile phones */
+/* Mobile Layout: Switch to flex column stack */
 @media screen and (max-width: 480px) {
     .footer {
-        display: flex;
+        display: flex; /* Override grid with flex column */
         flex-direction: column;
         background-color: wheat;
     }
@@ -117,17 +149,17 @@
         padding: 5%;
         height: 100%;
         background-color: bisque;
-
     }
 
+    /* Reset submit button from absolute to static for natural flow on mobile */
     .submit {
-        position:static;
+        position: static; 
         background-color: black;
         color: white;
         border-radius: 10px;
         cursor: pointer;
         padding: 0;
-        width: 90%;
+        width: 90%; /* Full width for easier touch access */
         height: 3rem;
     }
 }

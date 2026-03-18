@@ -1,3 +1,4 @@
+/* Container for the list of allergens, displaying them in a wrapping row */
 .allergens {
     display: flex;
     flex-direction: row;
@@ -5,6 +6,7 @@
     flex-wrap: wrap;
 }
 
+/* Individual allergen item styling, aligning icon/text horizontally */
 .allergen {
     display: flex;
     flex-direction: row;

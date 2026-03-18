@@ -1,24 +1,35 @@
-/* Base modal */
+/* ========================================= */
+/*               BASE CONTAINER              */
+/* ========================================= */
+
+/* Base modal overlay */
 .modalContainer {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3); /* Transparent dark overlay */
     display: flex;
-
 }
 
-.modalConAddress {}
+/* ========================================= */
+/*            CONTAINER VARIATIONS           */
+/* ========================================= */
 
+.modalConAddress {
+    /* Placeholder for address modal container specific styles */
+}
+
+/* Right-aligned modals (Cart & Menu) */
 .modalConCart,
 .modalConMenu {
     justify-content: right;
-    align-items: right;
+    align-items: right; /* Note: 'right' is non-standard for align-items, check browser support */
     z-index: 2001;
 }
 
+/* Centered modals (Item & Address) */
 .modalConItem,
 .modalConAddress {
     justify-content: center;
@@ -26,6 +37,11 @@
     z-index: 2001;
 }
 
+/* ========================================= */
+/*              MODAL CONTENT                */
+/* ========================================= */
+
+/* General modal box */
 .modal {
     position: relative;
     display: flex;
@@ -33,9 +49,11 @@
     flex-direction: column;
     background-color: #FFF8F1;
     max-height: 100%;
-    min-height: 0;
+    min-height: 0; /* Allows scrolling within flex item */
     overflow-y: auto;
 }
+
+/* Specific Modal Sizes & Styles */
 
 .modalAddress {
     width: 50%;
@@ -64,6 +82,10 @@
     background-image: url("../images/minitwilight.png");
 }
 
+/* ========================================= */
+/*           HEADER & BUTTONS                */
+/* ========================================= */
+
 .top {
     border-bottom: 2px solid black;
     display: flex;
@@ -77,6 +99,7 @@
     margin: 5% 5%;
 }
 
+/* Top button styling */
 .btnTop {
     position: sticky;
     top: 10px;
@@ -108,6 +131,11 @@
     font-size: 2rem;
 }
 
+/* ========================================= */
+/*             MEDIA QUERIES                 */
+/* ========================================= */
+
+/* Tablet (481px - 850px) */
 @media screen and (min-width: 481px) and (max-width: 850px) {
     .modalCon {}
 
@@ -125,22 +153,18 @@
     .modalAddress {
         width: 80%;
     }
-
-
 }
 
-/* mobile phones */
+/* Mobile (max-width: 480px) */
 @media screen and (max-width: 480px) {
     .modalCon {
         width: 100%;
         height: 100%;
         z-index: 3001;
-
     }
 
     .modalContainer {
         z-index: 3001;
-
     }
 
     .modal {
@@ -154,5 +178,4 @@
     .image {
         height: 35vh;
     }
-
 }

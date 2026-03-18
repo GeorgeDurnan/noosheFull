@@ -1,3 +1,14 @@
+/**
+ * Refund Policy Page Component
+ * 
+ * Renders the static refund policy information including:
+ * - Returns & Refunds policy
+ * - Refund Eligibility timeframe
+ * - Handling of Damaged or Incorrect Items
+ * - Refund Processing time
+ * - Contact information
+ * 
+ */
 export const Refund = () => {
     return (
         <div className="page">

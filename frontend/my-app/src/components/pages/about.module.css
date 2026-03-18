@@ -1,0 +1,114 @@
+/* =========================================
+   Main Page Layout
+   ========================================= */
+
+/* Container for the whole page */
+.about {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* This wraps the woman container so it can aligned to center */
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    width: 100%;
+}
+
+/* =========================================
+   Top Section (Image & Title)
+   ========================================= */
+
+/* Container for image and text of the top elements */
+.textwithwoman {
+    display: flex;
+    flex-direction: row; /* Default: Horizontal layout */
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 0;
+    width: 60%; /* Occupy 60% of the parent container */
+}
+
+/* Text style for the woman container title */
+.title {
+    line-height: 200%;
+    font-weight: 500;
+}
+
+/* Makes sure the image within the container doesn't overspill */
+.textwithwoman img {
+    max-width: 100%;
+}
+
+/* =========================================
+   Lower Section (Main Text)
+   ========================================= */
+
+/* For the lower container text block */
+.mainText {
+    /* Semi-transparent background (rgba: Red, Green, Blue, Alpha) */
+    background-color: rgba(160, 82, 45, 0.75);
+    margin-bottom: 0;
+    padding: 0.1% 2.5%; /* Top/Bottom 0.1%, Left/Right 2.5% */
+    font-size: 1rem;
+    line-height: 150%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header style within the main text block */
+.mainText h3 {
+    font-weight: 500;
+    width: 100%;
+    font-size: 0.75rem;
+}
+
+/* =========================================
+   Global Overrides
+   ========================================= */
+
+/* 
+ * Removes the standard margin that exists for the global '.main' container
+ * only when it contains the local '.about' module.
+ */
+:global(.main):has(:local(.about)) {
+    margin-bottom: 0%;
+}
+
+/* =========================================
+   Responsive Design (Media Queries)
+   ========================================= */
+
+/* 
+ * Laptops and half screens 
+ * Range: 481px to 800px width
+ */
+@media screen and (min-width: 481px) and (max-width: 800px) {
+    /* Puts woman on top so text is not squeezed by reversing column order */
+    .textwithwoman {
+        flex-direction: column-reverse;
+        gap: 1rem;
+        width: 75%; /* Increase width for medium screens */
+    }
+}
+
+/* 
+ * Mobile phones 
+ * Range: Max 480px width
+ */
+@media screen and (max-width: 480px) {
+    /* Ensures it fills the whole phone screen */
+    .textwithwoman {
+        flex-direction: column-reverse;
+        gap: 1rem;
+        margin: 2.5%;
+        width: 100%; /* Full width for mobile */
+    }
+}

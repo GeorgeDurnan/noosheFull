@@ -1,9 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react' 
 import styles from "./payment/address.module.css"
+
+/**
+ * AddressSearch Component
+ * Allows users to search for an address using the Photon API and validates if the location is within a specific delivery area.
+ * 
+ * @param {Object} props
+ * @param {Function} props.setResponse - Callback to set the validation result (true if in range, false otherwise).
+ * @param {Function} props.setTheAddress - Callback to update the parent component with the selected address details.
+ */
 export const AddressSearch = ({ setResponse, setTheAddress }) => {
-  const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
-  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [query, setQuery] = useState('') 
+  const [suggestions, setSuggestions] = useState([]) 
+  const [selectedAddress, setSelectedAddress] = useState(null) 
   useEffect(() => {
     let long = 0
     let lat = 0
@@ -14,6 +23,7 @@ export const AddressSearch = ({ setResponse, setTheAddress }) => {
       return
     }
     if (extent.length > 2) {
+      // Calculate center from extent [minLon, minLat, maxLon, maxLat]
       long = (extent[0] + extent[2]) / 2
       lat = (extent[1] + extent[3]) / 2
     } else {
@@ -21,6 +31,7 @@ export const AddressSearch = ({ setResponse, setTheAddress }) => {
       lat = extent[1]
     }
     
+    // Check if the coordinates fall within the allowed delivery zone
     if (
       lat >= 52.7622 &&
       lat <= 54.2122 &&
@@ -37,16 +48,17 @@ export const AddressSearch = ({ setResponse, setTheAddress }) => {
   useEffect(() => {
     const fetchAddresses = async () => {
       if (query.length < 3 || query === selectedAddress?.label || suggestions == []) {
-        setSuggestions([]);
-        return;
+        setSuggestions([]) 
+        return 
       }
 
       try {
         // Photon API: Free, No-Key, OpenStreetMap based
         const response = await fetch(
           `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=5`
-        );
-        const data = await response.json();
+        )  
+        //Filter out results without an extent (bounding box) as it's required for coordinate validation
+        const data = await response.json() 
         //Without an extent e.g. long/lat my logic breaks
         const loop = data.features.filter((f)=> {return f.properties.extent !== undefined} )
         const results = loop.map((f) => ({
@@ -59,25 +71,25 @@ export const AddressSearch = ({ setResponse, setTheAddress }) => {
             f.properties.country
           ].filter(Boolean).join(', '),
           details: f.properties
-        }));
-        setSuggestions(results);
+        })) 
+        setSuggestions(results) 
       } catch (error) {
-        console.error("Error fetching addresses:", error);
+        console.error("Error fetching addresses:", error) 
       }
-    };
+    } 
 
     // Debounce the API call to save resources
-    const timeoutId = setTimeout(fetchAddresses, 300);
-    return () => clearTimeout(timeoutId);
-  }, [query]);
+    const timeoutId = setTimeout(fetchAddresses, 300) 
+    return () => clearTimeout(timeoutId) 
+  }, [query]) 
 
   const handleSelect = (address) => {
-    setSuggestions([]);
-    setQuery(address.label);
-    setSelectedAddress(address);
+    setSuggestions([]) 
+    setQuery(address.label) 
+    setSelectedAddress(address) 
     
 
-  };
+  } 
 
   return (
     <div style={{position: 'relative' }}>
@@ -126,5 +138,5 @@ export const AddressSearch = ({ setResponse, setTheAddress }) => {
         </ul>
       )}
     </div>
-  );
-};
+  ) 
+} 
