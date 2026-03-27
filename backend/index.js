@@ -26,6 +26,7 @@ const routeAllergen = require("./routes/allergens")
 const routeStripe = require("./routes/stripe") 
 const routeBiz = require("./routes/businessContact") 
 const routeBasic = require("./routes/basic") 
+const routeSession = require("./routes/sid")
 
 // Logic Setup 
 const app = express() 
@@ -87,7 +88,8 @@ passport.deserializeUser((id, cb) => {
   pool.query(
     'SELECT id, username FROM users WHERE id = $1',
     [id],
-    (err, result) => cb(err, result.rows[0])
+    (err, result) => {
+      cb(err, result.rows[0])}
   ) 
 }) 
 
@@ -108,8 +110,13 @@ app.delete("/users/:id", routeAuth.checkAuthenticated, routeUser.deleteUser)
 
 // Addresses
 app.post("/basic", routeBasic.createAddress) 
-app.get("/basic", routeBasic.getAddress) 
+app.get("/basic", routeBasic.getAddress)
+
+
 app.post("/address", routeAddress.addAddress) 
+app.delete("/address/:id", routeAuth.checkAuthenticated, routeAddress.deleteAddress)
+
+//Products and product categories
 
 // Products
 app.get("/products", routeProduct.getProducts) 
@@ -125,11 +132,14 @@ app.delete("/cakeCats/:id", routeAuth.checkAuthenticated, routeCats.deleteCat)
 app.put("/cakeCats/:id", routeAuth.checkAuthenticated, routeCats.updateCat) 
 
 // Options & Option Categories
+
+//Options
 app.get("/options/:id", routeOptions.getOptions) 
 app.post("/options", routeAuth.checkAuthenticated, routeOptions.addOption) 
 app.put("/options/:id", routeAuth.checkAuthenticated, routeOptions.updateOption) 
 app.delete("/options/:id", routeAuth.checkAuthenticated, routeOptions.deleteOption) 
 
+//Option categories
 app.get("/categories/:id", routeOptionCats.getCategories) 
 app.post("/categories", routeAuth.checkAuthenticated, routeOptionCats.addCategory) 
 app.put("/categories/:id", routeAuth.checkAuthenticated, routeOptionCats.updateCategory) 
@@ -150,9 +160,6 @@ app.get("/orders", routeAuth.checkAuthenticated, routeOrder.getOrders)
 app.get("/orders/:id", routeAuth.checkAuthenticated, routeOrder.getOrderById) 
 app.get("/orders/items/:id", routeAuth.checkAuthenticated, routeOrder.getOrderItems) 
 app.get("/orders/status/:status", routeAuth.checkAuthenticated, routeOrder.getOrdersByStatus) 
-app.post("/orders", routeAuth.checkAuthenticated, routeOrder.createOrder) 
-app.post("/orders/addItem", routeAuth.checkAuthenticated, routeOrder.addItemToOrder) 
-app.put("/orders/:id", routeAuth.checkAuthenticated, routeOrder.updateOrder) 
 app.delete("/orders/:id", routeAuth.checkAuthenticated, routeOrder.deleteOrder) 
 
 // Stripe / Checkout
@@ -161,13 +168,17 @@ app.post("/verify-pay", routeStripe.verifyPayment)
 
 // Images
 app.post("/images", routeAuth.checkAuthenticated, upload.single('file'), routeImages.sendImage, routeImages.addImage) 
-app.get("/images/:id", routeImages.getImages) 
-app.get("/images", routeImages.getAllImages) 
+app.get("/cakes/:id", routeImages.getImages) 
+app.get("/cakes", routeImages.getAllImages) 
 app.delete("/images", routeAuth.checkAuthenticated, routeImages.deleteImage)
 
-// Contacts & Business
-app.post("/contacts", routeContact.createContact) 
-app.post("/wholesale", routeBiz.createContact) 
+// Contacts
+app.post("/contacts", routeContact.createContact)
+app.delete("/contacts/:id", routeAuth.checkAuthenticated, routeContact.deleteContact)
+
+//Business Contacts
+app.post("/wholesale", routeBiz.createContact)
+app.delete("/wholesale/:id", routeAuth.checkAuthenticated, routeBiz.deleteContact)
 
 // Allergens
 app.get("/allergens", routeAllergen.getAllAllergens) 
@@ -176,7 +187,6 @@ app.post("/allergens", routeAuth.checkAuthenticated, routeAllergen.addAllergens)
 app.put("/allergens/:id", routeAuth.checkAuthenticated, routeAllergen.updateAllergens) 
 app.delete("/allergens/:id", routeAuth.checkAuthenticated, routeAllergen.deleteAllergens) 
 
-
-app.listen(port, () => {
-  console.log(`App running on port ${port}.`) 
-})
+//Session
+app.delete("/session", routeAuth.checkAuthenticated, routeSession.deleteSession)
+module.exports = app

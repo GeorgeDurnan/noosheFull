@@ -123,6 +123,6 @@ const data = {
             body: "Our Ruby Velvet cake features a moist, vibrant red velvet sponge layered with luxurious homemade strawberry jam and fresh cream filling. This beautiful, cost-friendly party cake is garnished with fresh berries and makes a perfect centrepiece for any celebration, delivering premium flavours without the premium price."
         }
     ]
-};
+} 
 
-export default data;
+export default data 

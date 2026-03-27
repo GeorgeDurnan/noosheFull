@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import styles from "./cartPage.module.css";
+import { useNavigate } from "react-router-dom" 
+import styles from "./cartPage.module.css" 
 
 /**
  * CheckoutBtn Component
@@ -13,7 +13,7 @@ import styles from "./cartPage.module.css";
  */
 export const CheckoutBtn = ({ className }) => {
     // Initialize the navigate function from react-router-dom to handle client-side navigation
-    const navigate = useNavigate();
+    const navigate = useNavigate() 
 
     /**
      * Handles the click event for the checkout button.
@@ -21,8 +21,8 @@ export const CheckoutBtn = ({ className }) => {
      */
     const handleClick = () => {
         // Navigate to the checkout page
-        navigate('/checkout');
-    };
+        navigate('/checkout') 
+    } 
 
     return (
         // Render the button with the base style and any optional classes passed via props
@@ -33,5 +33,5 @@ export const CheckoutBtn = ({ className }) => {
         >
             Checkout
         </button>
-    );
-};
+    ) 
+} 

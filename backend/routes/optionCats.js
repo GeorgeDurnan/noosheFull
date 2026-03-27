@@ -4,7 +4,9 @@ const getCategories = (request, response) => {
     const product_id = parseInt(request.params.id)
     pool.query('SELECT * FROM option_categories WHERE product_id = $1 ORDER BY rank', [product_id], (error, results) => {
         if (error) {
-            response.status(500).json({ "msg": "Database error" + error })
+            response.status(500).json({ "msg": "Database error", "error": error })
+        } else if (results.rowCount === 0) {
+            response.status(404).json({ "msg": `Categories with product ID: ${product_id} not found` })
         } else {
             response.status(200).json(results.rows)
         }
@@ -17,7 +19,7 @@ const addCategory = (request, response) => {
     pool.query('INSERT INTO option_categories (multiple, description, rank, required, product_id) VALUES ($1, $2, $3, $4, $5) RETURNING id',
         [multiple, description, rank, required, product_id], (error, results) => {
             if (error) {
-                response.status(500).json({ "msg": "Database error" + error })
+                response.status(500).json({ "msg": "Database error", "error": error })
             } else {
                 const newId = results.rows[0].id
                 response.status(201).json({ "msg": `Category created with id:${newId}`, "id": newId })
@@ -35,7 +37,9 @@ const updateCategory = (request, response) => {
         [multiple, description, id],
         (error, results) => {
             if (error) {
-                response.status(500).json({ "error": error })
+                response.status(500).json({ "msg": "Database error", "error": error })
+            } else if (results.rowCount === 0) {
+                response.status(404).json({ "msg": `Category with ID: ${id} not found` })
             } else {
                 response.status(200).json({ "msg": `Category modified with ID: ${id}` })
             }

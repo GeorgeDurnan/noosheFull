@@ -28,8 +28,8 @@ const sendImage = async (request, response, next) => {
         if (reso.error) return response.status(400).json({ error: reso.error, msg: 'Cloud upload failed', response: reso })
         request.cloud = reso.secure_url
         next()
-    } catch (e) {
-        return response.status(500).json({ error: e.message || e, msg: 'Failed to add to cloud' })
+    } catch (error) {
+        return response.status(500).json({ "msg": "Database error", "error": error.message || error })
     }
 }
 // Saves image url to DB.
@@ -39,7 +39,7 @@ const addImage = (request, response) => {
     const url = request.cloud
     pool.query('INSERT INTO images ("product_id", "url", "rank") VALUES ($1, $2, $3)', [product_id, url, rank], (error, results) => {
         if (error) {
-            response.status(500).json({ "error": error, "msg": "Failed to add to server", "product_id": product_id, "rank": rank, "url": url || "no url", "response": request.reso, "Image data": request.imageData })
+            response.status(500).json({ "msg": "Database error", "error": error })
         } else {
             response.status(201).json({ msg: `Image added for product: ${product_id}` })
         }
@@ -52,7 +52,7 @@ const deleteImage = (request, response) => {
 
     pool.query('DELETE FROM images WHERE product_id = $1 AND rank = $2', [product_id, rank], (error, results) => {
         if (error) {
-            response.status(500).json({ "msg": "Database error" + error, "error": error })
+            response.status(500).json({ "msg": "Database error", "error": error })
         } else if (results.rowCount === 0) {
             response.status(404).json({ "msg": `Product image with rank: ${rank} not found` })
         } else {
@@ -66,18 +66,28 @@ const getImages = (request, response) => {
     const product_id = parseInt(request.params.id)
     pool.query('SELECT * FROM images WHERE product_id = $1 ORDER BY rank', [product_id], (error, results) => {
         if (error) {
-            response.status(500).json({ "msg": "Database error" + error, "error": error })
+            response.status(500).json({ "msg": "Database error", "error": error })
+        } else if (results.rowCount == 0) {
+            response.status(404).json({ "msg": `No images found for that product id` })
+
+        } else {
+            response.status(200).json(results.rows)
         }
-        response.status(200).json({ "data": results.rows })
+
     })
 }
 // Return all images database-wide
 const getAllImages = (request, response) => {
     pool.query('SELECT * FROM images ORDER BY product_id', (error, results) => {
         if (error) {
-            response.status(500).json({ "msg": "Database error" + error })
+            response.status(500).json({ "msg": "Database error", "error": error })
+        } else if (results.rowCount == 0) {
+            response.status(404).json({ "msg": `No images found` })
+
+        } else {
+            response.status(200).send(results.rows)
         }
-        response.status(200).json({ "data": results.rows })
+
     })
 }
 module.exports = { addImage, sendImage, getImages, getAllImages, deleteImage }

@@ -10,7 +10,7 @@ import { BinIcon } from "../../images/svgs/binIcon"
  * 
  * @param {Object} props
  * @param {Object} props.item - The cart item object (includes name, price, img, quantity, etc.)
- * @param {boolean} props.cart - If true, uses compact cart styles; otherwise uses page cart styles.
+ * @param {boolean} props.cart - If true, uses compact cart styles  otherwise uses page cart styles.
  */
 export const CartItem = ({ item, cart }) => {
     const dispatch = useDispatch()

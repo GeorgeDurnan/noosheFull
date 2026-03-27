@@ -18,12 +18,13 @@ const getOptions = (request, response) => {
 // Add a new option
 const addOption = (request, response) => {
     const { product_id, price, description = "", cat_id, rank } = request.body
-    pool.query('INSERT INTO product_options (product_id, price, description, cat_id, rank) VALUES ($1, $2, $3, $4, $5)',
+    pool.query('INSERT INTO product_options (product_id, price, description, cat_id, rank) VALUES ($1, $2, $3, $4, $5) RETURNING id',
         [product_id, price, description, cat_id, rank], (error, results) => {
             if (error) {
-                response.status(500).json({ "msg": "Database error" + error })
+                response.status(500).json({ "msg": "Database error", "error": error })
             } else {
-                response.status(201).json({ "msg": `Option added` })
+                const newId = results.rows[0].id
+                response.status(201).json({ "msg": `Option added`, "id": newId })
             }
 
         })
@@ -38,7 +39,9 @@ const updateOption = (request, response) => {
         [price, description, cat_id, id],
         (error, results) => {
             if (error) {
-                response.status(500).json({ "error": error })
+                response.status(500).json({ "msg": "Database error", "error": error })
+            } else if (results.rowCount === 0) {
+                response.status(404).json({ "msg": `Option with ID: ${id} not found`})
             } else {
                 response.status(200).json({ "msg": `Option modified with ID: ${id}` })
             }

@@ -6,6 +6,8 @@ const getProducts = (request, response) => {
     pool.query('SELECT * FROM products ORDER BY category_id', (error, results) => {
         if (error) {
             response.status(500).json({ "msg": "Database error", "error": error })
+        } else if (results.rowCount == 0) {
+            response.status(404).json({ "msg": "No products found" })
         } else {
             response.status(200).json(results.rows)
         }
@@ -20,7 +22,7 @@ const getProductById = (request, response) => {
     pool.query('SELECT * FROM products WHERE id = $1', [id], (error, results) => {
         if (error) {
             response.status(500).json({ "msg": "Database error", "error": error })
-        } else if (results.rows.length === 0) {
+        } else if (results.rowCount === 0) {
             response.status(404).json({ "msg": "product not found" })
         } else {
             response.status(200).json(results.rows[0])
@@ -53,7 +55,7 @@ const updateProduct = (request, response) => {
         (error, results) => {
             if (error) {
                 response.status(500).json({ "msg": "Database error", "error": error })
-            } else if (results.rows.length === 0) {
+            } else if (results.rowCount === 0) {
                 response.status(404).json({ "msg": `Product with ID: ${id} not found` })
             } else {
                 response.status(200).json({ "msg": `Product modified with ID: ${id}` })
@@ -69,7 +71,7 @@ const deleteProduct = (request, response) => {
     pool.query('DELETE FROM products WHERE id = $1', [id], (error, results) => {
         if (error) {
             response.status(500).json({ "msg": "Database error", "error": error })
-        } else if (results.rows.length === 0) {
+        } else if (results.rowCount === 0) {
             response.status(404).json({ "msg": `Product with ID: ${id} not found` })
         } else {
             response.status(200).json({ "msg": `Product deleted with ID: ${id}` })

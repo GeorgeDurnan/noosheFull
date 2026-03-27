@@ -77,7 +77,7 @@ export const Item = ({item, setItem,setShow, order, setOrder }) => {
 
     /**
      * Handles adding the item to the cart.
-     * Checks if address is set; if not, triggers the address modal.
+     * Checks if address is set  if not, triggers the address modal.
      * Otherwise, dispatches the item to the cart and closes the modal.
      */
     function handleClickAddToCart() {

@@ -17,13 +17,13 @@ export const getCakeImgs = (async () => {
                 'Content-Type': 'application/json'
             }
         }
-        const response = await fetch(url + "images/", options) 
+        const response = await fetch(url + "cakes", options) 
         console.log(response)
         const text = await response.json() 
         const imgsSorted = {}
 
         // Sort images into sparse arrays based on rank, grouped by product ID
-        text.data.forEach(img => {
+        text.forEach(img => {
             if (!imgsSorted[img.product_id]) {
                 imgsSorted[img.product_id] = []
             }

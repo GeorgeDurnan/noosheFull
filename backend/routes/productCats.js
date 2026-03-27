@@ -49,6 +49,8 @@ const updateCat = (request, response) => {
         (error, results) => {
             if (error) {
                 response.status(500).json({ "msg": "Database error", "error": error })
+            } else if (results.rowCount === 0) {
+                response.status(404).json({ "msg": `Category with ID: ${id} not found`, "id": id })
             } else {
                 response.status(200).json({ "msg": `Category modified with ID: ${id}`, "id": id })
             }

@@ -1,5 +1,20 @@
 
 const pool = require("../db")
+
+// Get all allergens for all products
+const getAllAllergens = (request, response) => {
+
+    pool.query('SELECT * FROM allergens', (error, results) => {
+        if (error) {
+            response.status(500).json({ "msg": "Database error", "error": error })
+        } else if (results.rowCount === 0) {
+            response.status(404).json(`No product allergens found`)
+        } else {
+            response.status(200).json(results.rows)
+        }
+
+    })
+}
 // Get allergens for a specific product by ID
 const getAllergens = (request, response) => {
     const product_id = parseInt(request.params.id)
@@ -16,20 +31,6 @@ const getAllergens = (request, response) => {
     })
 }
 
-// Get all allergens for all products
-const getAllAllergens = (request, response) => {
-
-    pool.query('SELECT * FROM allergens', (error, results) => {
-        if (error) {
-            response.status(500).json({ "msg": "Database error", "error": error })
-        } else if (results.rowCount === 0) {
-            response.status(404).json(`No product allergens found`)
-        } else {
-            response.status(200).json(results.rows)
-        }
-
-    })
-}
 // Add allergens for a new product
 const addAllergens = (request, response) => {
     const { product_id, celery = false, gluten = false, crustaceans = false, eggs = false, fish = false, lupin = false, molluscs = false, mustard = false, tree_nuts = false, peanuts = false, sesame = false, soya = false, sulphides = false, lactose = false } = request.body
@@ -41,9 +42,11 @@ const addAllergens = (request, response) => {
                 response.status(201).json({ "msg": `Allergen added with product id: ${product_id}` })
             }
 
-        })
-// Update allergens for an existing product
+        }
+
+    )
 }
+// Update allergens for an existing product
 const updateAllergens = (request, response) => {
     const product_id = parseInt(request.params.id)
 
