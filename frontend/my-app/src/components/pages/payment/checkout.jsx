@@ -16,7 +16,9 @@ import { useEffect } from "react"
 export const Checkout = () => {
     const cart = useCreateCartItems()
     const fullAddress = useSelector(getFullAddressFromSlice)
-    
+    useEffect(()=>{
+        console.log("full address" + fullAddress)
+    },[fullAddress])
     if (cart === "loading") {
         return (
             <h1>No items</h1>

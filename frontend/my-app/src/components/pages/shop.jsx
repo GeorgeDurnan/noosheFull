@@ -36,7 +36,7 @@ export const Shop = () => {
             {/* Address Management Section */}
             {basic && <h3>Shipping to {basic.label}</h3>}
             <h4 onClick={() => { setShow(true) }}>{basic ? "Change address" : "Add address"}</h4>
-            {show && <AddressModal setShow={setShow} show={show} />}
+            {show && <AddressModal setShow={setShow} show={show} order={order}/>}
             <div className={styles.titleBorder}>
                 <h1 className={`${styles.cakes} ${styles.title}`}>Online Orders:</h1>
             </div>

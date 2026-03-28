@@ -67,7 +67,7 @@ export const GetAddress = ({ setMsg }) => {
                 }) 
                 console.log(response2)
                 
-                if (response2.status !== 200) {
+                if (response2.status !== 201) {
                     setMsg("Something went wrong with address please try again")
                     return
                 }

@@ -28,7 +28,6 @@ export const Root = () => {
         <Header id="header" />
         {/* Wrap outlet in AnimatePresence for page transitions */}
         <AnimatePresence mode="wait">
-            <ErrorBoundary>
                 <motion.div
                     className="main"
                     key={location.pathname}
@@ -39,7 +38,6 @@ export const Root = () => {
                 >
                     {outlet}
                 </motion.div>
-            </ErrorBoundary>
         </AnimatePresence>
         <Footer />
         <Contact />
